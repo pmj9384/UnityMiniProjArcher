@@ -119,13 +119,70 @@ public void ClickBtn(int index)
     {
         Debug.LogError("PausePanelManager를 찾을 수 없습니다.");
     }
-
+     
     // 스킬 적용
     ApplySkillEffect(finalSkillIndices[index]);
+
 
     // 슬롯 선택 완료 처리
     OnSlotSelectionComplete(index);
 }
+    public void ResetSlotMachine()
+    {
+        // 슬롯 회전 전에 초기화 처리 (슬롯 상태 초기화)
+        StartList.Clear();  // 이전에 사용된 StartList를 클리어
+        ResultIndexList.Clear();  // 결과 인덱스 리스트 초기화
+
+          // StartList에 값 추가
+        for (int i = 0; i < ItemCnt * Slot.Length; i++)
+        {
+            StartList.Add(i);
+        }
+
+        // 슬롯 회전 및 결과 처리
+        for (int i = 0; i < Slot.Length; i++)
+        {
+            for (int j = 0; j < ItemCnt; j++)
+            {
+                Slot[i].interactable = false;
+
+                // 랜덤으로 인덱스를 선택
+                int randomIndex = Random.Range(0, StartList.Count);
+
+                // 결과 리스트에 값 추가
+                if (i == 0 && j == 1 || i == 1 && j == 0 || i == 2 && j == 2)
+                {
+                    ResultIndexList.Add(StartList[randomIndex]);
+                }
+
+                // 스프라이트 설정
+                DisplayItemSlots[i].SlotSprite[j].sprite = SkillSprite[StartList[randomIndex]];
+
+                // 추가: 0번째 인덱스는 결과를 2배 설정
+                if (j == 0)
+                {
+                    DisplayItemSlots[i].SlotSprite[ItemCnt].sprite = SkillSprite[StartList[randomIndex]];
+                }
+
+                // 사용한 인덱스를 제거
+                StartList.RemoveAt(randomIndex);
+            }
+        }
+
+        // 최종 인덱스를 저장
+        finalSkillIndices = new int[Slot.Length];
+        for (int i = 0; i < Slot.Length; i++)
+        {
+            finalSkillIndices[i] = ResultIndexList[i];
+        }
+
+        // 슬롯 회전 후 코루틴 시작
+        for (int i = 0; i < Slot.Length; i++)
+        {
+            StartCoroutine(StartSlot(i));
+        }
+    }
+
 
 
 

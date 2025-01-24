@@ -31,6 +31,17 @@ public class UiManager : MonoBehaviour
     public void ShowSlotMachinePanel(bool active)
     {
         slotMachinePanel.SetActive(active);  
+
+        if (active)
+        {
+            // 슬롯 머신 패널을 활성화 할 때 초기화
+            SlotMachineMgr slotMachineMgr = FindObjectOfType<SlotMachineMgr>();
+            if (slotMachineMgr != null)
+            {
+                Debug.Log("SlotMachineMgr On!");
+                slotMachineMgr.ResetSlotMachine();  // 슬롯 초기화
+            }
+        }
     }
 
     public void HideSlotMachinePanel()
