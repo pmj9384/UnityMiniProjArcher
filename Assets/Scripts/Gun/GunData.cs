@@ -5,16 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptables/Gundata", fileName = "GunData")]// atributes
 public class GunData : ScriptableObject
 {
- public AudioClip shotClip;
-//  public AudioClip reloadClip;
+  public AudioClip shotClip;
+  //  public AudioClip reloadClip;
 
-public float damage = 25f;
+  public float damage;
 
-public int startAmmoRemain = 100;
-public int magCapacity = 25;
-public float fireRate= 1f;
+  public int startAmmoRemain;
+  public int magCapacity;
+  public float fireRate;
 
-// public float reloadTime = 1f;
+  // public float reloadTime = 1f;
 
 
 

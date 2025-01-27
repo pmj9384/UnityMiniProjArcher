@@ -4,8 +4,8 @@ public class Skill
     public int ID;
     public string Name;
     public string Description;
-    public string Icon;  // 아이콘 경로
-    public SkillEffect Effect;  // 스킬 효과
+    public string Icon;  
+    public SkillEffect Effect;  
 
     // 능력에 대한 정의
     public enum SkillEffect
