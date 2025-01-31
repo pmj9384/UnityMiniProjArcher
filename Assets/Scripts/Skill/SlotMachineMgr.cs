@@ -26,37 +26,36 @@ public class SlotMachineMgr : MonoBehaviour
 
   private void OnEnable()
   {
-
-    if ( StartList.Count == 0 )
-    {
-      for ( int i = 0; i < ItemCnt * Slot.Length; i++ )
-      {
-        StartList.Add(i);
-      }
-    }
-
     ResultIndexList.Clear();
+    StartList.Clear();
+
+    for ( int i = 0; i < ItemCnt * Slot.Length; i++ )
+    {
+      StartList.Add(i);
+    }
 
     for ( int i = 0; i < Slot.Length; i++ )
     {
+      Slot[i].interactable = false;
+
+      int randomIndex = Random.Range(0, StartList.Count);
+      int selectedIndex = StartList[randomIndex];
+
+      ResultIndexList.Add(selectedIndex);
+
+      int correctPos = Mathf.Clamp(ItemCnt / 2, 0, ItemCnt - 2);
+      DisplayItemSlots[i].SlotSprite[correctPos].sprite = SkillSprite[selectedIndex];
+
       for ( int j = 0; j < ItemCnt; j++ )
       {
-        Slot[i].interactable = false;
-
-        int randomIndex = Random.Range(0, StartList.Count);
-
-        if ( i == 0 && j == 1 || i == 1 && j == 0 || i == 2 && j == 2 )
-        {
-          ResultIndexList.Add(StartList[randomIndex]);
-        }
-        DisplayItemSlots[i].SlotSprite[j].sprite = SkillSprite[StartList[randomIndex]];
-        if ( j == 0 )
-        {
-          DisplayItemSlots[i].SlotSprite[ItemCnt].sprite = SkillSprite[StartList[randomIndex]];
-        }
-        StartList.RemoveAt(randomIndex);
+        if ( j == correctPos ) continue;
+        int randomSkillIndex = Random.Range(0, SkillSprite.Length);
+        DisplayItemSlots[i].SlotSprite[j].sprite = SkillSprite[randomSkillIndex];
       }
+
+      StartList.RemoveAt(randomIndex);
     }
+
     for ( int i = 0; i < Slot.Length; i++ )
     {
       StartCoroutine(StartSlot(i));
@@ -65,7 +64,11 @@ public class SlotMachineMgr : MonoBehaviour
 
   IEnumerator StartSlot(int SlotIndex)
   {
-    for ( int i = 0; i < ( ItemCnt * ( 6 + SlotIndex * 4 ) + answer[SlotIndex] ) * 2; i++ )
+    int resultIndex = ResultIndexList[SlotIndex];
+    int totalSpins = 5 * ItemCnt;
+    int targetStopIndex = ItemCnt / 2;
+
+    for ( int i = 0; i < totalSpins; i++ )
     {
       SlotSkillObject[SlotIndex].transform.localPosition -= new Vector3(0, 50f, 0);
       if ( SlotSkillObject[SlotIndex].transform.localPosition.y < 50f )
@@ -74,18 +77,23 @@ public class SlotMachineMgr : MonoBehaviour
       }
       yield return new WaitForSeconds(0.02f);
     }
-    for ( int i = 0; i < ItemCnt; i++ )
-    {
-      Slot[i].interactable = true;
-    }
-  }
 
+    float finalYPosition = 50f + ( targetStopIndex * 50f );
+    SlotSkillObject[SlotIndex].transform.localPosition = new Vector3(
+        SlotSkillObject[SlotIndex].transform.localPosition.x,
+        finalYPosition,
+        SlotSkillObject[SlotIndex].transform.localPosition.z
+    );
+
+    DisplayItemSlots[SlotIndex].SlotSprite[targetStopIndex].sprite = SkillSprite[resultIndex];
+
+    Slot[SlotIndex].interactable = true;
+  }
 
   public void ClickBtn(int index)
   {
     int selectedSkillIndex = ResultIndexList[index];
     DisplayResultImage.sprite = SkillSprite[selectedSkillIndex];
-
     SelectedSkills.Add(selectedSkillIndex);
 
     PausePanelManager pausePanelManager = FindObjectOfType<PausePanelManager>();
@@ -102,24 +110,14 @@ public class SlotMachineMgr : MonoBehaviour
     GameManager.Instance.EndSlotMachine();
   }
 
-  public void OnSlotSelectionComplete(int selectedIndex)
-  {
-    int selectedSkillIndex = ResultIndexList[selectedIndex];
-    DisplayResultImage.sprite = SkillSprite[selectedSkillIndex];
-    GameManager.Instance.EndSlotMachine();
-  }
-
-  // 스킬 효과 적용
   private void ApplySkillEffect(int selectedSkillIndex)
   {
     string selectedSkillName = SkillSprite[selectedSkillIndex].name;
-
     GameObject playerObject = GameObject.FindWithTag("Player");
 
     if ( playerObject != null )
     {
       PlayerSkillController playerSkillController = playerObject.GetComponent<PlayerSkillController>();
-
       if ( playerSkillController != null )
       {
         switch ( selectedSkillName )
