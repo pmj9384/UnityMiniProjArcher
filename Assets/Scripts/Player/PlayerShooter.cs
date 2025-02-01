@@ -1,39 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShooter : MonoBehaviour
 {
-    public Transform gunPivot;
+  public Transform gunPivot;
+  public Gun gun;
 
-    public Gun gun;
-    [SerializeField]
-    private PlayerInput input;
-    [SerializeField]
-    private Animator animator;
+  [SerializeField]
+  private PlayerInput input;
+  [SerializeField]
+  private Animator animator;
+  private PlayerMovement playerMovement;
 
-    private void Awake()
-        {
-            input = GetComponent<PlayerInput>();
-            animator = GetComponent<Animator>();
-        }
+  private void Awake()
+  {
+    input = GetComponent<PlayerInput>();
+    animator = GetComponent<Animator>();
+    playerMovement = GetComponent<PlayerMovement>(); // ✅ PlayerMovement 참조
+  }
 
-    private void Update()
-    {   
-        if (input.Fire)    
-        {
-             gun.Fire();
-        }
-        // if (input.Reload)
-        // {
-                
-        //     if (gun.GunState != Gun.State.Reloading) 
-        //     {
-        //         animator.SetTrigger("Reload"); 
-        //         gun.Reload(); 
-        //     }
+  private void Update()
+  {
+    bool isMoving = animator.GetBool("Walk"); // ✅ 이동 상태 가져오기
+    bool isFiring = !isMoving; // ✅ 가만히 있을 때만 공격
 
-        // }
-
+    if ( isFiring )
+    {
+      //gun.Fire();
+      animator.SetBool("Attack", true);
     }
+    else
+    {
+      animator.SetBool("Attack", false);
+    }
+  }
 }

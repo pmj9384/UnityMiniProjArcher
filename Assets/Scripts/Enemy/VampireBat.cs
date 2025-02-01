@@ -18,15 +18,16 @@ public class VampireBat : LivingEntity
   public AudioClip hitSound;
   public AudioClip deathSound;
 
-  public GameObject expPrefab; // 경험치 Prefab
+  public GameObject expPrefab;
   public int experienceValue = 10;
   public float damage = 20f;
   public float timeBetAttack = 0.5f;
   private float lastAttackTime;
 
-  private float currentSpeed; // 현재 이동 속도
-  private Coroutine fireCoroutine; // 화염 효과 코루틴
-  private Coroutine frostCoroutine; // 얼음 효과 코루틴
+  private float currentSpeed;
+  private Coroutine fireCoroutine;
+  private Coroutine frostCoroutine;
+  private Coroutine dashCoroutine;
 
   private GameManager gm;
 
@@ -37,13 +38,14 @@ public class VampireBat : LivingEntity
     audioSource = GetComponent<AudioSource>();
     gm = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
 
-    currentSpeed = agent.speed; // 초기 속도 저장
+    currentSpeed = agent.speed;
   }
 
   protected override void OnEnable()
   {
     base.OnEnable();
     coUpdatePath = StartCoroutine(UpdatePath());
+    dashCoroutine = StartCoroutine(DashRoutine());
   }
 
   protected void OnDisable()
@@ -52,6 +54,11 @@ public class VampireBat : LivingEntity
     {
       StopCoroutine(coUpdatePath);
       coUpdatePath = null;
+    }
+    if ( dashCoroutine != null )
+    {
+      StopCoroutine(dashCoroutine);
+      dashCoroutine = null;
     }
   }
 
@@ -83,22 +90,48 @@ public class VampireBat : LivingEntity
         agent.SetDestination(targetEntity.transform.position);
       }
 
-      yield return new WaitForSeconds(0.25f);
+      yield return new WaitForSeconds(0.1f);
+    }
+  }
+
+  private IEnumerator DashRoutine()
+  {
+    int isCastingHash = Animator.StringToHash("IsCasting");
+    while ( true )
+    {
+      yield return new WaitForSeconds(5f);
+      agent.isStopped = true;
+      agent.velocity = Vector3.zero;
+      zombieAnimator.SetBool("IsCasting", true);
+      yield return new WaitForSeconds(0.5f);
+      zombieAnimator.SetBool("IsCasting", false);
+      agent.isStopped = false;
+      agent.speed = 10f;
+      yield return new WaitForSeconds(0.5f);
+      agent.speed = currentSpeed;
     }
   }
 
   public LivingEntity FindTarget()
   {
-    var cols = Physics.OverlapSphere(transform.position, findTargetDistance, whatIsTarget.value);
+    var cols = Physics.OverlapSphere(transform.position, findTargetDistance, whatIsTarget);
+    float shortestDistance = Mathf.Infinity;
+    LivingEntity nearestTarget = null;
+
     foreach ( var col in cols )
     {
       var livingEntity = col.GetComponent<LivingEntity>();
       if ( livingEntity != null && !livingEntity.IsDead )
       {
-        return livingEntity;
+        float distance = Vector3.Distance(transform.position, livingEntity.transform.position);
+        if ( distance < shortestDistance )
+        {
+          shortestDistance = distance;
+          nearestTarget = livingEntity;
+        }
       }
     }
-    return null;
+    return nearestTarget;
   }
 
   public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
@@ -117,11 +150,17 @@ public class VampireBat : LivingEntity
     zombieAnimator.SetTrigger("Die");
 
     agent.isStopped = true;
+    agent.velocity = Vector3.zero;
 
     if ( coUpdatePath != null )
     {
       StopCoroutine(coUpdatePath);
       coUpdatePath = null;
+    }
+    if ( dashCoroutine != null )
+    {
+      StopCoroutine(dashCoroutine);
+      dashCoroutine = null;
     }
 
     var cols = GetComponents<Collider>();
@@ -174,44 +213,5 @@ public class VampireBat : LivingEntity
         lastAttackTime = Time.time;
       }
     }
-  }
-
-  // 화염 효과 적용
-  public void ApplyFireEffect(float duration, float damagePerSecond)
-  {
-    if ( fireCoroutine != null )
-    {
-      StopCoroutine(fireCoroutine); // 기존 코루틴 중지
-    }
-    fireCoroutine = StartCoroutine(FireEffectCoroutine(duration, damagePerSecond));
-  }
-
-  private IEnumerator FireEffectCoroutine(float duration, float damagePerSecond)
-  {
-    float elapsedTime = 0f;
-
-    while ( elapsedTime < duration )
-    {
-      OnDamage(damagePerSecond, transform.position, Vector3.zero); // 매초 데미지
-      yield return new WaitForSeconds(1f);
-      elapsedTime += 1f;
-    }
-  }
-
-  // 얼음 효과 적용
-  public void ApplyFrostEffect(float duration, float speedReduction)
-  {
-    if ( frostCoroutine != null )
-    {
-      StopCoroutine(frostCoroutine); // 기존 코루틴 중지
-    }
-    frostCoroutine = StartCoroutine(FrostEffectCoroutine(duration, speedReduction));
-  }
-
-  private IEnumerator FrostEffectCoroutine(float duration, float speedReduction)
-  {
-    agent.speed -= speedReduction; // 속도 감소
-    yield return new WaitForSeconds(duration);
-    agent.speed = currentSpeed; // 속도 복구
   }
 }

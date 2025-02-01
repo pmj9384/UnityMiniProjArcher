@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PlayerSkillController : MonoBehaviour
 {
@@ -47,44 +48,19 @@ public class PlayerSkillController : MonoBehaviour
     {
       if ( hasDiagonalArrow )
       {
-        GameObject leftBullet = Instantiate(bulletPrefab, leftShootPoint.position, leftShootPoint.rotation);
-        GameObject rightBullet = Instantiate(bulletPrefab, rightShootPoint.position, rightShootPoint.rotation);
-
-        if ( leftBullet != null )
-        {
-          ApplyFireDamage(leftBullet);
-        }
-
-        if ( rightBullet != null )
-        {
-          ApplyFireDamage(rightBullet);
-        }
-
-        Debug.Log("Fire Arrow effect applied with diagonal arrow!");
+        LaunchBulletWithEffect(leftShootPoint, ApplyFireDamage);
+        LaunchBulletWithEffect(rightShootPoint, ApplyFireDamage);
       }
       else
       {
-        GameObject bullet = Instantiate(bulletPrefab, leftShootPoint.position, leftShootPoint.rotation);
-        ApplyFireDamage(bullet);
-        Debug.Log("Fire Arrow effect applied without diagonal arrow!");
+        LaunchBulletWithEffect(leftShootPoint, ApplyFireDamage);
       }
+
+      Debug.Log("Fire Arrow effect applied!");
     }
     else
     {
       Debug.LogError("BulletPrefab is missing!");
-    }
-  }
-
-  void ApplyFireDamage(GameObject bullet)
-  {
-    RaycastHit hit;
-    if ( Physics.Raycast(bullet.transform.position, bullet.transform.forward, out hit) )
-    {
-      Enemy enemy = hit.collider.GetComponent<Enemy>();
-      if ( enemy != null )
-      {
-        enemy.ApplyFireEffect(2f, 5f);
-      }
     }
   }
 
@@ -94,27 +70,15 @@ public class PlayerSkillController : MonoBehaviour
     {
       if ( hasDiagonalArrow )
       {
-        GameObject leftBullet = Instantiate(bulletPrefab, leftShootPoint.position, leftShootPoint.rotation);
-        GameObject rightBullet = Instantiate(bulletPrefab, rightShootPoint.position, rightShootPoint.rotation);
-
-        if ( leftBullet != null )
-        {
-          ApplyFrostEffect(leftBullet);
-        }
-
-        if ( rightBullet != null )
-        {
-          ApplyFrostEffect(rightBullet);
-        }
-
-        Debug.Log("Frost Arrow effect applied with diagonal arrow!");
+        LaunchBulletWithEffect(leftShootPoint, ApplyFrostEffect);
+        LaunchBulletWithEffect(rightShootPoint, ApplyFrostEffect);
       }
       else
       {
-        GameObject bullet = Instantiate(bulletPrefab, leftShootPoint.position, leftShootPoint.rotation);
-        ApplyFrostEffect(bullet);
-        Debug.Log("Frost Arrow effect applied without diagonal arrow!");
+        LaunchBulletWithEffect(leftShootPoint, ApplyFrostEffect);
       }
+
+      Debug.Log("Frost Arrow effect applied!");
     }
     else
     {
@@ -122,15 +86,48 @@ public class PlayerSkillController : MonoBehaviour
     }
   }
 
-  void ApplyFrostEffect(GameObject bullet)
+  private void LaunchBulletWithEffect(Transform shootPoint, System.Action<GameObject> applyEffect)
   {
-    RaycastHit hit;
-    if ( Physics.Raycast(bullet.transform.position, bullet.transform.forward, out hit) )
+    GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+
+    if ( bullet != null )
     {
-      Enemy enemy = hit.collider.GetComponent<Enemy>();
-      if ( enemy != null )
+      applyEffect(bullet); // 특정 효과를 적용
+    }
+  }
+
+  private void ApplyFireDamage(GameObject bullet)
+  {
+    Bullet bulletScript = bullet.GetComponent<Bullet>();
+    if ( bulletScript != null )
+    {
+      bulletScript.damage += 5f; // 화염 추가 데미지
+      bulletScript.speed += 2f;  // 속도 증가
+      bulletScript.lifeTime += 1f; // 생명시간 증가
+
+      // 화염 효과를 시각적으로 표현하는 ParticleSystem 추가
+      ParticleSystem fireEffect = bullet.GetComponentInChildren<ParticleSystem>();
+      if ( fireEffect != null )
       {
-        enemy.ApplyFrostEffect(2f, 1f);
+        fireEffect.Play();
+      }
+    }
+  }
+
+  private void ApplyFrostEffect(GameObject bullet)
+  {
+    Bullet bulletScript = bullet.GetComponent<Bullet>();
+    if ( bulletScript != null )
+    {
+      bulletScript.damage -= 2f; // 얼음 효과로 기본 데미지 감소
+      bulletScript.speed -= 2f;  // 속도 감소
+      bulletScript.lifeTime += 0.5f; // 생명시간 증가
+
+      // 얼음 효과를 시각적으로 표현하는 ParticleSystem 추가
+      ParticleSystem frostEffect = bullet.GetComponentInChildren<ParticleSystem>();
+      if ( frostEffect != null )
+      {
+        frostEffect.Play();
       }
     }
   }

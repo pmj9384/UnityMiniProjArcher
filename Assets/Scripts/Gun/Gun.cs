@@ -1,20 +1,15 @@
 using UnityEngine;
-using UnityEngine.Pool; // Object Pool API 사용
+using UnityEngine.Pool;
 
 public class Gun : MonoBehaviour
 {
-  public enum State
-  {
-    Ready,
-    Empty,
-    Reloading,
-  }
+  public enum State { Ready, Empty, Reloading }
 
   public State GunState { get; private set; }
   public GunData gundata;
 
-  public GameObject bulletPrefab; // 총알 프리팹
-  public Transform firePoint;     // 총알 발사 위치
+  public GameObject bulletPrefab;
+  public Transform firePoint;
 
   private AudioSource audioSource;
   public ParticleSystem muzzleEffect;
@@ -22,25 +17,29 @@ public class Gun : MonoBehaviour
 
   private float lastFireTime;
   private int currentAmmo;
-
   public float cooldownTime = 1f;
   public VirtualJoyStick joystick;
 
   private IObjectPool<GameObject> bulletPool;
 
-
   private void Awake()
   {
     audioSource = GetComponent<AudioSource>();
 
-    // 오브젝트 풀 초기화
     bulletPool = new ObjectPool<GameObject>(
-    createFunc: () => Instantiate(bulletPrefab),  // 새 총알 생성
-    actionOnGet: bullet => bullet.SetActive(true),  // 풀에서 꺼낼 때 활성화
-    actionOnRelease: bullet => bullet.SetActive(false),  // 반환 시 비활성화
-    actionOnDestroy: bullet => Destroy(bullet),  // 풀의 크기 초과 시 제거
-    collectionCheck: false,  // 컬렉션 크기 검사 비활성화
-    maxSize: 50  // 최대 오브젝트 수
+      createFunc: () => Instantiate(bulletPrefab),
+      actionOnGet: bullet => bullet.SetActive(true),  // 오브젝트 풀에서 가져올 때 활성화
+      actionOnRelease: bullet =>
+      {
+        bullet.SetActive(false); // 풀로 반환될 때 비활성화
+      },
+      actionOnDestroy: bullet =>
+      {
+        Debug.LogWarning($"Bullet {bullet.name} is destroyed because pool exceeded max size.");
+        Destroy(bullet); // 최대 개수를 초과한 경우만 삭제
+      },
+      collectionCheck: false,
+      maxSize: 50
     );
   }
 
@@ -48,44 +47,33 @@ public class Gun : MonoBehaviour
   {
     GunState = State.Ready;
     lastFireTime = 0f;
-    // currentAmmo = gundata.magCapacity;
   }
 
-  private void Update()
-  {
-    Fire();
-  }
   public void Fire()
   {
-    Vector2 joystickInput = joystick.Input;
-
-    if (joystickInput.sqrMagnitude > 0.01f)
-    {
-      // 조이스틱 입력이 있는 경우 발사하지 않음
-      return;
-    }
-
-    // 쿨다운 확인 및 자동 발사
-    if (GunState == State.Ready && Time.time >= lastFireTime + cooldownTime)
+    if ( GunState == State.Ready && Time.time >= lastFireTime + cooldownTime )
     {
       lastFireTime = Time.time;
       ShootBullet();
     }
   }
 
-
   private void ShootBullet()
   {
-    // Object Pool에서 총알 가져오기
+    if ( firePoint == null )
+    {
+      Debug.LogError("⚠ firePoint가 설정되지 않았음!");
+      return;
+    }
+
     GameObject bullet = bulletPool.Get();
     bullet.transform.position = firePoint.position;
     bullet.transform.rotation = firePoint.rotation;
 
     Bullet bulletScript = bullet.GetComponent<Bullet>();
-    if (bulletScript != null)
+    if ( bulletScript != null )
     {
-      bulletScript.Launch(firePoint.forward, bulletPool); // firePoint.forward로 발사 방향 설정
+      bulletScript.Launch(firePoint.forward, bulletPool);
     }
   }
-
 }
