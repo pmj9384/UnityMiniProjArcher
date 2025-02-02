@@ -15,22 +15,32 @@ public class PlayerShooter : MonoBehaviour
   {
     input = GetComponent<PlayerInput>();
     animator = GetComponent<Animator>();
-    playerMovement = GetComponent<PlayerMovement>(); // ✅ PlayerMovement 참조
+    playerMovement = GetComponent<PlayerMovement>();
   }
 
   private void Update()
   {
-    bool isMoving = animator.GetBool("Walk"); // ✅ 이동 상태 가져오기
-    bool isFiring = !isMoving; // ✅ 가만히 있을 때만 공격
+    bool isMoving = animator.GetBool("Walk");
+    bool isFiring = !isMoving;
+
+
+    if ( GameManager.Instance.remainingZombies <= 0 )
+    {
+      animator.SetBool("Attack", false);
+      animator.SetBool("Idle", true);
+      return;
+    }
+
 
     if ( isFiring )
     {
-      //gun.Fire();
       animator.SetBool("Attack", true);
+      animator.SetBool("Idle", false);
     }
     else
     {
       animator.SetBool("Attack", false);
+      animator.SetBool("Idle", true);
     }
   }
 }

@@ -38,6 +38,7 @@ public class UiManager : MonoBehaviour
   {
     slotMachinePanel.SetActive(true);
     joystick.SetJoystickActive(false);
+
   }
 
   public void HideSlotMachinePanel()
@@ -45,6 +46,7 @@ public class UiManager : MonoBehaviour
     slotMachinePanel.SetActive(false);
     joystick.SetJoystickActive(true);
   }
+
 
   public void HideGamePausePanel()
   {

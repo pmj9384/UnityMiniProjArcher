@@ -142,6 +142,13 @@ public class Enemy : LivingEntity
     {
       col.enabled = false;
     }
+    Rigidbody rb = GetComponent<Rigidbody>();
+    if ( rb != null )
+    {
+      rb.isKinematic = true;
+      rb.useGravity = false;
+    }
+
 
     if ( expPrefab != null )
     {
