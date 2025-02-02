@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +14,7 @@ public class Enemy : LivingEntity
   private AudioSource audioSource;
   private Coroutine coUpdatePath;
 
-  public ParticleSystem hitEffect;
+  public List<ParticleSystem> hitEffects = new List<ParticleSystem>();
   public AudioClip hitSound;
   public AudioClip deathSound;
 
@@ -104,21 +105,21 @@ public class Enemy : LivingEntity
   {
     if ( IsDead ) return; // ✅ 이미 사망한 경우 실행하지 않음
 
-    base.OnDamage(damage, hitPoint, hitNormal); // ✅ LivingEntity의 OnDamage() 호출 (체력 감소)
+    base.OnDamage(damage, hitPoint, hitNormal);
 
-    if ( Hp > 0 ) // ✅ 체력이 남아 있을 때만 효과 재생
+    foreach ( var effect in hitEffects )
     {
-      if ( hitEffect != null )
+      if ( effect != null )
       {
-        hitEffect.transform.position = hitPoint;
-        hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-        hitEffect.Play();
+        ParticleSystem effectInstance = Instantiate(effect, hitPoint, Quaternion.LookRotation(hitNormal));
+        effectInstance.Play();
+        Destroy(effectInstance.gameObject, 2f);
       }
+    }
 
-      if ( audioSource != null && hitSound != null )
-      {
-        audioSource.PlayOneShot(hitSound);
-      }
+    if ( audioSource != null && hitSound != null )
+    {
+      audioSource.PlayOneShot(hitSound);
     }
   }
 
@@ -168,6 +169,25 @@ public class Enemy : LivingEntity
   public void ApplyStatusEffect(IStatusEffect effect)
   {
     statusEffectManager.ApplyEffect(effect);
+
   }
+
+  public void AddHitEffect(ParticleSystem effectPrefab)
+  {
+    if ( !hitEffects.Contains(effectPrefab) ) // 중복 추가 방지
+    {
+      hitEffects.Add(effectPrefab);
+    }
+  }
+
+  public void RemoveHitEffect(ParticleSystem effectPrefab)
+  {
+    if ( hitEffects.Contains(effectPrefab) )
+    {
+      hitEffects.Remove(effectPrefab);
+    }
+  }
+
+
 }
 

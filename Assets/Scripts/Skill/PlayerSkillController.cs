@@ -8,7 +8,8 @@ public class PlayerSkillController : MonoBehaviour
   private PlayerMovement playerMovement;
   private PlayerHealth playerHealth;
   public GunData gunData;
-
+  public ParticleSystem poisonEffectPrefab;
+  public ParticleSystem frostEffectPrefab;
   public bool HasDiagonalArrow = false;
   public bool HasPoisonArrow = false;
   public bool HasFrostArrow = false;
@@ -29,15 +30,18 @@ public class PlayerSkillController : MonoBehaviour
 
     bulletScript.ClearStatusEffects();
 
-    if ( HasPoisonArrow )
-    {
-      bulletScript.ApplyStatusEffect(new PoisonEffect(2f, 10f)); //2초동안 20뎀
-    }
-
     if ( HasFrostArrow )
     {
-      bulletScript.ApplyStatusEffect(new FrostEffect(2f, 1.5f)); // ✅ 2초 동안 속도 감소
+      FrostEffect frostEffect = new FrostEffect(2f, 1.5f, 0.1f, frostEffectPrefab);
+      bulletScript.ApplyStatusEffect(frostEffect);
     }
+    if ( HasPoisonArrow )
+    {
+      PoisonEffect poisonEffect = new PoisonEffect(2f, 10f, poisonEffectPrefab);
+      bulletScript.ApplyStatusEffect(poisonEffect);
+    }
+
+
   }
 
   public void IncreaseAttackPower()

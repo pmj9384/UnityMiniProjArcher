@@ -1066,6 +1066,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun: {fileID: 0}
   gunData: {fileID: 11400000, guid: f279d95d0526a4b4aa83cb7cfeb35952, type: 2}
+  poisonEffectPrefab: {fileID: 0}
+  frostEffectPrefab: {fileID: 0}
   HasDiagonalArrow: 0
   HasPoisonArrow: 0
   HasFrostArrow: 0
@@ -2804,6 +2806,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 299688929917369375, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: frostEffectPrefab
+      value: 
+      objectReference: {fileID: 7616392533238897852, guid: 4e7e3d0c5bacb0b4fa32fa13423e5e19, type: 3}
+    - target: {fileID: 299688929917369375, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: poisonEffectPrefab
+      value: 
+      objectReference: {fileID: 2662843366714213769, guid: 4a3d4a7daf0d5724f9b0553564a3b9ac, type: 3}
     - target: {fileID: 2079617051256560615, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: m_Controller
       value: 

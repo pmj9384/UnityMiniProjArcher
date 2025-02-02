@@ -210,7 +210,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   findTargetDistance: 10
-  hitEffect: {fileID: 19800000, guid: ef39ae7291c751249b296f00bf6fb042, type: 3}
+  hitEffects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   hitSound: {fileID: 8300000, guid: fce027b40770a44298a6f5a4233bfb04, type: 3}
   deathSound: {fileID: 8300000, guid: 8c615fd0429f34edf85539d70279360d, type: 3}
   expPrefab: {fileID: 6418151353576218072, guid: 6213a915aecea45c1ba8cb3c89ee0fcb, type: 3}

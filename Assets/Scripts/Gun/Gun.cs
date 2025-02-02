@@ -9,8 +9,8 @@ public class Gun : MonoBehaviour
 
   public GameObject bulletPrefab;
   public Transform firePoint;
-  public Transform leftFirePoint;  // 🔥 좌측 발사점 (대각선 화살 용)
-  public Transform rightFirePoint; // 🔥 우측 발사점 (대각선 화살 용)
+  public Transform leftFirePoint;
+  public Transform rightFirePoint;
 
   private PlayerSkillController skillController;
   private AudioSource audioSource;
@@ -28,22 +28,18 @@ public class Gun : MonoBehaviour
   {
     skillController = GetComponentInParent<PlayerSkillController>();
     audioSource = GetComponent<AudioSource>();
+
     bulletPool = new ObjectPool<GameObject>(
         createFunc: () => Instantiate(bulletPrefab),
         actionOnGet: bullet => bullet.SetActive(true),
         actionOnRelease: bullet =>
         {
           bullet.SetActive(false);
-          if ( bulletPool.CountInactive > 50 ) // 🛑 최대 개수 초과 시 삭제
-          {
-            Destroy(bullet);
-          }
         },
-        actionOnDestroy: bullet => Destroy(bullet), // ✅ 삭제 시 명시적으로 Destroy()
+        actionOnDestroy: bullet => Destroy(bullet),
         collectionCheck: false,
-        maxSize: 50 // 🎯 최대 50개까지만 유지
+        maxSize: 50
     );
-
   }
 
   private void OnEnable()
@@ -57,22 +53,18 @@ public class Gun : MonoBehaviour
     if ( GunState == State.Ready && Time.time >= lastFireTime + cooldownTime )
     {
       lastFireTime = Time.time;
-
-      // 🔥 기본 탄환 발사
-      // ShootBullet(firePoint);
     }
   }
 
-  public void ShootBullet() // ✅ 애니메이션 이벤트 전용 메서드
+  public void ShootBullet()
   {
-    ShootBullet(firePoint); // 기본 발사점 사용
+    ShootBullet(firePoint);
 
     if ( skillController != null && skillController.HasDiagonalArrow )
     {
       ShootBullet(leftFirePoint);
       ShootBullet(rightFirePoint);
     }
-
   }
 
   private void ShootBullet(Transform shootPoint)
@@ -98,6 +90,4 @@ public class Gun : MonoBehaviour
       }
     }
   }
-
 }
-

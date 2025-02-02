@@ -4,37 +4,33 @@ using UnityEngine;
 public class PoisonEffect : IStatusEffect
 {
   private float duration;
-  private float fixedDamagePerSecond; //  초당 고정 피해
+  private float damage;
+  private ParticleSystem poisonEffectPrefab; // ✅ 독 파티클 프리팹
 
-  public PoisonEffect(float duration, float fixedDamagePerSecond)
+  public PoisonEffect(float duration, float damage, ParticleSystem effectPrefab)
   {
     this.duration = duration;
-    this.fixedDamagePerSecond = fixedDamagePerSecond; //  체력 비율이 아닌 고정 데미지
+    this.damage = damage;
+    this.poisonEffectPrefab = effectPrefab;
   }
 
   public IEnumerator ApplyEffect(LivingEntity entity)
   {
-    Debug.Log($"🛑 ApplyEffect 호출됨! 대상: {entity.gameObject.name}");
+    if ( entity == null || entity.IsDead ) yield break;
+
+    Enemy enemy = entity as Enemy;
+    if ( enemy != null ) enemy.AddHitEffect(poisonEffectPrefab); // ✅ 적중 시 파티클 추가
 
     float elapsedTime = 0f;
     while ( elapsedTime < duration )
     {
-      if ( entity == null || entity.IsDead )
-      {
-        Debug.Log($"⚠ 대상이 NULL이거나 이미 사망! ({entity?.gameObject.name})");
-        yield break;
-      }
+      if ( entity == null || entity.IsDead ) yield break;
 
-      // ✅ 고정 피해 적용 (비율이 아니라 정해진 값)
-      float poisonDamage = fixedDamagePerSecond;
-
-      Debug.Log($"🔥 독 데미지 적용: {poisonDamage} | 대상: {entity.gameObject.name} | 남은 체력: {entity.Hp}");
-      entity.OnDamage(poisonDamage, entity.transform.position, Vector3.zero);
-
+      entity.OnDamage(damage, entity.transform.position, Vector3.zero);
       yield return new WaitForSeconds(1f);
       elapsedTime += 1f;
     }
 
-    Debug.Log($"✅ 독 효과 종료: {entity.gameObject.name}");
+    if ( enemy != null ) enemy.RemoveHitEffect(poisonEffectPrefab); // ✅ 지속시간 끝나면 제거
   }
 }
