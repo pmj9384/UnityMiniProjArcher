@@ -10,16 +10,19 @@ public class Bullet : MonoBehaviour
 
   private IObjectPool<GameObject> pool;
   private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
+  private Rigidbody rb;
+
+  private void Awake()
+  {
+    rb = GetComponent<Rigidbody>();
+  }
 
   public void Launch(Vector3 direction, IObjectPool<GameObject> objectPool)
   {
-    Rigidbody rb = GetComponent<Rigidbody>();
-    if ( rb != null )
-    {
-      rb.velocity = direction * speed;
-    }
-
+    rb.velocity = direction * speed;
     pool = objectPool;
+
+    // 🔥 일정 시간이 지나면 풀로 되돌리기
     Invoke(nameof(ReturnToPool), lifeTime);
   }
 
@@ -30,7 +33,7 @@ public class Bullet : MonoBehaviour
 
   private void OnTriggerEnter(Collider other)
   {
-    if ( other.CompareTag("Enemy") || other.CompareTag("Player") ) // ✅ LivingEntity가 적용될 수 있도록 수정
+    if ( other.CompareTag("Enemy") || other.CompareTag("Player") )
     {
       LivingEntity entity = other.GetComponent<LivingEntity>();
       if ( entity != null )
@@ -39,12 +42,11 @@ public class Bullet : MonoBehaviour
 
         foreach ( var effect in statusEffects )
         {
-          //effect.ApplyEffect(entity);  // ✅ LivingEntity에 효과 적용
           entity.StartCoroutine(effect.ApplyEffect(entity));
         }
       }
 
-      ReturnToPool();
+      ReturnToPool(); // 🔥 풀로 되돌리기
     }
     else if ( other.CompareTag("Wall") )
     {
@@ -56,16 +58,19 @@ public class Bullet : MonoBehaviour
   {
     if ( pool != null )
     {
-      Rigidbody rb = GetComponent<Rigidbody>();
-      if ( rb != null )
-      {
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-      }
+      rb.velocity = Vector3.zero;
+      rb.angularVelocity = Vector3.zero;
 
       gameObject.SetActive(false);
       pool.Release(gameObject);
     }
+  }
+
+  private void OnDisable()
+  {
+    // 🔥 총알 초기화 (효과 삭제)
+    statusEffects.Clear();
+    CancelInvoke(nameof(ReturnToPool)); // 타이머 취소 (다시 풀로 반환될 때 초기화)
   }
 
   public void ClearStatusEffects()

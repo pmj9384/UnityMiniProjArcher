@@ -145,7 +145,7 @@ public class Enemy : LivingEntity
     Rigidbody rb = GetComponent<Rigidbody>();
     if ( rb != null )
     {
-      rb.isKinematic = true;
+      // rb.isKinematic = true;
       rb.useGravity = false;
     }
 

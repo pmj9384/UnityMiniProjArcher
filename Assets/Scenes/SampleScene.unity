@@ -919,6 +919,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  knockbackForce: 5
+  knockbackDuration: 0.2
   joystick: {fileID: 0}
   targetLayer:
     serializedVersion: 2
@@ -2894,6 +2896,10 @@ PrefabInstance:
       propertyPath: offset.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5456754428371421693, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 1281296180}
     - target: {fileID: 5514935222987639392, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2933,6 +2939,14 @@ PrefabInstance:
     - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: experienceForLevels.Array.data[0]
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731800345430636288, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731800345430636288, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7704763967568910667, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}

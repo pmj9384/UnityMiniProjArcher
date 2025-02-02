@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
   public float speed = 5f;
+  public float knockbackForce = 5f;
+  public float knockbackDuration = 0.2f;
   public VirtualJoyStick joystick;
   public LayerMask targetLayer;
   public float targetRange = 10f;
@@ -93,4 +95,6 @@ public class PlayerMovement : MonoBehaviour
   {
     return target;
   }
+
+
 }

@@ -36,7 +36,7 @@ public class Gun : MonoBehaviour
         {
           bullet.SetActive(false);
         },
-        actionOnDestroy: bullet => Destroy(bullet),
+       // actionOnDestroy: bullet => Destroy(bullet),
         collectionCheck: false,
         maxSize: 50
     );
