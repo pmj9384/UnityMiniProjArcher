@@ -150,7 +150,6 @@ public class Enemy : LivingEntity
     }
 
     GameManager.Instance.DecrementZombieCount();
-    Destroy(gameObject);
     gm?.AddScore(100);
 
     StartCoroutine(DieRoutine());
@@ -159,7 +158,8 @@ public class Enemy : LivingEntity
   private IEnumerator DieRoutine()
   {
     yield return new WaitForSeconds(5f);
-    gameObject.SetActive(false);
+    //gameObject.SetActive(false);
+    Destroy(gameObject);
   }
 
   public void ModifySpeed(float newSpeed) => agent.speed = Mathf.Max(0, newSpeed);

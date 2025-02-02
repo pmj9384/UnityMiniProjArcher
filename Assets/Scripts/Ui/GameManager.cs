@@ -96,11 +96,11 @@ public class GameManager : MonoBehaviour
 
     if ( direction == Door.DoorDirection.Left )
     {
-      targetRotation = Quaternion.Euler(0, 90, 0); // Left: -90°로 회전
+      targetRotation = Quaternion.Euler(0, -90, 0); // Left: -90°로 회전
     }
     else // DoorDirection.Right
     {
-      targetRotation = Quaternion.Euler(0, -90, 0); // Right: 90°로 회전
+      targetRotation = Quaternion.Euler(0, 90, 0); // Right: 90°로 회전
     }
 
     // 문 회전 애니메이션 실행
