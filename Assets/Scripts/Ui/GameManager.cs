@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
   public bool IsGamePause { get; private set; }
 
   public UiManager uiManager;
-
   public int remainingZombies; // 총 적의 수
   private List<GameObject> expItems = new List<GameObject>(); // 생성된 경험치 리스트
 
@@ -97,11 +96,11 @@ public class GameManager : MonoBehaviour
 
     if ( direction == Door.DoorDirection.Left )
     {
-      targetRotation = Quaternion.Euler(0, -90, 0); // Left: -90°로 회전
+      targetRotation = Quaternion.Euler(0, 90, 0); // Left: -90°로 회전
     }
     else // DoorDirection.Right
     {
-      targetRotation = Quaternion.Euler(0, 90, 0); // Right: 90°로 회전
+      targetRotation = Quaternion.Euler(0, -90, 0); // Right: 90°로 회전
     }
 
     // 문 회전 애니메이션 실행
@@ -174,4 +173,5 @@ public class GameManager : MonoBehaviour
     // ResumeGame();  // 게임을 재개
     uiManager.HideSlotMachinePanel();  // 슬롯 머신 UI 비활성화
   }
+
 }

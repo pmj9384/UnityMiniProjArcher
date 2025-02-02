@@ -9,6 +9,9 @@ public class UiManager : MonoBehaviour
   public GameObject pausePanel;
   public GameObject slotMachinePanel;
 
+  public VirtualJoyStick joystick;
+
+
   // public void UpdateScoreText(int newScore)
   // {
   //     scoreText.text = $"SCORE: {newScore}";
@@ -22,27 +25,30 @@ public class UiManager : MonoBehaviour
   public void ShowGameOverPanel(bool active)
   {
     gameOverPanel.SetActive(active);
+    joystick.SetJoystickActive(!active);
   }
 
   public void ShowGamePausePanel(bool active)
   {
     pausePanel.SetActive(active);
+    joystick.SetJoystickActive(!active);
+
   }
   public void ShowSlotMachinePanel()
   {
     slotMachinePanel.SetActive(true);
+    joystick.SetJoystickActive(false);
   }
 
   public void HideSlotMachinePanel()
   {
-    if ( slotMachinePanel != null )
-    {
-      slotMachinePanel.SetActive(false);  // 슬롯 머신 UI 비활성화
-    }
+    slotMachinePanel.SetActive(false);
+    joystick.SetJoystickActive(true);
   }
 
   public void HideGamePausePanel()
   {
     pausePanel.SetActive(false);
+    joystick.SetJoystickActive(true);
   }
 }

@@ -31,7 +31,7 @@ public class PlayerSkillController : MonoBehaviour
 
     if ( HasPoisonArrow )
     {
-      bulletScript.ApplyStatusEffect(new PoisonEffect(3f, 20f)); // ✅ 3초 동안 1% 지속 피해
+      bulletScript.ApplyStatusEffect(new PoisonEffect(2f, 10f)); //2초동안 20뎀
     }
 
     if ( HasFrostArrow )

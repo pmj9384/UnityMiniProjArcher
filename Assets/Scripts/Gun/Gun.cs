@@ -59,20 +59,20 @@ public class Gun : MonoBehaviour
       lastFireTime = Time.time;
 
       // 🔥 기본 탄환 발사
-      ShootBullet(firePoint);
-
-      // 🔥 대각선 화살이 활성화된 경우, 좌우 추가 발사
-      if ( skillController != null && skillController.HasDiagonalArrow )
-      {
-        ShootBullet(leftFirePoint);
-        ShootBullet(rightFirePoint);
-      }
+      // ShootBullet(firePoint);
     }
   }
 
   public void ShootBullet() // ✅ 애니메이션 이벤트 전용 메서드
   {
     ShootBullet(firePoint); // 기본 발사점 사용
+
+    if ( skillController != null && skillController.HasDiagonalArrow )
+    {
+      ShootBullet(leftFirePoint);
+      ShootBullet(rightFirePoint);
+    }
+
   }
 
   private void ShootBullet(Transform shootPoint)
