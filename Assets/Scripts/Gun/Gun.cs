@@ -4,13 +4,15 @@ using UnityEngine.Pool;
 public class Gun : MonoBehaviour
 {
   public enum State { Ready, Empty, Reloading }
-
   public State GunState { get; private set; }
   public GunData gundata;
 
   public GameObject bulletPrefab;
   public Transform firePoint;
+  public Transform leftFirePoint;  // 🔥 좌측 발사점 (대각선 화살 용)
+  public Transform rightFirePoint; // 🔥 우측 발사점 (대각선 화살 용)
 
+  private PlayerSkillController skillController;
   private AudioSource audioSource;
   public ParticleSystem muzzleEffect;
   public ParticleSystem shellEffect;
@@ -24,23 +26,24 @@ public class Gun : MonoBehaviour
 
   private void Awake()
   {
+    skillController = GetComponentInParent<PlayerSkillController>();
     audioSource = GetComponent<AudioSource>();
-
     bulletPool = new ObjectPool<GameObject>(
-      createFunc: () => Instantiate(bulletPrefab),
-      actionOnGet: bullet => bullet.SetActive(true),  // 오브젝트 풀에서 가져올 때 활성화
-      actionOnRelease: bullet =>
-      {
-        bullet.SetActive(false); // 풀로 반환될 때 비활성화
-      },
-      actionOnDestroy: bullet =>
-      {
-        Debug.LogWarning($"Bullet {bullet.name} is destroyed because pool exceeded max size.");
-        Destroy(bullet); // 최대 개수를 초과한 경우만 삭제
-      },
-      collectionCheck: false,
-      maxSize: 50
+        createFunc: () => Instantiate(bulletPrefab),
+        actionOnGet: bullet => bullet.SetActive(true),
+        actionOnRelease: bullet =>
+        {
+          bullet.SetActive(false);
+          if ( bulletPool.CountInactive > 50 ) // 🛑 최대 개수 초과 시 삭제
+          {
+            Destroy(bullet);
+          }
+        },
+        actionOnDestroy: bullet => Destroy(bullet), // ✅ 삭제 시 명시적으로 Destroy()
+        collectionCheck: false,
+        maxSize: 50 // 🎯 최대 50개까지만 유지
     );
+
   }
 
   private void OnEnable()
@@ -54,26 +57,47 @@ public class Gun : MonoBehaviour
     if ( GunState == State.Ready && Time.time >= lastFireTime + cooldownTime )
     {
       lastFireTime = Time.time;
-      ShootBullet();
+
+      // 🔥 기본 탄환 발사
+      ShootBullet(firePoint);
+
+      // 🔥 대각선 화살이 활성화된 경우, 좌우 추가 발사
+      if ( skillController != null && skillController.HasDiagonalArrow )
+      {
+        ShootBullet(leftFirePoint);
+        ShootBullet(rightFirePoint);
+      }
     }
   }
 
-  private void ShootBullet()
+  public void ShootBullet() // ✅ 애니메이션 이벤트 전용 메서드
   {
-    if ( firePoint == null )
+    ShootBullet(firePoint); // 기본 발사점 사용
+  }
+
+  private void ShootBullet(Transform shootPoint)
+  {
+    if ( shootPoint == null )
     {
       Debug.LogError("⚠ firePoint가 설정되지 않았음!");
       return;
     }
 
-    GameObject bullet = bulletPool.Get();
-    bullet.transform.position = firePoint.position;
-    bullet.transform.rotation = firePoint.rotation;
+    GameObject bulletObject = bulletPool.Get();
+    bulletObject.transform.position = shootPoint.position;
+    bulletObject.transform.rotation = shootPoint.rotation;
 
-    Bullet bulletScript = bullet.GetComponent<Bullet>();
+    Bullet bulletScript = bulletObject.GetComponent<Bullet>();
     if ( bulletScript != null )
     {
-      bulletScript.Launch(firePoint.forward, bulletPool);
+      bulletScript.Launch(shootPoint.forward, bulletPool);
+
+      if ( skillController != null )
+      {
+        skillController.ModifyBullet(bulletScript);
+      }
     }
   }
+
 }
+

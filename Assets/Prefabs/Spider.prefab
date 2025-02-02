@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 3605308918015156540}
   - component: {fileID: 2489700436028045108}
   - component: {fileID: 2531973243296703694}
+  - component: {fileID: 4287917611397623602}
   m_Layer: 7
   m_Name: Spider
   m_TagString: Enemy
@@ -395,6 +396,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4287917611397623602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693547679955267522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da22280cc25544e7aed83e62f892426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &904284216616283731
 GameObject:
   m_ObjectHideFlags: 0

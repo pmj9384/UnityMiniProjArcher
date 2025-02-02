@@ -125,8 +125,8 @@ public class SlotMachineMgr : MonoBehaviour
           case "DiagonalArrow":
             playerSkillController.ApplyDiagonalArrow();
             break;
-          case "FireArrow":
-            playerSkillController.ApplyFireArrow();
+          case "PoisonArrow":
+            playerSkillController.ApplyPoisonArrow();
             break;
           case "IceArrow":
             playerSkillController.ApplyFrostArrow();

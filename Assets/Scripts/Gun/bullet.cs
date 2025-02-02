@@ -1,74 +1,54 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
-using System.Collections;
-using System.Collections.Generic;
+
 public class Bullet : MonoBehaviour
 {
-  public float speed = 50f;        // 탄환 속도
-  public float damage;            // 탄환 데미지
-  public float lifeTime = 3f;     // 탄환 수명
+  public float speed = 50f;
+  public float damage;
+  public float lifeTime = 3f;
 
-  private IObjectPool<GameObject> pool;  // 오브젝트 풀
-
-  // 추가된 상태 효과
-  private float fireEffectDuration = 0f;
-  private float fireEffectDamage = 0f;
-  private float frostEffectDuration = 0f;
-  private float frostEffectSlowAmount = 0f;
+  private IObjectPool<GameObject> pool;
+  private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
 
   public void Launch(Vector3 direction, IObjectPool<GameObject> objectPool)
   {
     Rigidbody rb = GetComponent<Rigidbody>();
     if ( rb != null )
     {
-      rb.velocity = direction * speed; // 탄환 발사 방향 설정
+      rb.velocity = direction * speed;
     }
 
     pool = objectPool;
-    Invoke(nameof(ReturnToPool), lifeTime); // 일정 시간 후 풀로 반환
+    Invoke(nameof(ReturnToPool), lifeTime);
   }
 
-  public void ApplyFireEffect(float duration, float damagePerSecond)
+  public void ApplyStatusEffect(IStatusEffect effect)
   {
-    fireEffectDuration = duration;
-    fireEffectDamage = damagePerSecond;
-  }
-
-  public void ApplyFrostEffect(float duration, float slowAmount)
-  {
-    frostEffectDuration = duration;
-    frostEffectSlowAmount = slowAmount;
+    statusEffects.Add(effect);
   }
 
   private void OnTriggerEnter(Collider other)
   {
-    if ( other.CompareTag("Enemy") )
+    if ( other.CompareTag("Enemy") || other.CompareTag("Player") ) // ✅ LivingEntity가 적용될 수 있도록 수정
     {
-      ReturnToPool(); // 풀로 반환
-
-      // 적의 Enemy 컴포넌트 가져오기
-      Enemy enemy = other.GetComponent<Enemy>();
-      if ( enemy != null )
+      LivingEntity entity = other.GetComponent<LivingEntity>();
+      if ( entity != null )
       {
-        // 기본 데미지 전달
-        enemy.OnDamage(damage, transform.position, -transform.forward);
+        entity.OnDamage(damage, entity.transform.position, -transform.forward);
 
-        // 불화살 효과 적용
-        if ( fireEffectDuration > 0 )
+        foreach ( var effect in statusEffects )
         {
-          enemy.ApplyFireEffect(fireEffectDuration, fireEffectDamage);
-        }
-
-        // 얼음화살 효과 적용
-        if ( frostEffectDuration > 0 )
-        {
-          enemy.ApplyFrostEffect(frostEffectDuration, frostEffectSlowAmount);
+          //effect.ApplyEffect(entity);  // ✅ LivingEntity에 효과 적용
+          entity.StartCoroutine(effect.ApplyEffect(entity));
         }
       }
+
+      ReturnToPool();
     }
     else if ( other.CompareTag("Wall") )
     {
-      ReturnToPool(); // 벽에 닿아도 풀로 반환
+      ReturnToPool();
     }
   }
 
@@ -76,13 +56,20 @@ public class Bullet : MonoBehaviour
   {
     if ( pool != null )
     {
-      gameObject.SetActive(false); // 풀에 반환되면 비활성화
+      Rigidbody rb = GetComponent<Rigidbody>();
+      if ( rb != null )
+      {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+      }
+
+      gameObject.SetActive(false);
       pool.Release(gameObject);
     }
-    else
-    {
-      Debug.LogWarning($"Bullet {gameObject.name} tried to return to a null pool!");
-    }
+  }
+
+  public void ClearStatusEffects()
+  {
+    statusEffects.Clear();
   }
 }
-
