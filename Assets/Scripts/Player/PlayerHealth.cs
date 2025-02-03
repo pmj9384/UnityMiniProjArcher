@@ -15,6 +15,7 @@ public class PlayerHealth : LivingEntity
   private PlayerShooter shooter;
   private GameManager gm;
 
+
   private void Awake()
   {
     audioSource = GetComponent<AudioSource>();
@@ -56,9 +57,9 @@ public class PlayerHealth : LivingEntity
     audioSource.PlayOneShot(deathClip);
     movement.enabled = false;
     shooter.enabled = false;
+    gm.OnGameOver();
 
-
-    StartCoroutine(ShowGameOverAfterAnimation());
+    // StartCoroutine(ShowGameOverAfterAnimation());
   }
 
   private IEnumerator ShowGameOverAfterAnimation()
@@ -83,6 +84,7 @@ public class PlayerHealth : LivingEntity
     {
       AddHp(20);
     }
+
   }
 
   private void OnTriggerEnter(Collider other)

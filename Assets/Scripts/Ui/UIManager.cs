@@ -31,7 +31,7 @@ public class UiManager : MonoBehaviour
   public void ShowGamePausePanel(bool active)
   {
     pausePanel.SetActive(active);
-    joystick.SetJoystickActive(!active);
+    // joystick.SetJoystickActive(!active);
 
   }
   public void ShowSlotMachinePanel()

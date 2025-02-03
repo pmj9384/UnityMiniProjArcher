@@ -22,7 +22,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
   public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
   {
     Hp -= damage;
-    if ( Hp < 0 )
+    if ( Hp <= 0 )
     {
       Hp = 0;
       Die();

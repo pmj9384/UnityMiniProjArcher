@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
   private void Awake()
   {
     Instance = this;
+    QualitySettings.vSyncCount = 0;
+#if UNITY_ANDROID
+    Application.targetFrameRate = 120;
+#else
+        Application.targetFrameRate = -1;
+#endif
   }
 
   private void Start()
@@ -159,6 +165,7 @@ public class GameManager : MonoBehaviour
   {
     IsGamePause = false;
     Time.timeScale = 1f;
+
     uiManager.HideGamePausePanel();
   }
 

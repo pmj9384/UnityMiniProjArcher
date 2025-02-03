@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71524a3fffe7d418e8ce258063b817ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 99
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 8

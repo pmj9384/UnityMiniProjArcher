@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunData
   m_EditorClassIdentifier: 
   shotClip: {fileID: 0}
-  damage: 25
+  damage: 50
   startAmmoRemain: -1
   magCapacity: 25
   fireRate: 0.1
