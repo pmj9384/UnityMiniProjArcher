@@ -1,0 +1,7 @@
+Mon_ID,Mon_Name,Mon_HP,Mon_Speed,Mon_MoveType,Mon_MoveBeacon,Mon_ATK,Mon_Asset,Mon_DropEXP
+10001,Spider,35,1,0,Chase,2,Spider,10
+10112,Grim_Reaper,35,0.3,1,Wander,2,GrimReaper,15
+10003,Vampire_Bat,25,0.2,1,Chase,2,VampireBat,10
+10014,Mushroom,25,1,0,Surround,2,Mushroom,10
+10115,Golem_Earth,60,0.7,0,Wander,2,GolemEarth,15
+10106,Golem_Fire,60,0.8,0,Wander,2,GolemFire,15

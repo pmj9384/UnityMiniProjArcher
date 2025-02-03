@@ -110,15 +110,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  datas:
-  - {fileID: 11400000, guid: 0fcdf60081f2c4f0a81eef5931147674, type: 2}
+  enemyPrefabs:
+  - monsterID: 10001
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 392437617477607379}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &2328928180145552969
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,15 +169,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  datas:
-  - {fileID: 11400000, guid: 0fcdf60081f2c4f0a81eef5931147674, type: 2}
+  enemyPrefabs:
+  - monsterID: 10001
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 4375863826783319217}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &4033866410606652970
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,15 +278,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  datas:
-  - {fileID: 11400000, guid: 0fcdf60081f2c4f0a81eef5931147674, type: 2}
+  enemyPrefabs:
+  - monsterID: 10001
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 1447051028536717660}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &4839557870988051977
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,15 +377,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  datas:
-  - {fileID: 11400000, guid: 0fcdf60081f2c4f0a81eef5931147674, type: 2}
+  enemyPrefabs:
+  - monsterID: 10001
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 3312182121062568597}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1001 &4445021269514012070
 PrefabInstance:
   m_ObjectHideFlags: 0

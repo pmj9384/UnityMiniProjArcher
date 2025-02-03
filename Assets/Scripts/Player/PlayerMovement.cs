@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
   public float targetRange = 10f;
   private Transform target;
   private Rigidbody rb;
-  private float rotationSpeed = 10f;
+  private float rotationSpeed = 20f;
   private Animator animator;
 
   private void Awake()
