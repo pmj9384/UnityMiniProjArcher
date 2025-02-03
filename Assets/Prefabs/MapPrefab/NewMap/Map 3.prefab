@@ -47,6 +47,16 @@ MonoBehaviour:
   enemyPrefabs:
   - monsterID: 10001
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 5080195136951958041}
 --- !u!1 &842572125746170523
@@ -212,6 +222,16 @@ MonoBehaviour:
   enemyPrefabs:
   - monsterID: 10001
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 7778274296913143001}
 --- !u!1 &4334326271650044840
@@ -260,6 +280,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - monsterID: 10001
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 1515561365916574322}
@@ -349,6 +379,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - monsterID: 10001
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10112
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10003
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10014
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10115
+    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+  - monsterID: 10106
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   spawnPoints:
   - {fileID: 8750619242519991529}
