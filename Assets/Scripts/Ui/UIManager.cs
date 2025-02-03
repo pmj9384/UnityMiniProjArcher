@@ -24,14 +24,16 @@ public class UiManager : MonoBehaviour
 
   public void ShowGameOverPanel(bool active)
   {
+    Debug.Log("Game Over");
     gameOverPanel.SetActive(active);
     joystick.SetJoystickActive(!active);
+
   }
 
   public void ShowGamePausePanel(bool active)
   {
     pausePanel.SetActive(active);
-    // joystick.SetJoystickActive(!active);
+    joystick.SetJoystickActive(!active);
 
   }
   public void ShowSlotMachinePanel()

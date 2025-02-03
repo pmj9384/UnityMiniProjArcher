@@ -54,11 +54,10 @@ public class PlayerHealth : LivingEntity
     healthSlider.gameObject.SetActive(false);
     animator.SetTrigger("Die");
 
-    audioSource.PlayOneShot(deathClip);
     movement.enabled = false;
     shooter.enabled = false;
     gm.OnGameOver();
-
+    audioSource.PlayOneShot(deathClip);
     // StartCoroutine(ShowGameOverAfterAnimation());
   }
 
@@ -98,6 +97,7 @@ public class PlayerHealth : LivingEntity
       {
         OnDamage(enemy.damage, other.transform.position, Vector3.zero);
         Debug.Log("Player hit by zombie!");
+
       }
     }
   }
