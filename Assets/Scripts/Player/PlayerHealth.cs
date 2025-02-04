@@ -15,6 +15,10 @@ public class PlayerHealth : LivingEntity
   private PlayerShooter shooter;
   private GameManager gm;
 
+  private bool isInvincible = false;
+
+  private float invincibilityDuration = 0.25f;
+
 
   private void Awake()
   {
@@ -39,14 +43,21 @@ public class PlayerHealth : LivingEntity
 
   public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
   {
+    if ( isInvincible ) return;
     base.OnDamage(damage, hitPoint, hitNormal);
     healthSlider.value = Hp;
     if ( !IsDead )
     {
       audioSource.PlayOneShot(hitSound);
+      StartCoroutine(StartInvincibility());
     }
   }
-
+  private IEnumerator StartInvincibility()
+  {
+    isInvincible = true;
+    yield return new WaitForSeconds(invincibilityDuration); // 일정 시간 동안 무적 유지
+    isInvincible = false;
+  }
   protected override void Die()
   {
     base.Die();

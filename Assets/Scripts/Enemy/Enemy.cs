@@ -185,7 +185,7 @@ public class Enemy : LivingEntity
     }
 
     GameManager.Instance.DecrementZombieCount();
-    gm?.AddScore(100);
+    //  gm?.AddScore(100);
 
     StartCoroutine(DieRoutine());
   }
@@ -200,14 +200,32 @@ public class Enemy : LivingEntity
 
   private void SetMoveBehavior(int moveType)
   {
+    Debug.Log($"🛠️ {gameObject.name}의 moveType: {moveType}");
+
     switch ( moveType )
     {
-      case 0: moveBehavior = new ChaseMove(); break;
-      case 1: moveBehavior = new WanderMove(); break;
-      case 2: moveBehavior = new TowerMove(); break;
-      default: Debug.LogWarning("알 수 없는 이동 방식입니다."); break;
+      case 0:
+        moveBehavior = new ChaseMove();
+        Debug.Log($"✅ {gameObject.name}: ChaseMove 적용됨");
+        break;
+      case 1:
+        moveBehavior = new WanderMove();
+        Debug.Log($"✅ {gameObject.name}: WanderMove 적용됨");
+        break;
+      case 2:
+        moveBehavior = new TowerMove();
+        Debug.Log($"✅ {gameObject.name}: TowerMove 적용됨");
+        break;
+      case 3:
+        moveBehavior = new ChaseDash();
+        Debug.Log($"🚀 {gameObject.name}: ChaseDash 적용됨!");
+        break;
+      default:
+        Debug.LogWarning($"❌ {gameObject.name}: 알 수 없는 이동 방식 ({moveType})");
+        break;
     }
   }
+
 
   private void SetAttackBehavior(int monsterID)
   {
@@ -247,6 +265,12 @@ public class Enemy : LivingEntity
   public float GetSpeed()
   {
     return agent != null ? agent.speed : 0f; // ✅ NavMeshAgent 속도 반환
+  }
+
+  // 🔥 추가: 코루틴 실행을 위한 인터페이스
+  public void RunCoroutine(IEnumerator coroutine)
+  {
+    StartCoroutine(coroutine);
   }
 
 }

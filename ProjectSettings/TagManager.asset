@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - PausePanel
   - InvisibleWall
+  - AirUnit
   layers:
   - Default
   - TransparentFX
