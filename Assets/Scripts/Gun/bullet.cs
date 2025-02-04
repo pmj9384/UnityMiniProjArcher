@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
 
   private void OnTriggerEnter(Collider other)
   {
-    if ( other.CompareTag("Enemy") || other.CompareTag("AirUnit") || other.CompareTag("Player") )
+    if ( other.CompareTag("Enemy") || other.CompareTag("GrimReaper") || other.CompareTag("AirUnit") || other.CompareTag("Player") )
     {
       LivingEntity entity = other.GetComponent<LivingEntity>();
       if ( entity != null )

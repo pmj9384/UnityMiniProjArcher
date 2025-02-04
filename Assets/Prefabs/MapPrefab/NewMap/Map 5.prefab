@@ -114,7 +114,7 @@ MonoBehaviour:
   - monsterID: 10001
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   - monsterID: 10112
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
   - monsterID: 10003
     prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
   - monsterID: 10014
@@ -173,7 +173,7 @@ MonoBehaviour:
   - monsterID: 10001
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   - monsterID: 10112
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
   - monsterID: 10003
     prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
   - monsterID: 10014
@@ -282,7 +282,7 @@ MonoBehaviour:
   - monsterID: 10001
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   - monsterID: 10112
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
   - monsterID: 10003
     prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
   - monsterID: 10014
@@ -381,7 +381,7 @@ MonoBehaviour:
   - monsterID: 10001
     prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
   - monsterID: 10112
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
+    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
   - monsterID: 10003
     prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
   - monsterID: 10014

@@ -6,7 +6,7 @@ public class ChaseDash : IMoveBehavior
   public float chaseSpeed = 2.0f;   // 기본 추적 속도
   public float dashSpeed = 5.0f;    // 돌진 속도
   public float dashDuration = 1f; // 돌진 지속 시간
-  public float cooldown = 5.0f;     // 돌진 후 대기 시간
+  public float cooldown = 2.0f;     // 돌진 후 대기 시간
   public float prepTime = 1.0f;     // 🔥 돌진 준비 시간 (1초로 증가)
 
   private Transform player;

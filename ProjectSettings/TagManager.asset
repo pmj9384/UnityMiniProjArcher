@@ -13,6 +13,7 @@ TagManager:
   - PausePanel
   - InvisibleWall
   - AirUnit
+  - GrimReaper
   layers:
   - Default
   - TransparentFX

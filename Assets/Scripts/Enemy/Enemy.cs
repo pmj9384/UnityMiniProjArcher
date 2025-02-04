@@ -229,13 +229,32 @@ public class Enemy : LivingEntity
 
   private void SetAttackBehavior(int monsterID)
   {
+    // ✅ 기존 컴포넌트 찾기 (Inspector에서 설정한 것 유지)
+    attackBehavior = GetComponent<IAttackBehavior>();
+
     switch ( monsterID )
     {
-      case 10001: attackBehavior = gameObject.AddComponent<SpiderAttack>(); break;
-      case 10112: attackBehavior = gameObject.AddComponent<ReaperAttack>(); break;
-      default: Debug.LogWarning("알 수 없는 공격 방식입니다."); break;
+      case 10001:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<SpiderAttack>();
+        break;
+      case 10112:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<ReaperAttack>();
+        break;
+      default:
+        Debug.LogWarning($"❌ {gameObject.name}: 알 수 없는 공격 방식 (ID: {monsterID})");
+        break;
+    }
+
+    if ( attackBehavior == null )
+    {
+      Debug.LogError($"❌ {gameObject.name}: 공격 방식이 설정되지 않음!");
+    }
+    else
+    {
+      Debug.Log($"✅ {gameObject.name}: 공격 방식 설정됨 → {attackBehavior.GetType().Name}");
     }
   }
+
   public void AddHitEffect(ParticleSystem effectPrefab)
   {
     if ( !hitEffects.Contains(effectPrefab) ) // 중복 추가 방지

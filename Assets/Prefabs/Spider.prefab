@@ -210,16 +210,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   findTargetDistance: 10
+  expPrefab: {fileID: 6418151353576218072, guid: 6213a915aecea45c1ba8cb3c89ee0fcb, type: 3}
+  experienceValue: 10
   hitEffects:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   hitSound: {fileID: 8300000, guid: fce027b40770a44298a6f5a4233bfb04, type: 3}
   deathSound: {fileID: 8300000, guid: 8c615fd0429f34edf85539d70279360d, type: 3}
-  expPrefab: {fileID: 6418151353576218072, guid: 6213a915aecea45c1ba8cb3c89ee0fcb, type: 3}
-  experienceValue: 10
-  damage: 20
-  timeBetAttack: 0.5
 --- !u!54 &5794989146868623614
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -245,7 +243,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!65 &6710791533787035027
 BoxCollider:
