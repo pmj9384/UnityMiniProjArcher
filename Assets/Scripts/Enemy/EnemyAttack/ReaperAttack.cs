@@ -61,5 +61,6 @@ public class ReaperAttack : MonoBehaviour, IAttackBehavior
     Vector3 directionToPlayer = ( player.position - transform.position ).normalized;
     directionToPlayer.y = 0; // Y축 회전만 반영
     transform.rotation = Quaternion.LookRotation(directionToPlayer);
+
   }
 }

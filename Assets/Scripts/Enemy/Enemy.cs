@@ -85,26 +85,24 @@ public class Enemy : LivingEntity
 
   private void Update()
   {
-    // 이동 및 공격 실행
-    moveBehavior?.Move(agent, targetEntity?.transform);
-    attackBehavior?.Attack();
-
-    // 애니메이션 업데이트
-    animator.SetBool("HasTarget", hasTarget);
-    animator.SetFloat("Speed", agent.velocity.magnitude);
-    if ( !isAttacking )
+    if ( !isAttacking ) // ✅ 공격 중이 아닐 때만 이동하도록 수정
     {
       moveBehavior?.Move(agent, targetEntity?.transform);
     }
 
-    attackBehavior?.Attack();
+    attackBehavior?.Attack(); // ✅ 공격 호출은 한 번만 실행
+
+    // ✅ 애니메이션 상태 업데이트
+    animator.SetBool("HasTarget", hasTarget);
+    animator.SetFloat("Speed", agent.velocity.magnitude);
   }
+
   public void StartAttack()
   {
     isAttacking = true;
     agent.isStopped = true;
-    agent.ResetPath();
-    agent.velocity = Vector3.zero;
+    agent.ResetPath(); // ✅ 현재 이동 경로 제거
+    agent.velocity = Vector3.zero; // ✅ 이동 즉시 멈춤
   }
 
   public void StopAttack()

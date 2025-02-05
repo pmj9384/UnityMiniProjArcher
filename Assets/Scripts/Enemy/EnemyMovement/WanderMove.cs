@@ -4,8 +4,8 @@ using UnityEngine.AI;
 public class WanderMove : IMoveBehavior
 {
   private float wanderRadius = 10f;
-  private float wanderInterval = 5f; // 이동 간격 (5초)
-  private float stopDuration = 1.5f; // 멈추는 시간 (1.5초)
+  private float wanderInterval = 3f; // 이동 간격 (5초)
+  private float stopDuration = 2.5f; // 멈추는 시간 (2.5초)
 
   private float nextMoveTime = 0f;
   private bool isStopped = false;
@@ -14,14 +14,27 @@ public class WanderMove : IMoveBehavior
   public void Move(NavMeshAgent agent, Transform target)
   {
     Enemy enemy = agent.GetComponent<Enemy>(); // 🔥 Enemy 스크립트 가져오기
+    if ( enemy == null )
+    {
+      Debug.LogError($"{agent.gameObject.name}: Enemy 컴포넌트를 찾을 수 없음!");
+      return;
+    }
+
+    // 🔥 공격 중이면 이동 중지
+    if ( enemy.IsAttacking )
+    {
+      agent.isStopped = true; // ✅ 이동 멈춤
+      return;
+    }
+
     if ( Time.time >= nextMoveTime )
     {
-      if ( !isStopped ) // 🔥 1.5초 멈춘 후 이동 시작
+      if ( !isStopped ) // 🔥 2.5초 멈춘 후 이동 시작
       {
         agent.isStopped = true; // ✅ 이동 멈춤
         isStopped = true;
         nextMoveTime = Time.time + stopDuration;
-        Debug.Log($"🛑 {agent.gameObject.name}: 이동 멈춤 (1.5초 대기)");
+        Debug.Log($"🛑 {agent.gameObject.name}: 이동 멈춤 (2.5초 대기)");
       }
       else // 🔥 멈춘 후 랜덤 이동 시작
       {

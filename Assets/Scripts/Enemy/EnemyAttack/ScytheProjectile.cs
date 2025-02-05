@@ -74,9 +74,19 @@ public class ScytheProjectile : MonoBehaviour
   {
     if ( other.CompareTag("Wall") )
     {
-      // 벽에 닿으면 되돌아가기 시작
+      // 벽에 닿으면 즉시 되돌아가기 시작
       returning = true;
       Debug.Log("🔄 낫이 벽에 부딪힘 → 되돌아가기 시작!");
+
+      if ( reaper != null )
+      {
+        Vector3 returnDirection = ( reaper.position - transform.position ).normalized;
+        rb.velocity = returnDirection * returnSpeed;
+      }
+      else
+      {
+        Debug.LogError("❌ Grim Reaper가 설정되지 않음! 낫이 돌아갈 수 없음.");
+      }
     }
 
     if ( returning && other.CompareTag("GrimReaper") )
