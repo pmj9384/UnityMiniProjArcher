@@ -3,5 +3,5 @@ Mon_ID,Mon_Name,Mon_HP,Mon_Speed,Mon_MoveType,Mon_MoveBeacon,Mon_ATK,Mon_Asset,M
 10112,Grim_Reaper,35,1,1,Wander,20,GrimReaper,15
 10003,Vampire_Bat,25,1.2,3,Dash,20,VampireBat,10
 10014,Mushroom,25,1,2,Surround,20,Mushroom,10
-10115,Golem_Earth,60,0.7,1,Wander,20,GolemEarth,15
+10115,Golem_Earth,60,1.7,1,Wander,20,GolemEarth,15
 10106,Golem_Fire,60,0.8,1,Wander,20,GolemFire,15

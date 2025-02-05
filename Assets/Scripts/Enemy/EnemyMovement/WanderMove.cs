@@ -13,6 +13,7 @@ public class WanderMove : IMoveBehavior
 
   public void Move(NavMeshAgent agent, Transform target)
   {
+    Enemy enemy = agent.GetComponent<Enemy>(); // 🔥 Enemy 스크립트 가져오기
     if ( Time.time >= nextMoveTime )
     {
       if ( !isStopped ) // 🔥 1.5초 멈춘 후 이동 시작
@@ -30,7 +31,6 @@ public class WanderMove : IMoveBehavior
         if ( newDestination != Vector3.zero )
         {
           agent.SetDestination(newDestination);
-          Debug.Log($"🚶 {agent.gameObject.name}: 새로운 목적지 {newDestination}");
         }
         else
         {

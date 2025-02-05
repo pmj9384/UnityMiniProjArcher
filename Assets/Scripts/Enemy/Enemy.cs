@@ -29,7 +29,13 @@ public class Enemy : LivingEntity
 
   // 동적 이동 및 공격 방식
   private IMoveBehavior moveBehavior; // 이동 방식 인터페이스
-  private IAttackBehavior attackBehavior; // 공격 방식 인터페이스
+
+  private bool isAttacking = false;
+  public bool IsAttacking
+  {
+    get { return isAttacking; }
+  }
+  public IAttackBehavior attackBehavior; // 공격 방식 인터페이스
 
   private void Awake()
   {
@@ -86,7 +92,27 @@ public class Enemy : LivingEntity
     // 애니메이션 업데이트
     animator.SetBool("HasTarget", hasTarget);
     animator.SetFloat("Speed", agent.velocity.magnitude);
+    if ( !isAttacking )
+    {
+      moveBehavior?.Move(agent, targetEntity?.transform);
+    }
+
+    attackBehavior?.Attack();
   }
+  public void StartAttack()
+  {
+    isAttacking = true;
+    agent.isStopped = true;
+    agent.ResetPath();
+    agent.velocity = Vector3.zero;
+  }
+
+  public void StopAttack()
+  {
+    isAttacking = false;
+    agent.isStopped = false; // ✅ 공격이 끝나면 다시 이동 가능
+  }
+
 
   private bool hasTarget => targetEntity != null && !targetEntity.IsDead;
 
@@ -198,6 +224,11 @@ public class Enemy : LivingEntity
 
   public void ModifySpeed(float newSpeed) => agent.speed = Mathf.Max(0, newSpeed);
 
+  public IMoveBehavior GetMoveBehavior()
+  {
+    return moveBehavior;
+  }
+
   private void SetMoveBehavior(int moveType)
   {
     Debug.Log($"🛠️ {gameObject.name}의 moveType: {moveType}");
@@ -239,6 +270,15 @@ public class Enemy : LivingEntity
         break;
       case 10112:
         if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<ReaperAttack>();
+        break;
+      case 10014:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<MushroomAttack>();
+        break;
+      case 10115:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<GolemEarthAttack>();
+        break;
+      case 10106:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<GolemFireAttack>();
         break;
       default:
         Debug.LogWarning($"❌ {gameObject.name}: 알 수 없는 공격 방식 (ID: {monsterID})");
