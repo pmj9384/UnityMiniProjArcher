@@ -3374,6 +3374,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 845486353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1687483992860611097
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524329411463826873, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2297731856003021416, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: expPrefab
+      value: 
+      objectReference: {fileID: 6418151353576218072, guid: 6213a915aecea45c1ba8cb3c89ee0fcb, type: 3}
+    - target: {fileID: 2297731856003021416, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: whatIsTarget.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2297731856003021416, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: hitEffects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439824476595921678, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_Name
+      value: Spider King
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439824476595921678, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdb69efcea98b4b5a8ec255a9741db0e, type: 3}
 --- !u!1001 &5265519882000222776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3937,3 +4010,4 @@ SceneRoots:
   - {fileID: 738293055}
   - {fileID: 601494728}
   - {fileID: 1833871740}
+  - {fileID: 1687483992860611097}

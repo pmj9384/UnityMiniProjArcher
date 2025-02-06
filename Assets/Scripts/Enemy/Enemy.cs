@@ -249,6 +249,12 @@ public class Enemy : LivingEntity
         moveBehavior = new ChaseDash();
         Debug.Log($"🚀 {gameObject.name}: ChaseDash 적용됨!");
         break;
+
+      case 4:
+        moveBehavior = new BossMove();
+        Debug.Log($"🚀 {gameObject.name}: BossMove 적용됨!");
+        break;
+
       default:
         Debug.LogWarning($"❌ {gameObject.name}: 알 수 없는 이동 방식 ({moveType})");
         break;
@@ -277,6 +283,9 @@ public class Enemy : LivingEntity
         break;
       case 10106:
         if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<GolemFireAttack>();
+        break;
+      case 11007:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<QueenSpiderAttack>();
         break;
       default:
         Debug.LogWarning($"❌ {gameObject.name}: 알 수 없는 공격 방식 (ID: {monsterID})");

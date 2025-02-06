@@ -97,4 +97,35 @@ public class EnemySpawner : MonoBehaviour
     }
     return null;
   }
+  public void SpawnEnemyAtPoint(int monsterID, Vector3 spawnPosition)
+  {
+    if ( monsterDatabase == null )
+    {
+      Debug.LogError("MonsterDatabase가 설정되지 않음!");
+      return;
+    }
+
+    MonsterData data = monsterDatabase.GetMonsterData(monsterID);
+    if ( data == null )
+    {
+      Debug.LogWarning($"몬스터 ID {monsterID}에 해당하는 데이터가 없음.");
+      return;
+    }
+
+    Enemy prefab = GetPrefabByMonsterID(monsterID);
+    if ( prefab == null )
+    {
+      Debug.LogWarning($"몬스터 ID {monsterID}에 대한 프리팹이 설정되지 않음.");
+      return;
+    }
+
+    // 적 생성
+    Enemy enemy = Instantiate(prefab, spawnPosition, Quaternion.identity);
+    enemy.Initialize(monsterID); // ✅ Monster ID로 초기화
+    enemy.whatIsTarget = LayerMask.GetMask("Player");
+    GameManager.Instance.IncrementZombieCount();
+
+    Debug.Log($"✅ 몬스터 ID {monsterID} 소환 완료: {enemy.name}");
+  }
+
 }
