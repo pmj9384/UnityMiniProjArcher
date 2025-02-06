@@ -36,18 +36,22 @@ public class MonsterDatabase : MonoBehaviour
     // ✅ CSV 데이터를 줄 단위로 읽기
     string[] lines = csvFile.text.Split('\n');
 
-    Debug.Log($"CSV 데이터 줄 수: {lines.Length}");
+    Debug.Log($"📄 CSV 데이터 줄 수: {lines.Length}");
 
-    for ( int i = 2; i < lines.Length; i++ ) // 데이터는 2번째 줄부터 시작
+    for ( int i = 1; i < lines.Length; i++ ) // ✅ i = 1로 변경 (헤더 제외)
     {
-      string[] values = lines[i].Split(','); // ✅ 쉼표(,) 대신 탭(\t)으로 분리
+      string line = lines[i].Trim(); // ✅ 공백 제거
+      if ( string.IsNullOrEmpty(line) ) continue; // ✅ 빈 줄 방지
+
+      string[] values = line.Split(',');
 
       if ( values.Length < 9 )
       {
-        Debug.LogWarning($"잘못된 데이터 줄 ({i}): {lines[i]}");
+        Debug.LogWarning($"⚠️ 잘못된 데이터 줄 ({i}): {lines[i]}");
         continue;
       }
 
+      // ✅ 몬스터 데이터 생성
       MonsterData monster = new MonsterData
       {
         id = int.Parse(values[0].Trim()),
@@ -61,19 +65,27 @@ public class MonsterDatabase : MonoBehaviour
         dropExp = int.Parse(values[8].Trim())
       };
 
-      monsterDataDict.Add(monster.id, monster);
+      // ✅ 중복 방지: Dictionary에 같은 ID가 있으면 추가 안 함
+      if ( !monsterDataDict.ContainsKey(monster.id) )
+      {
+        monsterDataDict.Add(monster.id, monster);
+        Debug.Log($"✅ 몬스터 추가: {monster.id} - {monster.name}");
+      }
+      else
+      {
+        Debug.LogWarning($"⚠️ 중복된 몬스터 ID 발견: {monster.id} → 스킵됨!");
+      }
     }
 
-    Debug.Log($"몬스터 데이터 {monsterDataDict.Count}개 로드 완료!");
+    Debug.Log($"🎉 몬스터 데이터 로드 완료: 총 {monsterDataDict.Count}개");
   }
-
 
   public MonsterData GetMonsterData(int id)
   {
     if ( monsterDataDict.ContainsKey(id) )
       return monsterDataDict[id];
 
-    Debug.LogWarning($"ID {id}에 해당하는 몬스터가 없습니다.");
+    Debug.LogWarning($"❌ ID {id}에 해당하는 몬스터가 없습니다.");
     return null;
   }
 }

@@ -5,4 +5,4 @@ Mon_ID,Mon_Name,Mon_HP,Mon_Speed,Mon_MoveType,Mon_MoveBeacon,Mon_ATK,Mon_Asset,M
 10014,Mushroom,25,1,2,Surround,20,Mushroom,10
 10115,Golem_Earth,60,1.7,1,Wander,20,GolemEarth,15
 10106,Golem_Fire,60,0.8,2,Surround,20,GolemFire,15
-11007,Queen_Spider,1000,0,4,BossMove,20,SpiderKing,0
+11007,Queen_Spider,900,1,4,BossMove,20,SpiderKing,0

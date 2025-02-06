@@ -22,8 +22,9 @@ public class Enemy : LivingEntity
   public List<ParticleSystem> hitEffects = new List<ParticleSystem>();
   public AudioClip hitSound;
   public AudioClip deathSound;
-  public float damage { get; set; }
 
+  public float damage { get; set; }
+  private float currentHp;
   private StatusEffectManager statusEffectManager; // 상태 효과
   private GameManager gm;
 
@@ -57,6 +58,7 @@ public class Enemy : LivingEntity
     agent = GetComponent<NavMeshAgent>();
     // ✅ 몬스터 속성 적용
     maxHp = data.hp;
+    currentHp = maxHp;
     damage = data.attack;
     agent.speed = data.speed;
     experienceValue = data.dropExp;
@@ -85,6 +87,7 @@ public class Enemy : LivingEntity
 
   private void Update()
   {
+
     if ( !isAttacking ) // ✅ 공격 중이 아닐 때만 이동하도록 수정
     {
       moveBehavior?.Move(agent, targetEntity?.transform);
@@ -95,6 +98,7 @@ public class Enemy : LivingEntity
     // ✅ 애니메이션 상태 업데이트
     animator.SetBool("HasTarget", hasTarget);
     animator.SetFloat("Speed", agent.velocity.magnitude);
+
   }
 
   public void StartAttack()
@@ -158,9 +162,11 @@ public class Enemy : LivingEntity
   public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
   {
     if ( IsDead ) return;
-
+    currentHp -= damage;
+    if ( currentHp < 0 ) currentHp = 0;
     base.OnDamage(damage, hitPoint, hitNormal);
 
+    UpdateHealthBar();
     foreach ( var effect in hitEffects )
     {
       if ( effect != null )
@@ -337,6 +343,23 @@ public class Enemy : LivingEntity
   public void RunCoroutine(IEnumerator coroutine)
   {
     StartCoroutine(coroutine);
+  }
+  public float GetCurrentHealth()
+  {
+    return currentHp; // 🔥 현재 체력 반환
+  }
+
+  public float GetMaxHealth()
+  {
+    return maxHp; // 🔥 최대 체력 반환
+  }
+  private void UpdateHealthBar()
+  {
+    BossHealthBar bossHealthBar = FindObjectOfType<BossHealthBar>(); // ✅ 체력바 찾기
+    if ( bossHealthBar != null )
+    {
+      bossHealthBar.UpdateHealth(currentHp); // ✅ 체력 업데이트 호출
+    }
   }
 
 }

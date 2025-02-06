@@ -38,7 +38,7 @@ public class GolemEarthAttack : MonoBehaviour, IAttackBehavior
   {
     while ( isAttacking )
     {
-      // animator?.SetTrigger("AttackLoop"); // 🔥 2초마다 애니메이션 실행
+      animator?.SetTrigger("Attack"); // 🔥 2초마다 애니메이션 실행
       yield return new WaitForSeconds(2f);
     }
   }

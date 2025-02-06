@@ -75,7 +75,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 392437617477607379}
-  - component: {fileID: 5772236088052258806}
+  - component: {fileID: 7204973632509209614}
   m_Layer: 0
   m_Name: SpawnPoint (1)
   m_TagString: Untagged
@@ -98,7 +98,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3128562425605194830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5772236088052258806
+--- !u!114 &7204973632509209614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,24 +107,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1543307947103837093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c2cf444a918a4bbc89d9d55e692a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - monsterID: 10001
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  - monsterID: 10112
-    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
-  - monsterID: 10003
-    prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
-  - monsterID: 10014
-    prefab: {fileID: 8881847590865104631, guid: 82dd4b3e48ff1974f92d0019f58a4f24, type: 3}
-  - monsterID: 10115
-    prefab: {fileID: 213324357834723161, guid: 812ddbf09810e754bbf24d7bbd9f760b, type: 3}
-  - monsterID: 10106
-    prefab: {fileID: 1141297607176018223, guid: 79bfc281e0ec24f1584c05ff48bddc79, type: 3}
-  spawnPoints:
-  - {fileID: 392437617477607379}
+  monsterID: 10001
 --- !u!1 &2328928180145552969
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4375863826783319217}
-  - component: {fileID: 7213158297109784893}
+  - component: {fileID: 6296711979910766615}
   m_Layer: 0
   m_Name: SpawnPoint (2)
   m_TagString: Untagged
@@ -157,7 +143,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3128562425605194830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7213158297109784893
+--- !u!114 &6296711979910766615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,24 +152,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2328928180145552969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c2cf444a918a4bbc89d9d55e692a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - monsterID: 10001
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  - monsterID: 10112
-    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
-  - monsterID: 10003
-    prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
-  - monsterID: 10014
-    prefab: {fileID: 8881847590865104631, guid: 82dd4b3e48ff1974f92d0019f58a4f24, type: 3}
-  - monsterID: 10115
-    prefab: {fileID: 213324357834723161, guid: 812ddbf09810e754bbf24d7bbd9f760b, type: 3}
-  - monsterID: 10106
-    prefab: {fileID: 1141297607176018223, guid: 79bfc281e0ec24f1584c05ff48bddc79, type: 3}
-  spawnPoints:
-  - {fileID: 4375863826783319217}
+  monsterID: 10001
 --- !u!1 &4033866410606652970
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1447051028536717660}
-  - component: {fileID: 2077344321938629739}
+  - component: {fileID: 2303329244469927375}
   m_Layer: 0
   m_Name: SpawnPoint (4)
   m_TagString: Untagged
@@ -266,7 +238,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3128562425605194830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2077344321938629739
+--- !u!114 &2303329244469927375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,24 +247,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4827889111371675742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c2cf444a918a4bbc89d9d55e692a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - monsterID: 10001
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  - monsterID: 10112
-    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
-  - monsterID: 10003
-    prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
-  - monsterID: 10014
-    prefab: {fileID: 8881847590865104631, guid: 82dd4b3e48ff1974f92d0019f58a4f24, type: 3}
-  - monsterID: 10115
-    prefab: {fileID: 213324357834723161, guid: 812ddbf09810e754bbf24d7bbd9f760b, type: 3}
-  - monsterID: 10106
-    prefab: {fileID: 1141297607176018223, guid: 79bfc281e0ec24f1584c05ff48bddc79, type: 3}
-  spawnPoints:
-  - {fileID: 1447051028536717660}
+  monsterID: 10001
 --- !u!1 &4839557870988051977
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3312182121062568597}
-  - component: {fileID: 5040511149754516210}
+  - component: {fileID: 2727641277750328291}
   m_Layer: 0
   m_Name: SpawnPoint (3)
   m_TagString: Untagged
@@ -365,7 +323,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3128562425605194830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5040511149754516210
+--- !u!114 &2727641277750328291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,24 +332,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8841514664057712229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad078eac5a50b41249b246babc80f4af, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c2cf444a918a4bbc89d9d55e692a2fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - monsterID: 10001
-    prefab: {fileID: 8224946401107171718, guid: 68656dd1213e448de9d70f2baee33e99, type: 3}
-  - monsterID: 10112
-    prefab: {fileID: 1946463494729356605, guid: 57291e0f4de835749a0705d7c4a04c34, type: 3}
-  - monsterID: 10003
-    prefab: {fileID: -4039322030339575691, guid: ad33f663ccb976944b5d6b42a39ac86a, type: 3}
-  - monsterID: 10014
-    prefab: {fileID: 8881847590865104631, guid: 82dd4b3e48ff1974f92d0019f58a4f24, type: 3}
-  - monsterID: 10115
-    prefab: {fileID: 213324357834723161, guid: 812ddbf09810e754bbf24d7bbd9f760b, type: 3}
-  - monsterID: 10106
-    prefab: {fileID: 1141297607176018223, guid: 79bfc281e0ec24f1584c05ff48bddc79, type: 3}
-  spawnPoints:
-  - {fileID: 3312182121062568597}
+  monsterID: 10001
 --- !u!1001 &4445021269514012070
 PrefabInstance:
   m_ObjectHideFlags: 0
