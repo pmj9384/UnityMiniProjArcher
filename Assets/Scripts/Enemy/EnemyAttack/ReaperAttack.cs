@@ -8,7 +8,7 @@ public class ReaperAttack : MonoBehaviour, IAttackBehavior
   private float lastAttackTime;
   private Transform player;
   private Animator animator;
- 
+
   private void Start()
   {
     player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -40,13 +40,11 @@ public class ReaperAttack : MonoBehaviour, IAttackBehavior
 
     // ✅ 회전하는 낫 생성
     GameObject scythe = Instantiate(scytheProjectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
-    Rigidbody rb = scythe.GetComponent<Rigidbody>();
+    ScytheProjectile scytheScript = scythe.GetComponent<ScytheProjectile>();
 
-    if ( rb != null )
+    if ( scytheScript != null )
     {
-      // 🔥 투사체도 플레이어 방향으로 회전
-      scythe.transform.rotation = Quaternion.LookRotation(direction);
-      rb.velocity = direction * 10f; // 원하는 속도로 조정
+      scytheScript.Initialize(direction, transform); // 🔥 Grim Reaper(자기 자신) 넘겨줌
     }
 
     lastAttackTime = Time.time;
@@ -61,6 +59,5 @@ public class ReaperAttack : MonoBehaviour, IAttackBehavior
     Vector3 directionToPlayer = ( player.position - transform.position ).normalized;
     directionToPlayer.y = 0; // Y축 회전만 반영
     transform.rotation = Quaternion.LookRotation(directionToPlayer);
-
   }
 }
