@@ -59,11 +59,28 @@ public class BossMove : IMoveBehavior
   {
     float dashTime = 2f;
     float dashSpeed = agent.speed * 8f;
+    float stopDistance = 1000.0f; // 🔥 벽과 이 거리 이내로 가까워지면 멈추도록 설정
 
     float elapsedTime = 0f;
 
     while ( elapsedTime < dashTime )
     {
+      Vector3 nextPosition = agent.transform.position + dashDirection * dashSpeed * Time.deltaTime;
+
+      // 🔥 NavMesh.Raycast()를 사용하여 다음 위치가 벽인지 체크
+      NavMeshHit hit;
+      if ( NavMesh.Raycast(agent.transform.position, nextPosition, out hit, NavMesh.AllAreas) )
+      {
+        float distanceToWall = Vector3.Distance(agent.transform.position, hit.position);
+
+        // 벽과 일정 거리(1m 이하)라면 돌진 중단
+        if ( distanceToWall <= stopDistance )
+        {
+          Debug.Log($"{agent.gameObject.name}: 벽과 {distanceToWall}m 남음! 돌진 중단!");
+          break;
+        }
+      }
+
       agent.Move(dashDirection * dashSpeed * Time.deltaTime);
       elapsedTime += Time.deltaTime;
       yield return null;
@@ -76,7 +93,7 @@ public class BossMove : IMoveBehavior
     isDashing = false;
 
     // 🔥 돌진 후 다시 플레이어 방향으로 회전
-    float postDashRotationTime = 1.0f; // 🔥 돌진 후 1초 동안 회전
+    float postDashRotationTime = 1.0f;
     elapsedTime = 0f;
     while ( elapsedTime < postDashRotationTime )
     {
@@ -120,4 +137,9 @@ public class BossMove : IMoveBehavior
       }
     }
   }
+  public bool IsDashing()
+  {
+    return isDashing;
+  }
+
 }

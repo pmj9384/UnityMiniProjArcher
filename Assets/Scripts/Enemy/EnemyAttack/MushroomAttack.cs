@@ -26,9 +26,7 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
   {
     if ( Time.time - lastAttackTime < attackCooldown ) return;
     if ( player == null || projectileSpawnPoint == null || projectilePrefab == null ) return;
-
-//    animator?.SetTrigger("Attack");
-
+    animator?.SetTrigger("Attack");
     // 🔥 버섯이 플레이어 방향을 바라보도록 회전
     Vector3 directionToPlayer = ( player.position - transform.position ).normalized;
     directionToPlayer.y = 0; // Y축 고정 (땅에서 회전하도록)
@@ -47,7 +45,7 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
       Vector3 launchDirection = CalculateLaunchVelocity(projectileSpawnPoint.position, targetPosition, arcHeight);
       rb.velocity = launchDirection;
     }
-
+    
     lastAttackTime = Time.time;
     Debug.Log($"🍄 {gameObject.name}: 공격! 버섯이 플레이어 방향으로 회전 후 투사체 발사");
   }
@@ -61,6 +59,7 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
       Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
       transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3f); // 부드러운 회전
     }
+
   }
 
 

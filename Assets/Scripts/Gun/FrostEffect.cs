@@ -15,7 +15,6 @@ public class FrostEffect : IStatusEffect
     this.tickDamage = tickDamage;
     this.frostEffectPrefab = effectPrefab;
   }
-
   public IEnumerator ApplyEffect(LivingEntity entity)
   {
     if ( entity == null || entity.IsDead ) yield break;
@@ -26,16 +25,31 @@ public class FrostEffect : IStatusEffect
       Debug.Log("❄️ 얼음 효과 적용 및 0.1 데미지 추가!");
       enemy.AddHitEffect(frostEffectPrefab);
 
-      float originalSpeed = enemy.GetSpeed();
-      enemy.ModifySpeed(originalSpeed - slowAmount);
+      IMoveBehavior moveBehavior = enemy.GetMoveBehavior();
+      BossMove bossMove = moveBehavior as BossMove;
 
-      // ✅ 첫 번째 적중 시 0.1의 미세한 데미지 적용 (파티클 트리거)
+      bool isBossDashing = bossMove != null && bossMove.IsDashing();
+
+      float originalSpeed = enemy.GetSpeed();
+
+      if ( !isBossDashing )
+      {
+        enemy.ModifySpeed(originalSpeed - slowAmount);
+      }
+
       entity.OnDamage(tickDamage, entity.transform.position, Vector3.zero);
 
       yield return new WaitForSeconds(duration);
 
-      enemy.ModifySpeed(originalSpeed);
+      if ( !isBossDashing )
+      {
+        enemy.ModifySpeed(originalSpeed);
+      }
+
       enemy.RemoveHitEffect(frostEffectPrefab);
     }
   }
+
+
+
 }
