@@ -20,15 +20,16 @@ public class PlayerMovement : MonoBehaviour
     Cursor.lockState = CursorLockMode.None;
     Cursor.visible = true;
 
-    // 🔥 Rigidbody 설정 변경 (벽에 끼임 방지)
-    rb.freezeRotation = true; // 회전 방지
-    rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // 빠른 충돌 감지
+    // 🔥 Rigidbody 설정 (떨림 방지 + 부드러운 이동)
+    rb.freezeRotation = true; // 물리 충돌로 인한 회전 방지
+    rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // 빠른 충돌 감지
+    rb.interpolation = RigidbodyInterpolation.Interpolate; // 🔥 부드러운 물리 이동
+    rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // 🔥 불필요한 축 회전 방지
   }
 
   private void Update()
   {
     HandleTargeting();
-    CheckPlayerPosition(); // 🔥 벽에 끼이면 자동 복구
   }
 
   private void FixedUpdate()
@@ -43,21 +44,18 @@ public class PlayerMovement : MonoBehaviour
     if ( joystickInput.sqrMagnitude > 0.01f )
     {
       Vector3 moveInput = new Vector3(joystickInput.x, 0f, joystickInput.y).normalized;
-      Vector3 moveDirection = moveInput * speed;
+      Vector3 moveDirection = moveInput * speed * Time.fixedDeltaTime;
 
-      // 🔥 벽 감지 후 이동 제한
-      if ( IsWallAhead(moveDirection) )
-      {
-        moveDirection = Vector3.zero; // 벽 감지 시 이동 차단
-      }
+      // 🔥 벽 감지 및 이동 보정
+      moveDirection = AdjustMovementWithWall(rb.position, moveDirection);
 
-      rb.AddForce(moveDirection, ForceMode.VelocityChange); // 🔥 부드러운 이동
+      rb.MovePosition(rb.position + moveDirection); // 🔥 이동 적용
+
       animator.SetBool("Walk", true);
       RotateTowardsDirection(moveInput);
     }
     else
     {
-      rb.velocity = Vector3.zero; // 🔥 멈출 때 물리적 이동도 멈추기
       animator.SetBool("Walk", false);
       RotateTowardsTarget();
     }
@@ -136,27 +134,27 @@ public class PlayerMovement : MonoBehaviour
     return target;
   }
 
-  // 🔥 벽 감지 후 이동 제한 (밀리는 문제 해결)
-  private bool IsWallAhead(Vector3 moveDirection)
+  // 🔥 벽 충돌 감지 및 이동 제한 적용 (벽 앞에서 멈추기)
+  private Vector3 AdjustMovementWithWall(Vector3 position, Vector3 moveDirection)
   {
-    RaycastHit hit;
-    if ( Physics.Raycast(rb.position, moveDirection, out hit, 0.5f, wallLayer) )
-    {
-      return true; // 벽 감지 → 이동 금지
-    }
-    return false;
-  }
+    float checkDistance = 0.6f; // 🔥 벽 감지 거리 (적절히 조정 가능)
 
-  // 🔥 플레이어가 벽에 끼이면 자동 복구 (맵 밖으로 나가지 않도록 방지)
-  private void CheckPlayerPosition()
-  {
-    if ( !Physics.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Ground")) )
+    RaycastHit hit;
+    if ( Physics.Raycast(position, moveDirection.normalized, out hit, checkDistance, wallLayer) )
     {
-      Debug.Log($"{gameObject.name}: 벽에 끼였음! 위치 복구 중...");
-      if ( Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 5f, LayerMask.GetMask("Ground")) )
+      float distanceToWall = hit.distance;
+
+      // 🔥 너무 가까우면 이동을 멈춤
+      if ( distanceToWall < 0.4f )
       {
-        transform.position = hit.point; // 🔥 바닥이 감지되면 강제 이동
+        return Vector3.zero;
       }
+
+      // 🔥 벽을 따라 미끄러지도록 조정
+      Vector3 slideDirection = Vector3.ProjectOnPlane(moveDirection, hit.normal);
+      return slideDirection * Mathf.Clamp01(distanceToWall / checkDistance); // 거리 비율에 따라 감속
     }
+
+    return moveDirection;
   }
 }

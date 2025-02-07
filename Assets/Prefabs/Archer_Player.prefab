@@ -330,9 +330,6 @@ PrefabInstance:
       addedObject: {fileID: 8731800345430636288}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 7908f1a2bde075d478e43a6e8b8277be, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8782995667048167547}
-    - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 7908f1a2bde075d478e43a6e8b8277be, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5456754428371421693}
     - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 7908f1a2bde075d478e43a6e8b8277be, type: 3}
       insertIndex: -1
@@ -378,10 +375,13 @@ MonoBehaviour:
   gundata: {fileID: 11400000, guid: f279d95d0526a4b4aa83cb7cfeb35952, type: 2}
   bulletPrefab: {fileID: 1448211494892216088, guid: 76201135edb7d48c7871ad8b52814f9f, type: 3}
   firePoint: {fileID: 4947482291509117937}
+  leftFirePoint: {fileID: 0}
+  rightFirePoint: {fileID: 0}
+  doubleFirePoint: {fileID: 0}
   muzzleEffect: {fileID: 0}
   shellEffect: {fileID: 0}
   cooldownTime: 1
-  joystick: {fileID: 0}
+  multiShotInterval: 0.15
 --- !u!4 &4633383657397108739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -620957590457524860, guid: 7908f1a2bde075d478e43a6e8b8277be, type: 3}
@@ -409,6 +409,9 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   targetRange: 10
 --- !u!54 &8731800345430636288
 Rigidbody:
@@ -437,29 +440,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!136 &8782995667048167547
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4903596089983911054}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.1666882
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.6172701, z: 0}
 --- !u!114 &5456754428371421693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,10 +525,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb89f68cbe3f4f78839c3c83542415e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1448211494892216088, guid: 76201135edb7d48c7871ad8b52814f9f, type: 3}
-  leftShootPoint: {fileID: 4947482291509117937}
-  rightShootPoint: {fileID: 4947482291509117937}
+  gun: {fileID: 0}
   gunData: {fileID: 11400000, guid: f279d95d0526a4b4aa83cb7cfeb35952, type: 2}
+  poisonEffectPrefab: {fileID: 0}
+  frostEffectPrefab: {fileID: 0}
+  HasDiagonalArrow: 0
+  HasPoisonArrow: 0
+  HasFrostArrow: 0
+  HasDoubleShot: 0
+  HasMultiShot: 0
+  HasBounceShot: 0
 --- !u!4 &8238855517945640605 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 7908f1a2bde075d478e43a6e8b8277be, type: 3}
