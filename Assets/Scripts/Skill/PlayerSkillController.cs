@@ -15,6 +15,8 @@ public class PlayerSkillController : MonoBehaviour
   public bool HasFrostArrow = false;
   public bool HasDoubleShot = false;
   public bool HasMultiShot = false;
+  public bool HasBounceShot = false;
+
 
 
   private void Start()
@@ -28,7 +30,7 @@ public class PlayerSkillController : MonoBehaviour
   public void ApplyFrostArrow() => HasFrostArrow = true;
   public void ApplyDoubleShot() => HasDoubleShot = true;
   public void ApplyMultiShot() => HasMultiShot = true;
-
+  public void ApplyBounceShot() => HasBounceShot = true;
 
   public void ModifyBullet(Bullet bulletScript)
   {
@@ -47,6 +49,10 @@ public class PlayerSkillController : MonoBehaviour
       bulletScript.ApplyStatusEffect(poisonEffect);
     }
 
+    if ( HasBounceShot )
+    {
+      bulletScript.EnableBounceShot(2);
+    }
 
   }
 

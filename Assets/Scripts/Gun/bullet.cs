@@ -8,6 +8,9 @@ public class Bullet : MonoBehaviour
   public float damage;
   public float lifeTime = 3f;
 
+  private int maxBounces = 0; // 🔥 최대 튕길 횟수 (기본 0)
+  private int bounceCount = 0; // 현재 튕긴 횟수
+
   private IObjectPool<GameObject> pool;
   private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
   private Rigidbody rb;
@@ -21,8 +24,6 @@ public class Bullet : MonoBehaviour
   {
     rb.velocity = direction * speed;
     pool = objectPool;
-
-    // 🔥 일정 시간이 지나면 풀로 되돌리기
     Invoke(nameof(ReturnToPool), lifeTime);
   }
 
@@ -31,9 +32,20 @@ public class Bullet : MonoBehaviour
     statusEffects.Add(effect);
   }
 
+  public void EnableBounceShot(int maxBounce) // 🔥 튕길 수 있는 횟수 설정
+  {
+    maxBounces = maxBounce;
+    bounceCount = 0; // 초기화
+  }
+
   private void OnTriggerEnter(Collider other)
   {
-    if ( other.CompareTag("Enemy") || other.CompareTag("GrimReaper") || other.CompareTag("AirUnit") || other.CompareTag("Player") )
+    if ( other.CompareTag("Player") ) // 🔥 플레이어는 맞아도 무시 (튕기지 않음)
+    {
+      return;
+    }
+
+    if ( other.CompareTag("Enemy") || other.CompareTag("GrimReaper") || other.CompareTag("AirUnit") ) // 🔥 적을 맞추면 바로 사라짐
     {
       LivingEntity entity = other.GetComponent<LivingEntity>();
       if ( entity != null )
@@ -46,11 +58,27 @@ public class Bullet : MonoBehaviour
         }
       }
 
-      ReturnToPool(); // 🔥 풀로 되돌리기
+      ReturnToPool(); // 🔥 적을 맞추면 삭제
     }
-    else if ( other.CompareTag("Wall") )
+    else if ( other.CompareTag("Wall") ) // 🔥 벽에 맞으면 튕기기
     {
-      ReturnToPool();
+      if ( bounceCount < maxBounces )
+      {
+        Vector3 normal = other.ClosestPoint(transform.position) - transform.position;
+        normal.Normalize();
+        Vector3 reflectDir = Vector3.Reflect(rb.velocity.normalized, normal);
+
+        rb.velocity = reflectDir * speed; // 🔥 반사 후 동일 속도 유지
+
+        // 🔥 🔄 반사 방향으로 화살 회전 업데이트
+        transform.rotation = Quaternion.LookRotation(reflectDir);
+
+        bounceCount++;
+      }
+      else
+      {
+        ReturnToPool(); // 최대 튕김 횟수 초과 시 삭제
+      }
     }
   }
 

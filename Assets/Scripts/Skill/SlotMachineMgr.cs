@@ -152,6 +152,9 @@ public class SlotMachineMgr : MonoBehaviour
           case "MultiShot":
             playerSkillController.ApplyMultiShot();
             break;
+          case "BounceShot":
+            playerSkillController.ApplyBounceShot();
+            break;
           default:
             Debug.LogError("알 수 없는 스프라이트입니다.");
             break;

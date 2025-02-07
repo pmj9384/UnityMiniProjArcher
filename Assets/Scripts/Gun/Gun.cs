@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
   public Transform firePoint;
   public Transform leftFirePoint;
   public Transform rightFirePoint;
+  public Transform doubleFirePoint;
 
   private PlayerSkillController skillController;
   private AudioSource audioSource;
@@ -21,9 +22,8 @@ public class Gun : MonoBehaviour
 
   private float lastFireTime;
   private int currentAmmo;
-  public Transform doubleFirePoint;
   public float cooldownTime = 1f;
-  public VirtualJoyStick joystick;
+  public float multiShotInterval = 0.15f; // 🔥 멀티샷 간격 (0.15초)
 
   private IObjectPool<GameObject> bulletPool;
 
@@ -35,11 +35,7 @@ public class Gun : MonoBehaviour
     bulletPool = new ObjectPool<GameObject>(
         createFunc: () => Instantiate(bulletPrefab),
         actionOnGet: bullet => bullet.SetActive(true),
-        actionOnRelease: bullet =>
-        {
-          bullet.SetActive(false);
-        },
-        // actionOnDestroy: bullet => Destroy(bullet),
+        actionOnRelease: bullet => bullet.SetActive(false),
         collectionCheck: false,
         maxSize: 50
     );
@@ -56,13 +52,13 @@ public class Gun : MonoBehaviour
     if ( GunState == State.Ready && Time.time >= lastFireTime + cooldownTime )
     {
       lastFireTime = Time.time;
-
+      StartCoroutine(ShootBullet());
     }
   }
 
-  public void ShootBullet()
+  private IEnumerator ShootBullet()
   {
-    if ( skillController == null ) return;
+    if ( skillController == null ) yield break;
 
     // 🔥 기본 발사 위치 리스트
     List<Transform> bulletPoints = new List<Transform> { firePoint };
@@ -91,6 +87,11 @@ public class Gun : MonoBehaviour
         {
           FireSingleBullet(shootPoint);
         }
+      }
+
+      if ( skillController.HasMultiShot )
+      {
+        yield return new WaitForSeconds(multiShotInterval); // 🔥 멀티샷 발사 간격 적용
       }
     }
   }
