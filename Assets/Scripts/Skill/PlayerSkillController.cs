@@ -13,6 +13,9 @@ public class PlayerSkillController : MonoBehaviour
   public bool HasDiagonalArrow = false;
   public bool HasPoisonArrow = false;
   public bool HasFrostArrow = false;
+  public bool HasDoubleShot = false;
+  public bool HasMultiShot = false;
+
 
   private void Start()
   {
@@ -23,6 +26,9 @@ public class PlayerSkillController : MonoBehaviour
   public void ApplyDiagonalArrow() => HasDiagonalArrow = true;
   public void ApplyPoisonArrow() => HasPoisonArrow = true;
   public void ApplyFrostArrow() => HasFrostArrow = true;
+  public void ApplyDoubleShot() => HasDoubleShot = true;
+  public void ApplyMultiShot() => HasMultiShot = true;
+
 
   public void ModifyBullet(Bullet bulletScript)
   {

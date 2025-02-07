@@ -146,6 +146,12 @@ public class SlotMachineMgr : MonoBehaviour
           case "ShotSpeedUp":
             playerSkillController.IncreaseAttackSpeed();
             break;
+          case "DoubleShot":
+            playerSkillController.ApplyDoubleShot();
+            break;
+          case "MultiShot":
+            playerSkillController.ApplyMultiShot();
+            break;
           default:
             Debug.LogError("알 수 없는 스프라이트입니다.");
             break;
