@@ -6,27 +6,20 @@ public class GolemFireAttack : MonoBehaviour, IAttackBehavior
   public ParticleSystem fireEffect; // 🔥 불꽃 파티클
   public Transform fireSpawnPoint; // 🔥 불꽃 위치
   public float attackDuration = 2f; // 2초 동안 불을 내뿜음
+  public float fireDamage = 5f; // 🔥 지속 데미지 (초당)
+  public float damageInterval = 0.5f; // 🔥 데미지 적용 간격
   public LineRenderer lineRenderer; // 🔥 조준선 (불꽃 위치 표시)
 
   private Animator animator;
   private Transform player;
-  private bool isAttacking = false; // ✅ 중복 실행 방지
-  private Vector3 attackDirection; // 공격 방향 고정
+  private bool isAttacking = false;
+  private Vector3 attackDirection;
+  private bool isDealingDamage = false; // ✅ 불꽃이 활성화 중인지 확인
 
   private void Start()
   {
     animator = GetComponent<Animator>();
     player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
-    if ( player == null )
-    {
-      Debug.LogError($"{gameObject.name}: Player를 찾을 수 없음!");
-    }
-
-    if ( fireSpawnPoint == null )
-    {
-      Debug.LogError($"{gameObject.name}: fireSpawnPoint가 설정되지 않음!");
-    }
 
     if ( fireEffect == null )
     {
@@ -34,7 +27,7 @@ public class GolemFireAttack : MonoBehaviour, IAttackBehavior
     }
     else
     {
-      fireEffect.gameObject.SetActive(true); // ✅ 오브젝트 활성화 후 바로 멈춤
+      fireEffect.gameObject.SetActive(true);
       fireEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
@@ -44,7 +37,7 @@ public class GolemFireAttack : MonoBehaviour, IAttackBehavior
     }
     else
     {
-      lineRenderer.enabled = false; // 시작 시 비활성화
+      lineRenderer.enabled = false;
     }
   }
 
@@ -52,94 +45,88 @@ public class GolemFireAttack : MonoBehaviour, IAttackBehavior
   {
     if ( !isAttacking && player != null )
     {
-      // 🔥 불 공격 중이 아닐 때만 플레이어 방향으로 부드럽게 회전
       SmoothRotateToTarget(player.position);
     }
   }
 
   public void Attack()
   {
-    if ( isAttacking ) // ✅ 공격 중이라면 실행 안 함
-    {
-      Debug.Log($"{gameObject.name}: 이미 공격 중이므로 실행 안 함.");
-      return;
-    }
-
-    if ( player == null )
-    {
-      Debug.LogWarning($"{gameObject.name}: Attack() 호출 실패 - Player가 null.");
-      return;
-    }
-
-    if ( fireEffect == null || fireSpawnPoint == null || lineRenderer == null )
-    {
-      Debug.LogWarning($"{gameObject.name}: Attack() 호출 실패 - 필요한 컴포넌트가 null.");
-      return;
-    }
+    if ( isAttacking ) return;
+    if ( player == null ) return;
 
     StartCoroutine(FireAttack());
   }
 
   private IEnumerator FireAttack()
   {
-    isAttacking = true; // ✅ 공격 시작
+    isAttacking = true;
 
-    // 🔄 **부드러운 회전 후 공격**
     yield return StartCoroutine(SmoothRotateToTarget(player.position));
-
-    // 🔥 1초 동안 조준선 표시
     yield return StartCoroutine(ShowTargetingLine());
 
-    // 🔥 불꽃 공격 실행
+    // 🔥 불꽃 켜기 + 데미지 적용 시작
     animator?.SetTrigger("Attack");
     fireEffect.Play();
+    isDealingDamage = true; // ✅ 데미지 활성화
+    StartCoroutine(ApplyFireDamage()); // ✅ 지속 데미지 시작
+
     Debug.Log($"🔥 {gameObject.name}: 불꽃 시작!");
+    yield return new WaitForSeconds(attackDuration);
 
-    yield return new WaitForSeconds(attackDuration); // 🔥 2초 동안 불 내뿜기
-
-    // 🔥 불꽃 정지
+    // 🔥 불꽃 끄기 + 데미지 중단
     fireEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    isDealingDamage = false; // ✅ 데미지 중단
     Debug.Log($"✅ {gameObject.name}: 불꽃 중단!");
 
     yield return new WaitForSeconds(1f);
-
-    isAttacking = false; // ✅ 공격 가능 상태로 변경
+    isAttacking = false;
   }
 
-  // 🔄 **부드러운 회전 함수**
+  // 🔥 **지속적인 데미지 적용 (불꽃이 켜진 동안)**
+  private IEnumerator ApplyFireDamage()
+  {
+    while ( isDealingDamage )
+    {
+      Collider[] hitColliders = Physics.OverlapSphere(fireSpawnPoint.position, 3f); // 🔥 불꽃 범위 내 적 감지
+      foreach ( Collider hit in hitColliders )
+      {
+        if ( hit.CompareTag("Player") )
+        {
+          PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
+          if ( playerHealth != null )
+          {
+            playerHealth.OnDamage(fireDamage, hit.transform.position, Vector3.zero);
+            Debug.Log($"🔥 불꽃 지속 데미지 적용: {fireDamage}");
+          }
+        }
+      }
+      yield return new WaitForSeconds(damageInterval); // 🔥 0.5초마다 데미지 적용
+    }
+  }
+
   private IEnumerator SmoothRotateToTarget(Vector3 targetPosition)
   {
     float rotateSpeed = 5f;
     Quaternion targetRotation = Quaternion.LookRotation(new Vector3(targetPosition.x, transform.position.y, targetPosition.z) - transform.position);
 
-    while ( Quaternion.Angle(transform.rotation, targetRotation) > 1f ) // 각도가 1도 이상이면 계속 회전
+    while ( Quaternion.Angle(transform.rotation, targetRotation) > 1f )
     {
       transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotateSpeed);
       yield return null;
     }
-    transform.rotation = targetRotation; // 최종적으로 정확한 방향 고정
+    transform.rotation = targetRotation;
   }
 
-  // 🔥 **조준선 표시 함수**
   private IEnumerator ShowTargetingLine()
   {
-    lineRenderer.enabled = true; // ✅ 조준선 활성화
-    lineRenderer.SetPosition(0, fireSpawnPoint.position); // 시작 위치 (불꽃 위치)
+    lineRenderer.enabled = true;
+    lineRenderer.SetPosition(0, fireSpawnPoint.position);
 
-    // 🔥 불꽃 파티클의 박스 콜라이더 크기를 가져와서 거리 설정
-    float fireRange = 3f; // 기본값
-    BoxCollider fireCollider = fireEffect.GetComponent<BoxCollider>();
-    if ( fireCollider != null )
-    {
-      fireRange = fireCollider.bounds.extents.z * 2; // 🔥 불꽃 범위 반영
-    }
-
-    // 🔥 플레이어까지가 아니라 불꽃 범위까지만 선을 그림
+    float fireRange = 3f;
     Vector3 targetPosition = fireSpawnPoint.position + ( transform.forward * fireRange );
     lineRenderer.SetPosition(1, targetPosition);
 
-    yield return new WaitForSeconds(1f); // 🔥 1초 동안 조준선 표시
-
-    lineRenderer.enabled = false; // ✅ 조준선 비활성화
+    yield return new WaitForSeconds(1f);
+    lineRenderer.enabled = false;
   }
 }

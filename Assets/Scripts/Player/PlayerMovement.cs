@@ -5,7 +5,9 @@ public class PlayerMovement : MonoBehaviour
   public float speed = 5f;
   public VirtualJoyStick joystick;
   public LayerMask targetLayer;
+  public LayerMask wallLayer; // 🔥 벽 감지 레이어 추가
   public float targetRange = 10f;
+
   private Transform target;
   private Rigidbody rb;
   private float rotationSpeed = 20f;
@@ -17,11 +19,16 @@ public class PlayerMovement : MonoBehaviour
     animator = GetComponent<Animator>();
     Cursor.lockState = CursorLockMode.None;
     Cursor.visible = true;
+
+    // 🔥 Rigidbody 설정 변경 (벽에 끼임 방지)
+    rb.freezeRotation = true; // 회전 방지
+    rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // 빠른 충돌 감지
   }
 
   private void Update()
   {
     HandleTargeting();
+    CheckPlayerPosition(); // 🔥 벽에 끼이면 자동 복구
   }
 
   private void FixedUpdate()
@@ -36,13 +43,21 @@ public class PlayerMovement : MonoBehaviour
     if ( joystickInput.sqrMagnitude > 0.01f )
     {
       Vector3 moveInput = new Vector3(joystickInput.x, 0f, joystickInput.y).normalized;
-      Vector3 moveDirection = moveInput * speed * Time.deltaTime;
-      rb.MovePosition(rb.position + moveDirection);
+      Vector3 moveDirection = moveInput * speed;
+
+      // 🔥 벽 감지 후 이동 제한
+      if ( IsWallAhead(moveDirection) )
+      {
+        moveDirection = Vector3.zero; // 벽 감지 시 이동 차단
+      }
+
+      rb.AddForce(moveDirection, ForceMode.VelocityChange); // 🔥 부드러운 이동
       animator.SetBool("Walk", true);
       RotateTowardsDirection(moveInput);
     }
     else
     {
+      rb.velocity = Vector3.zero; // 🔥 멈출 때 물리적 이동도 멈추기
       animator.SetBool("Walk", false);
       RotateTowardsTarget();
     }
@@ -119,5 +134,29 @@ public class PlayerMovement : MonoBehaviour
   public Transform GetTarget()
   {
     return target;
+  }
+
+  // 🔥 벽 감지 후 이동 제한 (밀리는 문제 해결)
+  private bool IsWallAhead(Vector3 moveDirection)
+  {
+    RaycastHit hit;
+    if ( Physics.Raycast(rb.position, moveDirection, out hit, 0.5f, wallLayer) )
+    {
+      return true; // 벽 감지 → 이동 금지
+    }
+    return false;
+  }
+
+  // 🔥 플레이어가 벽에 끼이면 자동 복구 (맵 밖으로 나가지 않도록 방지)
+  private void CheckPlayerPosition()
+  {
+    if ( !Physics.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Ground")) )
+    {
+      Debug.Log($"{gameObject.name}: 벽에 끼였음! 위치 복구 중...");
+      if ( Physics.Raycast(transform.position + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 5f, LayerMask.GetMask("Ground")) )
+      {
+        transform.position = hit.point; // 🔥 바닥이 감지되면 강제 이동
+      }
+    }
   }
 }

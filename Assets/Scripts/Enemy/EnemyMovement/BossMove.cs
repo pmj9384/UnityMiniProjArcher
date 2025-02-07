@@ -58,8 +58,8 @@ public class BossMove : IMoveBehavior
   private IEnumerator Dash(NavMeshAgent agent, Transform target)
   {
     float dashTime = 2f;
-    float dashSpeed = agent.speed * 8f;
-    float stopDistance = 1000.0f; // 🔥 벽과 이 거리 이내로 가까워지면 멈추도록 설정
+    float dashSpeed = agent.speed * 5f;
+    float stopDistance = 1.0f; // 🔥 벽과 이 거리 이내로 가까워지면 멈추도록 설정
 
     float elapsedTime = 0f;
 

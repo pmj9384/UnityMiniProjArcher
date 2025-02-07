@@ -5,6 +5,7 @@ public class MushroomProjectile : MonoBehaviour
   public float explosionRadius = 2f; // 폭발 반경
   public float damage = 20f; // 피해량
   public float lifetime = 5f; // 투사체 생명 시간
+  public GameObject explosionEffectPrefab; // 🔥 폭발 이펙트 프리팹
 
   private void Start()
   {
@@ -24,7 +25,7 @@ public class MushroomProjectile : MonoBehaviour
       }
     }
 
-    // 폭발 효과 실행
+    // 🔥 폭발 효과 실행
     Explode();
   }
 
@@ -41,6 +42,13 @@ public class MushroomProjectile : MonoBehaviour
           playerHealth.OnDamage(damage, transform.position, Vector3.zero);
         }
       }
+    }
+
+    // 🔥 폭발 이펙트 생성
+    if ( explosionEffectPrefab != null )
+    {
+      GameObject explosionEffect = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+      Destroy(explosionEffect, 2f); // 이펙트 2초 후 삭제
     }
 
     Destroy(gameObject);

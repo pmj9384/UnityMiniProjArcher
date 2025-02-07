@@ -975,6 +975,9 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
   targetRange: 10
 --- !u!136 &845486347
 CapsuleCollider:
@@ -1159,7 +1162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
   waveText: {fileID: 0}
-  gameOverPanel: {fileID: 1873463664}
+  gameOverPanel: {fileID: 1432077416}
   pausePanel: {fileID: 1873463664}
   slotMachinePanel: {fileID: 1853058005}
   joystick: {fileID: 1281296180}
@@ -1837,10 +1840,29 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8783496911662023505, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8783496911662023505, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1432077419}
+    - target: {fileID: 8783496911662023505, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 8783496911662023505, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameOverManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6356935040152846691, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1432077419}
   m_SourcePrefab: {fileID: 100100000, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
 --- !u!224 &1136795537 stripped
 RectTransform:
@@ -2123,6 +2145,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152380962}
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!1 &1432077416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6356935040152846691, guid: e5319bba0f6db4de589cfd88df97fc4b, type: 3}
+  m_PrefabInstance: {fileID: 1136795536}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1432077419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432077416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d033cf45c69d452f950e31196bf84de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverPanel: {fileID: 1432077416}
 --- !u!1 &1448681260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,10 +3095,18 @@ PrefabInstance:
       propertyPath: poisonEffectPrefab
       value: 
       objectReference: {fileID: 2662843366714213769, guid: 4a3d4a7daf0d5724f9b0553564a3b9ac, type: 3}
+    - target: {fileID: 936926756511232560, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2079617051256560615, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d73556365ce5d452ead127d2e12afd95, type: 2}
+    - target: {fileID: 3332401555532292137, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: speed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3332401555532292137, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: joystick
       value: 
@@ -3137,7 +3185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5456754428371421693, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: maxHp
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5456754428371421693, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: hitSound
@@ -3210,6 +3258,10 @@ PrefabInstance:
     - target: {fileID: 8731800345430636288, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8731800345430636288, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7704763967568910667, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
@@ -3605,7 +3657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4993407540735664140, guid: f6d8fcea6a1354435ab359a0d62b296c, type: 3}
       propertyPath: SkillSprite.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4993407540735664140, guid: f6d8fcea6a1354435ab359a0d62b296c, type: 3}
       propertyPath: StartList.Array.data[1]
@@ -3650,11 +3702,11 @@ PrefabInstance:
     - target: {fileID: 4993407540735664140, guid: f6d8fcea6a1354435ab359a0d62b296c, type: 3}
       propertyPath: SkillSprite.Array.data[8]
       value: 
-      objectReference: {fileID: 21300000, guid: 5468bc49a416e4db4bca9578707f9c1f, type: 3}
+      objectReference: {fileID: 21300000, guid: 4eed841d3bc6a485582f39da851c5497, type: 3}
     - target: {fileID: 4993407540735664140, guid: f6d8fcea6a1354435ab359a0d62b296c, type: 3}
       propertyPath: SkillSprite.Array.data[9]
       value: 
-      objectReference: {fileID: 21300000, guid: 5468bc49a416e4db4bca9578707f9c1f, type: 3}
+      objectReference: {fileID: 21300000, guid: d83a4604aec9c4d5e9266acccf6b7088, type: 3}
     - target: {fileID: 4993407540735664140, guid: f6d8fcea6a1354435ab359a0d62b296c, type: 3}
       propertyPath: SkillSprite.Array.data[10]
       value: 

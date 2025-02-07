@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3689716111426212127}
   - component: {fileID: 3574233402257474669}
   - component: {fileID: 778313603810887926}
-  - component: {fileID: -1924069204729647986}
   - component: {fileID: -2997149452243785332}
   - component: {fileID: 6311795799663218103}
+  - component: {fileID: -1924069204729647986}
   m_Layer: 0
   m_Name: MushroomBullet
   m_TagString: Untagged
@@ -108,21 +108,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1924069204729647986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213576268589250302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b45f8539b104620908a08d598e3f74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionRadius: 2
-  damage: 20
-  lifetime: 5
 --- !u!54 &-2997149452243785332
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -171,3 +156,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1924069204729647986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213576268589250302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b45f8539b104620908a08d598e3f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 1
+  damage: 20
+  lifetime: 5
+  explosionEffectPrefab: {fileID: 0}

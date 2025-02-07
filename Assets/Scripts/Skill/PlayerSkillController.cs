@@ -57,7 +57,7 @@ public class PlayerSkillController : MonoBehaviour
   {
     if ( playerMovement != null )
     {
-      playerMovement.speed += 0.35f;
+      playerMovement.speed += 0.1f;
       Debug.Log("Movement speed increased!");
     }
   }
