@@ -182,24 +182,27 @@ public class Enemy : LivingEntity
       audioSource.PlayOneShot(hitSound);
     }
   }
-
   protected override void Die()
   {
     base.Die();
-    statusEffectManager.RemoveAllEffects();
-    audioSource.PlayOneShot(deathSound);
-    animator.SetTrigger("Die");
 
-    if ( coUpdatePath != null )
+    // ✅ 상태 효과 제거
+    statusEffectManager.RemoveAllEffects();
+
+    // ✅ NavMeshAgent 멈춤
+    if ( agent != null )
     {
-      StopCoroutine(coUpdatePath);
+      agent.isStopped = true; // 이동 멈춤
+      agent.velocity = Vector3.zero; // 즉시 정지
     }
 
+    // ✅ 모든 Collider 비활성화
     foreach ( var col in GetComponents<Collider>() )
     {
       col.enabled = false;
     }
 
+    // ✅ Rigidbody 설정
     Rigidbody rb = GetComponent<Rigidbody>();
     if ( rb != null )
     {
@@ -207,6 +210,16 @@ public class Enemy : LivingEntity
       rb.useGravity = false;
     }
 
+    // ✅ 사운드 재생
+    if ( audioSource != null && deathSound != null )
+    {
+      audioSource.PlayOneShot(deathSound);
+    }
+
+    // ✅ 죽는 애니메이션 트리거
+    animator.SetTrigger("Die");
+
+    // ✅ 경험치 아이템 생성
     if ( expPrefab != null )
     {
       GameObject exp = Instantiate(expPrefab, transform.position, Quaternion.identity);
@@ -214,11 +227,19 @@ public class Enemy : LivingEntity
       ExperienceManager.Instance.RegisterExpItem(exp);
     }
 
-    GameManager.Instance.DecrementZombieCount();
-    //  gm?.AddScore(100);
+    // ✅ 적의 경로 업데이트 중지
+    if ( coUpdatePath != null )
+    {
+      StopCoroutine(coUpdatePath);
+    }
 
+    // ✅ 좀비 수 감소
+    GameManager.Instance.DecrementZombieCount();
+
+    // ✅ 1초 후 오브젝트 삭제
     StartCoroutine(DieRoutine());
   }
+
 
   private IEnumerator DieRoutine()
   {

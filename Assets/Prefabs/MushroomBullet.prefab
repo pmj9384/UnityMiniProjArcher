@@ -171,4 +171,4 @@ MonoBehaviour:
   explosionRadius: 1
   damage: 20
   lifetime: 5
-  explosionEffectPrefab: {fileID: 0}
+  explosionEffectPrefab: {fileID: 2662843366714213771, guid: 4a3d4a7daf0d5724f9b0553564a3b9ac, type: 3}
