@@ -8,8 +8,8 @@ public class Bullet : MonoBehaviour
   public float damage;
   public float lifeTime = 3f;
 
-  private int maxBounces = 0; // 🔥 최대 튕길 횟수 (기본 0)
-  private int bounceCount = 0; // 현재 튕긴 횟수
+  private int maxBounces = 0;
+  private int bounceCount = 0;
 
   private IObjectPool<GameObject> pool;
   private List<IStatusEffect> statusEffects = new List<IStatusEffect>();
@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
   private void Awake()
   {
     rb = GetComponent<Rigidbody>();
+    rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // 🔥 빠른 속도에서 충돌 감지 보장
   }
 
   public void Launch(Vector3 direction, IObjectPool<GameObject> objectPool)
@@ -32,52 +33,48 @@ public class Bullet : MonoBehaviour
     statusEffects.Add(effect);
   }
 
-  public void EnableBounceShot(int maxBounce) // 🔥 튕길 수 있는 횟수 설정
+  public void EnableBounceShot(int maxBounce)
   {
     maxBounces = maxBounce;
-    bounceCount = 0; // 초기화
+    bounceCount = 0;
   }
 
-  private void OnTriggerEnter(Collider other)
+  private void OnTriggerEnter(Collider other) // ❌ Trigger 제거 (사용하지 않음)
   {
-    if ( other.CompareTag("Player") ) // 🔥 플레이어는 맞아도 무시 (튕기지 않음)
-    {
-      return;
-    }
+    if ( other.CompareTag("Player") ) return;
 
-    if ( other.CompareTag("Enemy") || other.CompareTag("GrimReaper") || other.CompareTag("AirUnit") ) // 🔥 적을 맞추면 바로 사라짐
+    if ( other.CompareTag("Enemy") || other.CompareTag("GrimReaper") || other.CompareTag("AirUnit") )
     {
       LivingEntity entity = other.GetComponent<LivingEntity>();
       if ( entity != null )
       {
         entity.OnDamage(damage, entity.transform.position, -transform.forward);
-
         foreach ( var effect in statusEffects )
         {
           entity.StartCoroutine(effect.ApplyEffect(entity));
         }
       }
-
-      ReturnToPool(); // 🔥 적을 맞추면 삭제
+      ReturnToPool();
     }
-    else if ( other.CompareTag("Wall") ) // 🔥 벽에 맞으면 튕기기
+  }
+
+  private void OnCollisionEnter(Collision collision) // ✅ 물리 충돌 감지
+  {
+    if ( collision.gameObject.CompareTag("Wall") ) // 벽에 부딪힌 경우
     {
       if ( bounceCount < maxBounces )
       {
-        Vector3 normal = other.ClosestPoint(transform.position) - transform.position;
-        normal.Normalize();
-        Vector3 reflectDir = Vector3.Reflect(rb.velocity.normalized, normal);
+        ContactPoint contact = collision.contacts[0]; // 가장 첫 번째 충돌 지점
+        Vector3 reflectDir = Vector3.Reflect(rb.velocity.normalized, contact.normal);
 
-        rb.velocity = reflectDir * speed; // 🔥 반사 후 동일 속도 유지
-
-        // 🔥 🔄 반사 방향으로 화살 회전 업데이트
+        rb.velocity = reflectDir * speed; // 반사 방향으로 이동
         transform.rotation = Quaternion.LookRotation(reflectDir);
 
         bounceCount++;
       }
       else
       {
-        ReturnToPool(); // 최대 튕김 횟수 초과 시 삭제
+        ReturnToPool();
       }
     }
   }
@@ -88,7 +85,6 @@ public class Bullet : MonoBehaviour
     {
       rb.velocity = Vector3.zero;
       rb.angularVelocity = Vector3.zero;
-
       gameObject.SetActive(false);
       pool.Release(gameObject);
     }
@@ -96,9 +92,8 @@ public class Bullet : MonoBehaviour
 
   private void OnDisable()
   {
-    // 🔥 총알 초기화 (효과 삭제)
     statusEffects.Clear();
-    CancelInvoke(nameof(ReturnToPool)); // 타이머 취소 (다시 풀로 반환될 때 초기화)
+    CancelInvoke(nameof(ReturnToPool));
   }
 
   public void ClearStatusEffects()
