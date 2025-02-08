@@ -2,27 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // TextMeshPro 네임스페이스 추가
 
 public class SlotMachineMgr : MonoBehaviour
 {
-  public GameObject[] SlotSkillObject;
-  public Button[] Slot;
-  public Sprite[] SkillSprite;
+  public GameObject[] SlotSkillObject; // 슬롯 오브젝트 배열
+  public Button[] Slot;               // 슬롯 버튼 배열
+  public Sprite[] SkillSprite;        // 스킬 스프라이트 배열
+
+  public string[] SkillNames;         // 스킬 이름 배열
+  public string[] SkillDescriptions;  // 스킬 설명 배열
 
   [System.Serializable]
   public class DisplayItemSlot
   {
-    public List<Image> SlotSprite = new List<Image>();
+    public List<Image> SlotSprite = new List<Image>(); // 슬롯 이미지 배열
+    public TextMeshProUGUI SkillNameText;       // 슬롯 위에 표시될 스킬 이름 텍스트
+    public TextMeshProUGUI SkillDescriptionText; // 슬롯 아래에 표시될 스킬 설명 텍스트
   }
-  public DisplayItemSlot[] DisplayItemSlots;
+  public DisplayItemSlot[] DisplayItemSlots; // 슬롯 UI 정보 배열
 
-  public Image DisplayResultImage;
-
+  public Image DisplayResultImage; // 선택된 스킬 결과 이미지
   public List<int> StartList = new List<int>();
   public List<int> ResultIndexList = new List<int>();
   public List<int> SelectedSkills = new List<int>();
-  int ItemCnt = 3;
-  int[] answer = { 2, 3, 1 };
+
+  int ItemCnt = 3; // 슬롯 이미지 개수
 
   private void OnEnable()
   {
@@ -40,7 +45,6 @@ public class SlotMachineMgr : MonoBehaviour
 
       int randomIndex = Random.Range(0, StartList.Count);
       int selectedIndex = StartList[randomIndex];
-
       ResultIndexList.Add(selectedIndex);
 
       int correctPos = Mathf.Clamp(ItemCnt / 2, 0, ItemCnt - 2);
@@ -85,7 +89,10 @@ public class SlotMachineMgr : MonoBehaviour
         SlotSkillObject[SlotIndex].transform.localPosition.z
     );
 
+    // 슬롯에 표시된 최종 결과 스킬 이름 및 설명 업데이트
     DisplayItemSlots[SlotIndex].SlotSprite[targetStopIndex].sprite = SkillSprite[resultIndex];
+    DisplayItemSlots[SlotIndex].SkillNameText.text = SkillNames[resultIndex];
+    DisplayItemSlots[SlotIndex].SkillDescriptionText.text = SkillDescriptions[resultIndex];
 
     Slot[SlotIndex].interactable = true;
   }
@@ -93,6 +100,8 @@ public class SlotMachineMgr : MonoBehaviour
   public void ClickBtn(int index)
   {
     int selectedSkillIndex = ResultIndexList[index];
+
+    // 최종 선택된 스킬의 결과 표시
     DisplayResultImage.sprite = SkillSprite[selectedSkillIndex];
     SelectedSkills.Add(selectedSkillIndex);
 

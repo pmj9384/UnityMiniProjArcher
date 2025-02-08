@@ -134,25 +134,41 @@ public class PlayerMovement : MonoBehaviour
     return target;
   }
 
-  // 🔥 벽 충돌 감지 및 이동 제한 적용 (벽 앞에서 멈추기)
+  // // 🔥 벽 충돌 감지 및 이동 제한 적용 (벽 앞에서 멈추기)
+  // private Vector3 AdjustMovementWithWall(Vector3 position, Vector3 moveDirection)
+  // {
+  //   float checkDistance = 0.6f; // 🔥 벽 감지 거리 (적절히 조정 가능)
+
+  //   RaycastHit hit;
+  //   if ( Physics.Raycast(position, moveDirection.normalized, out hit, checkDistance, wallLayer) )
+  //   {
+  //     float distanceToWall = hit.distance;
+
+  //     // 🔥 너무 가까우면 이동을 멈춤
+  //     if ( distanceToWall < 0.4f )
+  //     {
+  //       return Vector3.zero;
+  //     }
+
+  //     // 🔥 벽을 따라 미끄러지도록 조정
+  //     Vector3 slideDirection = Vector3.ProjectOnPlane(moveDirection, hit.normal);
+  //     return slideDirection * Mathf.Clamp01(distanceToWall / checkDistance); // 거리 비율에 따라 감속
+  //   }
+
+  //   return moveDirection;
+  // }
   private Vector3 AdjustMovementWithWall(Vector3 position, Vector3 moveDirection)
   {
-    float checkDistance = 0.6f; // 🔥 벽 감지 거리 (적절히 조정 가능)
+    float checkDistance = 0.6f; // 벽 감지 거리
+    float characterRadius = 0.25f; // 캡슐 반경 (캐릭터 크기에 맞게 조절)
 
     RaycastHit hit;
-    if ( Physics.Raycast(position, moveDirection.normalized, out hit, checkDistance, wallLayer) )
+    if ( Physics.CapsuleCast(position + Vector3.up * 0.5f, position + Vector3.up * 1.5f, characterRadius, moveDirection.normalized, out hit, checkDistance, wallLayer) )
     {
       float distanceToWall = hit.distance;
-
-      // 🔥 너무 가까우면 이동을 멈춤
-      if ( distanceToWall < 0.4f )
-      {
-        return Vector3.zero;
-      }
-
-      // 🔥 벽을 따라 미끄러지도록 조정
+      float speedFactor = Mathf.Clamp01(distanceToWall / checkDistance);
       Vector3 slideDirection = Vector3.ProjectOnPlane(moveDirection, hit.normal);
-      return slideDirection * Mathf.Clamp01(distanceToWall / checkDistance); // 거리 비율에 따라 감속
+      return slideDirection * speedFactor;
     }
 
     return moveDirection;
