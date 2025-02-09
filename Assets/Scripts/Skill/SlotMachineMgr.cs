@@ -31,6 +31,7 @@ public class SlotMachineMgr : MonoBehaviour
 
   private void OnEnable()
   {
+    // ✅ 기존에 선택한 스킬을 유지하면서 초기화
     ResultIndexList.Clear();
     StartList.Clear();
 
@@ -43,8 +44,14 @@ public class SlotMachineMgr : MonoBehaviour
     {
       Slot[i].interactable = false;
 
-      int randomIndex = Random.Range(0, StartList.Count);
-      int selectedIndex = StartList[randomIndex];
+      int selectedIndex;
+      do
+      {
+        int randomIndex = Random.Range(0, StartList.Count);
+        selectedIndex = StartList[randomIndex];
+
+      } while ( SelectedSkills.Contains(selectedIndex) ); // ✅ 이미 선택된 스킬은 다시 등장하지 않음
+
       ResultIndexList.Add(selectedIndex);
 
       int correctPos = Mathf.Clamp(ItemCnt / 2, 0, ItemCnt - 2);
@@ -53,11 +60,17 @@ public class SlotMachineMgr : MonoBehaviour
       for ( int j = 0; j < ItemCnt; j++ )
       {
         if ( j == correctPos ) continue;
-        int randomSkillIndex = Random.Range(0, SkillSprite.Length);
+
+        int randomSkillIndex;
+        do
+        {
+          randomSkillIndex = Random.Range(0, SkillSprite.Length);
+        } while ( SelectedSkills.Contains(randomSkillIndex) ); // ✅ 슬롯 연출에서도 다시 등장하지 않음
+
         DisplayItemSlots[i].SlotSprite[j].sprite = SkillSprite[randomSkillIndex];
       }
 
-      StartList.RemoveAt(randomIndex);
+      StartList.Remove(selectedIndex);
     }
 
     for ( int i = 0; i < Slot.Length; i++ )
@@ -89,7 +102,13 @@ public class SlotMachineMgr : MonoBehaviour
         SlotSkillObject[SlotIndex].transform.localPosition.z
     );
 
-    // 슬롯에 표시된 최종 결과 스킬 이름 및 설명 업데이트
+    // ✅ 연출에서도 선택한 스킬이 다시 등장하지 않도록 방지
+    if ( SelectedSkills.Contains(resultIndex) )
+    {
+      Debug.Log("⚠️ 이미 선택된 스킬이므로 연출에서도 제외됨: " + SkillNames[resultIndex]);
+      yield break;
+    }
+
     DisplayItemSlots[SlotIndex].SlotSprite[targetStopIndex].sprite = SkillSprite[resultIndex];
     DisplayItemSlots[SlotIndex].SkillNameText.text = SkillNames[resultIndex];
     DisplayItemSlots[SlotIndex].SkillDescriptionText.text = SkillDescriptions[resultIndex];
@@ -101,9 +120,13 @@ public class SlotMachineMgr : MonoBehaviour
   {
     int selectedSkillIndex = ResultIndexList[index];
 
-    // 최종 선택된 스킬의 결과 표시
+    // ✅ 선택한 스킬을 전역 리스트에 추가하여 다시 등장하지 않도록 함
+    if ( !SelectedSkills.Contains(selectedSkillIndex) )
+    {
+      SelectedSkills.Add(selectedSkillIndex);
+    }
+
     DisplayResultImage.sprite = SkillSprite[selectedSkillIndex];
-    SelectedSkills.Add(selectedSkillIndex);
 
     PausePanelManager pausePanelManager = FindObjectOfType<PausePanelManager>();
     if ( pausePanelManager != null )
@@ -118,6 +141,7 @@ public class SlotMachineMgr : MonoBehaviour
     ApplySkillEffect(selectedSkillIndex);
     GameManager.Instance.EndSlotMachine();
   }
+
 
   private void ApplySkillEffect(int selectedSkillIndex)
   {

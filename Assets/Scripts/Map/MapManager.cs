@@ -8,7 +8,7 @@ public class MapManager : MonoBehaviour
   private int mapCount = 0;
 
   public TextMeshProUGUI stageText; // TextMeshPro 텍스트 추가
-  public int totalStages = 20;     // 전체 스테이지 수
+  public int totalStages = 20; // 전체 스테이지 수
 
   void Start()
   {
@@ -24,43 +24,23 @@ public class MapManager : MonoBehaviour
       Destroy(currentMap);
     }
 
-    int randomIndex;
 
-    if ( mapCount == 1 )
-    {
-      randomIndex = 0;
-    }
-    else if ( mapCount == 5 )
-    {
-      randomIndex = 5;
-    }
-    else if ( mapCount % 10 == 0 )
-    {
-      randomIndex = 0;
-    }
-    else
-    {
-      do
-      {
-        randomIndex = Random.Range(1, mapPrefabs.Length);
-      }
-      while ( randomIndex == 5 );
-    }
+    int mapIndex = ( mapCount - 1 ) % mapPrefabs.Length; // 배열 순환
 
-    currentMap = Instantiate(mapPrefabs[randomIndex]);
+    currentMap = Instantiate(mapPrefabs[mapIndex]);
     currentMap.SetActive(true);
 
     ExperienceManager.Instance.ResetExperience();
     Player.Instance.SetInitialPosition();
 
-    UpdateStageText(); // 스테이지 텍스트 업데이트
+    UpdateStageText();
   }
 
   private void UpdateStageText()
   {
     if ( stageText != null )
     {
-      stageText.text = mapCount + "/" + totalStages; // "1/20" 형식으로 텍스트 업데이트
+      stageText.text = mapCount + "/" + totalStages;
     }
     else
     {
