@@ -59,7 +59,7 @@ public class ScytheProjectile : MonoBehaviour
 
   private void OnTriggerEnter(Collider other)
   {
-    if ( other.CompareTag("Wall") )
+    if ( other.CompareTag("NatWall") )
     {
       returning = true; // ✅ 벽에 닿으면 되돌아가기 시작
       Debug.Log("🔄 낫이 벽에 부딪힘 → 되돌아가기 시작!");
