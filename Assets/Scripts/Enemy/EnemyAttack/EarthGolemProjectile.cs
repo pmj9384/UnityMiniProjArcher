@@ -15,7 +15,7 @@ public class EarthGolemProjectile : MonoBehaviour
   {
     string tag = collision.gameObject.tag;
 
-    if ( tag == "Wall" || tag == "Ground" )
+    if ( tag == "Wall" || tag == "NatWall" )
     {
       Debug.Log("🪨 돌이 벽/바닥에 부딪힘 → 삭제됨!");
       Destroy(gameObject);

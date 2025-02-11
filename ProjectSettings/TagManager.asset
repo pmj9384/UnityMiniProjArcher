@@ -15,6 +15,7 @@ TagManager:
   - AirUnit
   - GrimReaper
   - NatWall
+  - Rock
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Wall
   - NatWall
   - MushBullet
-  - 
+  - Rock
   - 
   - 
   - 

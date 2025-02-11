@@ -180,15 +180,6 @@ public class Enemy : LivingEntity
   {
     if ( IsDead ) return;
 
-    currentHp -= damage;
-    if ( currentHp < 0 ) currentHp = 0;
-    base.OnDamage(damage, hitPoint, hitNormal);
-    if ( hpBar != null )
-    {
-      hpBar.UpdateHealthBar(currentHp, maxHp);
-    }
-
-    UpdateHealthBar();
     foreach ( var effect in hitEffects )
     {
       if ( effect != null )
@@ -198,6 +189,16 @@ public class Enemy : LivingEntity
         Destroy(effectInstance.gameObject, 2f);
       }
     }
+    currentHp -= damage;
+    if ( currentHp < 0 ) currentHp = 0;
+    base.OnDamage(damage, hitPoint, hitNormal);
+    if ( hpBar != null )
+    {
+      hpBar.UpdateHealthBar(currentHp, maxHp);
+    }
+
+    UpdateHealthBar();
+
 
     if ( audioSource != null && hitSound != null )
     {
@@ -212,7 +213,7 @@ public class Enemy : LivingEntity
       Destroy(hpBar.gameObject);
     }
     // ✅ 상태 효과 제거
-    statusEffectManager.RemoveAllEffects();
+
 
     // ✅ NavMeshAgent 멈춤
     if ( agent != null )
@@ -243,6 +244,7 @@ public class Enemy : LivingEntity
 
     // ✅ 죽는 애니메이션 트리거
     animator.SetTrigger("Die");
+    statusEffectManager.RemoveAllEffects();
     // ✅ 경험치 아이템 생성
     if ( expPrefab != null )
     {
