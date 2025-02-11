@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
   public Button pauseButton;
   public Button resumeButton;
+  public Button mainMenuButton;
 
   public GameObject muteButton;        // 음소거 버튼 GameObject
   public GameObject unmuteButton;     // 소리 활성화 버튼 GameObject
@@ -15,7 +17,7 @@ public class PauseMenuManager : MonoBehaviour
   {
     pauseButton.onClick.AddListener(() => GameManager.Instance.PauseGame());
     resumeButton.onClick.AddListener(() => GameManager.Instance.ResumeGame());
-
+    mainMenuButton.onClick.AddListener(GoToMainMenu);
     // 버튼 클릭 이벤트 연결
     muteButton.GetComponent<Button>().onClick.AddListener(ToggleSound);
     unmuteButton.GetComponent<Button>().onClick.AddListener(ToggleSound);
@@ -45,4 +47,10 @@ public class PauseMenuManager : MonoBehaviour
     muteButton.SetActive(!isMuted);  // 음소거 버튼 (소리 켜져있을 때 표시)
     unmuteButton.SetActive(isMuted); // 소리 활성화 버튼 (소리 꺼졌을 때 표시)
   }
+  private void GoToMainMenu()
+  {
+    // 🔹 메인 메뉴 씬으로 이동
+    SceneManager.LoadScene("StartMenu"); // "MainMenu"는 메인 메뉴 씬 이름
+  }
+
 }

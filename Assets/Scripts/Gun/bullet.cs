@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
     bounceCount = 0;
   }
 
-  private void OnTriggerEnter(Collider other) // ❌ Trigger 제거 (사용하지 않음)
+  private void OnTriggerEnter(Collider other)
   {
     if ( other.CompareTag("Player") ) return;
 
@@ -58,17 +58,28 @@ public class Bullet : MonoBehaviour
     }
   }
 
-  private void OnCollisionEnter(Collision collision) // ✅ 물리 충돌 감지
+  private void OnCollisionEnter(Collision collision)
   {
-    if ( collision.gameObject.CompareTag("Wall") ) // 벽에 부딪힌 경우
+    if ( collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("NatWall") || collision.gameObject.CompareTag("Door") ) // ✅ 벽 감지
     {
       if ( bounceCount < maxBounces )
       {
-        ContactPoint contact = collision.contacts[0]; // 가장 첫 번째 충돌 지점
-        Vector3 reflectDir = Vector3.Reflect(rb.velocity.normalized, contact.normal);
+        ContactPoint contact = collision.contacts[0];
+        Vector3 normal = contact.normal; // 충돌 표면의 법선 벡터
+        Vector3 incomingDir = rb.velocity.normalized; // 화살의 진행 방향
 
-        rb.velocity = reflectDir * speed; // 반사 방향으로 이동
-        transform.rotation = Quaternion.LookRotation(reflectDir);
+        // 🔥 자연스러운 반사각 계산 (기존 Reflect 보정)
+        Vector3 reflectDir = Vector3.Reflect(incomingDir, normal);
+        reflectDir.y *= 0.3f;
+        // 🔄 반사각이 너무 가파르면 조정
+        float dot = Vector3.Dot(reflectDir, normal);
+        if ( dot > -0.1f ) // 너무 벽을 타고 튀는 경우
+        {
+          reflectDir = ( reflectDir + normal * 0.5f ).normalized; // 자연스럽게 반사되도록 보정
+        }
+
+        rb.velocity = reflectDir * speed; // 🔥 반사 방향 이동
+        transform.rotation = Quaternion.LookRotation(reflectDir); // 🔄 방향 회전 보정
 
         bounceCount++;
       }

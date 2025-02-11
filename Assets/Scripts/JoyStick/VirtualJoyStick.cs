@@ -9,7 +9,6 @@ public class VirtualJoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, I
   public RectTransform background;
   public RectTransform handle;
   private float joystickRadius;
-
   public Vector2 Input { get; private set; }
 
   private void Start()
@@ -43,6 +42,11 @@ public class VirtualJoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, I
   public void SetJoystickActive(bool isActive)
   {
     gameObject.SetActive(isActive);
+  }
+  public void ResetInput()
+  {
+    Input = Vector2.zero;
+    handle.anchoredPosition = Vector2.zero;
   }
 
 }

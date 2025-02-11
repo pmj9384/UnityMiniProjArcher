@@ -22,7 +22,7 @@ public class Gun : MonoBehaviour
 
   private float lastFireTime;
   private int currentAmmo;
-  public float cooldownTime = 1f;
+  public float cooldownTime = 0.5f;
   public float multiShotInterval = 0.15f; // 🔥 멀티샷 간격 (0.15초)
 
   private IObjectPool<GameObject> bulletPool;

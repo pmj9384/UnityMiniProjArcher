@@ -1,8 +1,8 @@
 Mon_ID,Mon_Name,Mon_HP,Mon_Speed,Mon_MoveType,Mon_MoveBeacon,Mon_ATK,Mon_Asset,Mon_DropEXP
-10001,Spider,35,1,0,Chase,20,Spider,10
-10112,Grim_Reaper,35,1,1,Wander,20,GrimReaper,15
-10003,Vampire_Bat,25,1.2,3,Dash,20,VampireBat,10
-10014,Mushroom,25,1,2,Surround,20,Mushroom,10
-10115,Golem_Earth,60,1.7,1,Wander,20,GolemEarth,15
-10106,Golem_Fire,60,0.8,2,Surround,20,GolemFire,15
-11007,Queen_Spider,900,1,4,BossMove,20,SpiderKing,0
+10001,Spider,120,1,0,Chase,20,Spider,10
+10112,Grim_Reaper,100,1,1,Wander,20,GrimReaper,15
+10003,Vampire_Bat,100,1.2,3,Dash,20,VampireBat,10
+10014,Mushroom,100,1,2,Surround,20,Mushroom,10
+10115,Golem_Earth,150,1.7,1,Wander,20,GolemEarth,15
+10106,Golem_Fire,150,0.8,2,Surround,20,GolemFire,15
+11007,Queen_Spider,3000,1,4,BossMove,20,SpiderKing,0

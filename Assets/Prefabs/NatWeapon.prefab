@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4198037587044129229}
   - component: {fileID: 5996426755305174781}
   - component: {fileID: 4226034936769436640}
+  - component: {fileID: 3439321624265664086}
   m_Layer: 0
   m_Name: NatWeapon
   m_TagString: Untagged
@@ -150,3 +151,16 @@ MonoBehaviour:
   returnSpeed: 12
   rotationSpeed: 360
   damage: 20
+--- !u!114 &3439321624265664086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5958418519606785124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decb3387fe9ea4686b3126a47b48814b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: ddc1bfb2bc3ba4b78bf28f79ef6e0afc, type: 2}

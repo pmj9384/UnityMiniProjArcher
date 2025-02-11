@@ -6,6 +6,7 @@ public class UiManager : MonoBehaviour
   public TextMeshProUGUI scoreText;
   public TextMeshProUGUI waveText;
   public GameObject gameOverPanel;
+  public GameObject gameClearPanel;
   public GameObject pausePanel;
   public GameObject slotMachinePanel;
 
@@ -39,6 +40,7 @@ public class UiManager : MonoBehaviour
   public void ShowSlotMachinePanel()
   {
     slotMachinePanel.SetActive(true);
+    joystick.ResetInput();
     joystick.SetJoystickActive(false);
 
   }
@@ -55,4 +57,12 @@ public class UiManager : MonoBehaviour
     pausePanel.SetActive(false);
     joystick.SetJoystickActive(true);
   }
+  public void ShowGameClearPanel(bool active)
+  {
+    Debug.Log("🎉 Game Clear!");
+    gameClearPanel.SetActive(active);
+    joystick.ResetInput();
+    joystick.SetJoystickActive(!active);
+  }
+
 }

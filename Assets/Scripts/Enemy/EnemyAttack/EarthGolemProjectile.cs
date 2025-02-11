@@ -13,8 +13,16 @@ public class EarthGolemProjectile : MonoBehaviour
 
   private void OnCollisionEnter(Collision collision)
   {
-    // 플레이어 충돌 시 데미지 적용
-    if ( collision.gameObject.CompareTag("Player") )
+    string tag = collision.gameObject.tag;
+
+    if ( tag == "Wall" || tag == "Ground" )
+    {
+      Debug.Log("🪨 돌이 벽/바닥에 부딪힘 → 삭제됨!");
+      Destroy(gameObject);
+      return;
+    }
+
+    if ( tag == "Player" )
     {
       PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
       if ( playerHealth != null )
@@ -22,8 +30,8 @@ public class EarthGolemProjectile : MonoBehaviour
         playerHealth.OnDamage(damage, transform.position, Vector3.zero);
         Debug.Log($"💥 돌이 플레이어를 맞춤! {damage} 데미지");
       }
+      Destroy(gameObject);
+      return;
     }
-    Destroy(gameObject);
   }
-
 }

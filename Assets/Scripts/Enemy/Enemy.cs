@@ -27,6 +27,8 @@ public class Enemy : LivingEntity
   private float currentHp;
   private StatusEffectManager statusEffectManager; // 상태 효과
   private GameManager gm;
+  public GameObject hpBarPrefab; // ✅ 체력바 프리팹 (Inspector에서 할당)
+  private MonsterHpBar hpBar;
 
   // 동적 이동 및 공격 방식
   private IMoveBehavior moveBehavior; // 이동 방식 인터페이스
@@ -68,6 +70,21 @@ public class Enemy : LivingEntity
     SetAttackBehavior(monsterID);
 
     Debug.Log($"✅ 몬스터 초기화 완료: {data.name} (ID: {monsterID})");
+  }
+  private void Start()
+  {
+    // ✅ 프리팹에 있는 MonsterHpBar 찾아서 사용 (새로 생성 X)
+    hpBar = GetComponentInChildren<MonsterHpBar>();
+
+    if ( hpBar != null )
+    {
+      hpBar.monster = transform; // ✅ 몬스터와 연결
+      hpBar.UpdateHealthBar(currentHp, maxHp);
+    }
+    else
+    {
+      Debug.LogWarning($"⚠️ {gameObject.name}: 체력바가 프리팹에 포함되지 않음!");
+    }
   }
 
 
@@ -162,9 +179,14 @@ public class Enemy : LivingEntity
   public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
   {
     if ( IsDead ) return;
+
     currentHp -= damage;
     if ( currentHp < 0 ) currentHp = 0;
     base.OnDamage(damage, hitPoint, hitNormal);
+    if ( hpBar != null )
+    {
+      hpBar.UpdateHealthBar(currentHp, maxHp);
+    }
 
     UpdateHealthBar();
     foreach ( var effect in hitEffects )
@@ -185,7 +207,10 @@ public class Enemy : LivingEntity
   protected override void Die()
   {
     base.Die();
-
+    if ( hpBar != null )
+    {
+      Destroy(hpBar.gameObject);
+    }
     // ✅ 상태 효과 제거
     statusEffectManager.RemoveAllEffects();
 
@@ -218,7 +243,6 @@ public class Enemy : LivingEntity
 
     // ✅ 죽는 애니메이션 트리거
     animator.SetTrigger("Die");
-
     // ✅ 경험치 아이템 생성
     if ( expPrefab != null )
     {

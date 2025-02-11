@@ -9,6 +9,7 @@ public class MapManager : MonoBehaviour
 
   public TextMeshProUGUI stageText; // TextMeshPro 텍스트 추가
   public int totalStages = 20; // 전체 스테이지 수
+  public UiManager uiManager;
 
   void Start()
   {
@@ -18,6 +19,11 @@ public class MapManager : MonoBehaviour
   public void LoadMap()
   {
     mapCount++;
+    if ( mapCount > totalStages )
+    {
+      uiManager.ShowGameClearPanel(true); // ✅ UIManager로 신호
+      return; // 더 이상 맵 로딩하지 않음
+    }
 
     if ( currentMap != null )
     {

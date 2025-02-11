@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2997149452243785332}
   - component: {fileID: 6311795799663218103}
   - component: {fileID: -1924069204729647986}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MushroomBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh_Archer_WeaponArrow
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 79b81d48f9663b84fb8f0bf9edcaf01b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 79b81d48f9663b84fb8f0bf9edcaf01b, type: 3}
+      propertyPath: m_TagString
+      value: Bullet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -96,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  damage: 50
+  damage: 35
   lifeTime: 3
 --- !u!65 &4915806850034265564
 BoxCollider:
@@ -127,7 +135,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448211494892216088}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

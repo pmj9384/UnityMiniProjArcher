@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
   private Rigidbody rb;
   private float rotationSpeed = 20f;
   private Animator animator;
-
+  private float targetLockTime = 0.5f; // 🔥 타겟 고정 시간
+  private float lastTargetUpdateTime; // 마지막 타겟 갱신 시간
   private void Awake()
   {
     rb = GetComponent<Rigidbody>();
@@ -63,6 +64,11 @@ public class PlayerMovement : MonoBehaviour
 
   private void HandleTargeting()
   {
+    if ( Time.time - lastTargetUpdateTime < targetLockTime )
+    {
+      return; // 타겟을 일정 시간 유지
+    }
+
     Collider[] enemiesInRange = Physics.OverlapSphere(transform.position, targetRange, targetLayer);
 
     float closestDistance = Mathf.Infinity;
@@ -95,19 +101,26 @@ public class PlayerMovement : MonoBehaviour
 
   private bool IsObstructed(Transform enemy)
   {
-    Vector3 directionToEnemy = enemy.position - transform.position;
-    RaycastHit hit;
+    // 레이캐스트 시작 높이와 종료 지점 높이를 설정
+    Vector3 rayStart = transform.position + Vector3.up * 1.0f; // 캐릭터의 시선 높이
+    Vector3 rayEnd = enemy.position + Vector3.up * 1.0f; // 적의 중심 높이
 
-    if ( Physics.Raycast(transform.position, directionToEnemy, out hit, targetRange) )
+    Vector3 directionToEnemy = rayEnd - rayStart;
+    float distanceToEnemy = directionToEnemy.magnitude;
+
+    RaycastHit hit;
+    // 레이캐스트를 사용해 장애물 감지
+    if ( Physics.Raycast(rayStart, directionToEnemy.normalized, out hit, distanceToEnemy) )
     {
       if ( hit.transform != enemy )
       {
-        return true;
+        return true; // 적이 장애물 뒤에 가려져 있음
       }
     }
 
-    return false;
+    return false; // 적이 보임
   }
+
 
   private void RotateTowardsDirection(Vector3 moveInput)
   {
