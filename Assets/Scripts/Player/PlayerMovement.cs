@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
   private bool isGrounded;
   private float gravityForce = -9.8f; // 🌟 중력 보정값 추가
 
+  private AudioSource footstepAudioSource;
+  public AudioClip footstepClip;
+  private float footstepDelay = 0.5f;
+  private float lastFootstepTime = 0f;
+
   private void Awake()
   {
     rb = GetComponent<Rigidbody>();
@@ -29,7 +34,13 @@ public class PlayerMovement : MonoBehaviour
     rb.interpolation = RigidbodyInterpolation.Interpolate;
     rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    rb.useGravity = true; // ✅ 중력 활성화 (중력은 Rigidbody가 처리하도록!)
+    rb.useGravity = true;
+
+    footstepAudioSource = gameObject.AddComponent<AudioSource>();
+    footstepAudioSource.clip = footstepClip;
+    footstepAudioSource.loop = false;
+    footstepAudioSource.playOnAwake = false;
+
   }
 
   private void Update()
@@ -62,11 +73,33 @@ public class PlayerMovement : MonoBehaviour
       rb.MovePosition(rb.position + moveDirection);
       animator.SetBool("Walk", true);
       RotateTowardsDirection(moveInput);
+
+      if ( Time.time > lastFootstepTime + footstepDelay )
+      {
+        PlayFootstepSound();
+        lastFootstepTime = Time.time;
+      }
     }
     else
     {
       animator.SetBool("Walk", false);
+      StopFootstepSound();
       RotateTowardsTarget();
+    }
+  }
+  private void PlayFootstepSound()
+  {
+    //  if ( footstepAudioSource != null && footstepClip != null && !footstepAudioSource.isPlaying )
+    // {
+    footstepAudioSource.Play();
+    Debug.Log("Audio!!");
+    //}
+  }
+  private void StopFootstepSound()
+  {
+    if ( footstepAudioSource != null && footstepAudioSource.isPlaying )
+    {
+      footstepAudioSource.Stop();
     }
   }
 

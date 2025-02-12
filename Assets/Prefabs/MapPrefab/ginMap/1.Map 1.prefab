@@ -382,6 +382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile_Center
       objectReference: {fileID: 0}
+    - target: {fileID: 547074458432275044, guid: bbf4608ebd956ff459a0c807be9811b7, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 926696982129137886, guid: bbf4608ebd956ff459a0c807be9811b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7386222
