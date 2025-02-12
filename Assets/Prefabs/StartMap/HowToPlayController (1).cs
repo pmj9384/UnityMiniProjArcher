@@ -1,59 +1,81 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HowToPlayController : MonoBehaviour
+public class HowToPlayManager : MonoBehaviour
 {
-  public GameObject howToPlayPanel; // How to Play Ã¢
-  public Image contentPanel; // ÆäÀÌÁö¸¦ º¸¿©ÁÙ ÀÌ¹ÌÁö
-  public Button prevButton, nextButton; // ÁÂ¿ì È­»ìÇ¥ ¹öÆ°
-  public Sprite[] pages; // ÆäÀÌÁö ÀÌ¹ÌÁöµé
+  public GameObject howToPlayPanel;   // How to Play íŒ¨ë„
+  public GameObject[] pages;          // ì—¬ëŸ¬ ê°œì˜ í˜ì´ì§€ ì˜¤ë¸Œì íŠ¸ë“¤
+  public Text guideText;              // í•˜ë‹¨ ì•ˆë‚´ ë¬¸êµ¬
 
-  private int currentPage = 0;
+  private int currentPage = 0;        // í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
 
   void Start()
   {
-    UpdatePage(); // Ã³À½ ½ÃÀÛÇÒ ¶§ ÆäÀÌÁö ¼³Á¤
+    howToPlayPanel.SetActive(false);  // ì‹œì‘í•  ë•Œ íŒ¨ë„ ìˆ¨ê¹€
   }
 
+  // ğŸ“Œ How to Play íŒ¨ë„ ì—´ê¸°
   public void OpenHowToPlay()
   {
-    howToPlayPanel.SetActive(true); // Ã¢ ¿­±â
-    currentPage = 0; // Ã¹ ÆäÀÌÁö·Î ¼³Á¤
-    UpdatePage();
+    howToPlayPanel.SetActive(true); // íŒ¨ë„ í™œì„±í™”
+    currentPage = 0;  // ì²« í˜ì´ì§€ë¡œ ì´ˆê¸°í™”
+
+    // ëª¨ë“  í˜ì´ì§€ ë¹„í™œì„±í™” í›„ ì²« ë²ˆì§¸ í˜ì´ì§€ í™œì„±í™”
+    foreach ( GameObject page in pages )
+    {
+      page.SetActive(false);
+    }
+
+    pages[currentPage].SetActive(true); // ì²« ë²ˆì§¸ í˜ì´ì§€ í™œì„±í™”
+    UpdatePage(); // í˜ì´ì§€ ì—…ë°ì´íŠ¸ ì‹¤í–‰ (ìì‹ ì˜¤ë¸Œì íŠ¸ë“¤ í™œì„±í™”)
   }
 
-  public void CloseHowToPlay()
+  // ğŸ“Œ í„°ì¹˜í•˜ë©´ ë‹¤ìŒ í˜ì´ì§€ë¡œ ì´ë™
+  void Update()
   {
-    howToPlayPanel.SetActive(false); // Ã¢ ´İ±â
+    if ( howToPlayPanel.activeSelf && Input.anyKeyDown )  // ì•„ë¬´ í‚¤ë‚˜ í„°ì¹˜í•˜ë©´
+    {
+      NextPage();
+    }
   }
 
   public void NextPage()
   {
-    if (currentPage < pages.Length - 1)
+    if ( currentPage < pages.Length - 1 )
     {
-      currentPage++;
+      pages[currentPage].SetActive(false); // í˜„ì¬ í˜ì´ì§€ ìˆ¨ê¸°ê¸°
+      currentPage++;  // ë‹¤ìŒ í˜ì´ì§€ë¡œ ì´ë™
+      pages[currentPage].SetActive(true); // ë‹¤ìŒ í˜ì´ì§€ í‘œì‹œ
       UpdatePage();
     }
-  }
-
-  public void PrevPage()
-  {
-    if (currentPage > 0)
+    else
     {
-      currentPage--;
-      UpdatePage();
+      CloseHowToPlay();  // ë§ˆì§€ë§‰ í˜ì´ì§€ë©´ ë‹«ê¸°
     }
   }
 
   void UpdatePage()
   {
-    // ÇöÀç ÆäÀÌÁö¿¡ ¸Â´Â ÀÌ¹ÌÁö ¼³Á¤
-    contentPanel.sprite = pages[currentPage];
+    // ë§ˆì§€ë§‰ í˜ì´ì§€ì¸ì§€ í™•ì¸í•˜ê³  ì•ˆë‚´ í…ìŠ¤íŠ¸ ë³€ê²½
+    if ( currentPage == pages.Length - 1 )
+    {
+      guideText.text = "ì•„ë¬´ ê³³ì„ í„°ì¹˜í•˜ë©´ í™”ë©´ì´ ì‚¬ë¼ì§‘ë‹ˆë‹¤";
+    }
+    else
+    {
+      guideText.text = "ì•„ë¬´ ê³³ì„ í„°ì¹˜í•˜ì—¬ ë‹¤ìŒì¥ì„ ë„˜ê¸°ì„¸ìš”";
+    }
 
-    // Ã¹ ÆäÀÌÁöÀÏ °æ¿ì "ÀÌÀü ¹öÆ°" ¼û±â±â
-    prevButton.gameObject.SetActive(currentPage > 0);
+    // ğŸ”¥ í˜„ì¬ í˜ì´ì§€ì˜ ëª¨ë“  ìì‹ ì˜¤ë¸Œì íŠ¸ë“¤ ë‹¤ì‹œ í™œì„±í™”í•˜ê¸° ğŸ”¥
+    foreach ( Transform child in pages[currentPage].transform )
+    {
+      child.gameObject.SetActive(true);
+    }
+  }
 
-    // ¸¶Áö¸· ÆäÀÌÁöÀÏ °æ¿ì "´ÙÀ½ ¹öÆ°" ¼û±â±â
-    nextButton.gameObject.SetActive(currentPage < pages.Length - 1);
+  public void CloseHowToPlay()
+  {
+    pages[currentPage].SetActive(false); // í˜„ì¬ í˜ì´ì§€ ìˆ¨ê¸°ê¸°
+    howToPlayPanel.SetActive(false);  // íŒ¨ë„ ë‹«ê¸°
   }
 }
