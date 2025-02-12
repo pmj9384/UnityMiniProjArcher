@@ -22,7 +22,7 @@ public class Gun : MonoBehaviour
 
   private float lastFireTime;
   private int currentAmmo;
-  public float cooldownTime = 0.5f;
+  public float cooldownTime = 1.0f;
   public float multiShotInterval = 0.15f; // 🔥 멀티샷 간격 (0.15초)
 
   private IObjectPool<GameObject> bulletPool;
@@ -95,17 +95,40 @@ public class Gun : MonoBehaviour
       }
     }
   }
-
   private void FireSingleBullet(Transform shootPoint)
   {
     GameObject bulletObject = bulletPool.Get();
     bulletObject.transform.position = shootPoint.position;
-    bulletObject.transform.rotation = shootPoint.rotation;
+
+    PlayerMovement playerMovement = GetComponentInParent<PlayerMovement>();
+    Vector3 fireDirection = shootPoint.forward; // 기본값: 플레이어가 바라보는 방향
+
+    bool isDiagonalShot = ( shootPoint == leftFirePoint || shootPoint == rightFirePoint );
+
+    if ( playerMovement != null )
+    {
+      Transform target = playerMovement.GetTarget();
+      Vector3 playerLookDirection = playerMovement.transform.forward; // 🔥 플레이어가 바라보는 방향
+
+      if ( isDiagonalShot )
+      {
+        // 🔥 사선 화살: 플레이어가 바라보는 방향을 기준으로 30도 회전
+        float angleOffset = ( shootPoint == leftFirePoint ) ? -30f : 30f;
+        fireDirection = Quaternion.Euler(0, angleOffset, 0) * playerLookDirection;
+      }
+      else if ( target != null )
+      {
+        // 🔥 일반 화살: 적을 향하지만, 발사 방향을 즉시 계산 후 고정
+        fireDirection = ( target.position - shootPoint.position ).normalized;
+      }
+    }
+
+    bulletObject.transform.rotation = Quaternion.LookRotation(fireDirection); // 🔥 방향 설정
 
     Bullet bulletScript = bulletObject.GetComponent<Bullet>();
     if ( bulletScript != null )
     {
-      bulletScript.Launch(shootPoint.forward, bulletPool);
+      bulletScript.Launch(fireDirection, bulletPool);
 
       if ( skillController != null )
       {
@@ -113,4 +136,7 @@ public class Gun : MonoBehaviour
       }
     }
   }
+
+
+
 }

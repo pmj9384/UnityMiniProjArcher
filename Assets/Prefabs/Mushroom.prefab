@@ -776,10 +776,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba117fe06fe9247699d5ab156cbb14f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 213576268589250302, guid: f6ef5ba4e0dec6248a33ed287baa0088, type: 3}
+  projectilePrefab: {fileID: 1860375860738744, guid: fc50dea828fca43d9a23667b14ca1a96, type: 3}
   projectileSpawnPoint: {fileID: 4660115616318893434}
   attackCooldown: 3
-  launchForce: 10
+  launchForce: 5
   arcHeight: 3
 --- !u!1 &49664409928230333
 GameObject:

@@ -325,6 +325,9 @@ public class Enemy : LivingEntity
       case 10001:
         if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<SpiderAttack>();
         break;
+      case 10003:
+        if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<SpiderAttack>();
+        break;
       case 10112:
         if ( attackBehavior == null ) attackBehavior = gameObject.AddComponent<ReaperAttack>();
         break;

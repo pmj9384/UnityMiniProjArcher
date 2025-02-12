@@ -6,6 +6,7 @@ using TMPro; // TextMeshPro 네임스페이스 추가
 
 public class SlotMachineMgr : MonoBehaviour
 {
+
   public GameObject[] SlotSkillObject; // 슬롯 오브젝트 배열
   public Button[] Slot;               // 슬롯 버튼 배열
   public Sprite[] SkillSprite;        // 스킬 스프라이트 배열

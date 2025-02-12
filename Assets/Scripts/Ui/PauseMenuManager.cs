@@ -51,6 +51,7 @@ public class PauseMenuManager : MonoBehaviour
   {
     // 🔹 메인 메뉴 씬으로 이동
     SceneManager.LoadScene("StartMenu"); // "MainMenu"는 메인 메뉴 씬 이름
+    Time.timeScale = 1;
   }
 
 }

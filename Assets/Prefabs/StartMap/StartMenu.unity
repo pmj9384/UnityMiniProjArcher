@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3089889466140838662, guid: a2759f13029898341acd492af2698838, type: 3}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5892815318460352935, guid: a2759f13029898341acd492af2698838, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -848,6 +852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartMenu_Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 3946162045271273495, guid: 5bf13fa2f8f71694ca418bc7838472e4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 98c1d0ddcaf9c49a7a3cc09575da1438, type: 2}
     - target: {fileID: 8912720277245251118, guid: 5bf13fa2f8f71694ca418bc7838472e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -5,7 +5,7 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
   public GameObject projectilePrefab; // 버섯 폭탄 프리팹
   public Transform projectileSpawnPoint; // 투사체 발사 위치
   public float attackCooldown = 3f; // 공격 쿨다운
-  public float launchForce = 10f; // 초기 발사 힘
+  public float launchForce = 8f; // 초기 발사 힘
   public float arcHeight = 3f; // 포물선 높이 조절
 
   private float lastAttackTime;
@@ -45,7 +45,7 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
       Vector3 launchDirection = CalculateLaunchVelocity(projectileSpawnPoint.position, targetPosition, arcHeight);
       rb.velocity = launchDirection;
     }
-    
+
     lastAttackTime = Time.time;
     Debug.Log($"🍄 {gameObject.name}: 공격! 버섯이 플레이어 방향으로 회전 후 투사체 발사");
   }
