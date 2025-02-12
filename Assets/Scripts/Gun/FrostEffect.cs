@@ -51,8 +51,10 @@ public class FrostEffect : IStatusEffect
 
       if ( !isBossDashing )
       {
-        enemy.ModifySpeed(originalSpeed - slowAmount);
+        float newSpeed = Mathf.Max(originalSpeed - slowAmount, 1f); // 최소 1 유지
+        enemy.ModifySpeed(newSpeed);
       }
+
 
       yield return new WaitForSeconds(duration);
 

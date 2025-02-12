@@ -1187,6 +1187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPrefabs:
+  - {fileID: 8124585731698492975, guid: 04cd0fa39a633ec4da81b296c8b76845, type: 3}
   - {fileID: 8124585731698492975, guid: fc03b778d6e31e9429790d61544339bd, type: 3}
   - {fileID: 4839557870988051977, guid: 38883f7b31bae2e45a2d74e3032dbeba, type: 3}
   - {fileID: 6018480666619331300, guid: 49b76ad4b2c485e4fbcde29e2f6a521f, type: 3}
@@ -1206,7 +1207,6 @@ MonoBehaviour:
   - {fileID: 8380792522166000738, guid: cfb8f9255e89ded4c857349c6e0ba4e1, type: 3}
   - {fileID: 6018480666619331300, guid: 1b941c7367b0a1f49a208feb3deef1d4, type: 3}
   - {fileID: 4839557870988051977, guid: 884667907c2101c49b4cfda2579eb1b4, type: 3}
-  - {fileID: 8124585731698492975, guid: 04cd0fa39a633ec4da81b296c8b76845, type: 3}
   stageText: {fileID: 1331732329}
   totalStages: 20
   uiManager: {fileID: 856143942}
