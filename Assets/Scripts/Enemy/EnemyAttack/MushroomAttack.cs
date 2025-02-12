@@ -6,7 +6,7 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
   public Transform projectileSpawnPoint; // 투사체 발사 위치
   public float attackCooldown = 3f; // 공격 쿨다운
   public float launchForce = 8f; // 초기 발사 힘
-  public float arcHeight = 3f; // 포물선 높이 조절
+  public float arcHeight = 5f; // 포물선 높이 조절
 
   private float lastAttackTime;
   private Transform player;
@@ -26,29 +26,32 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
   {
     if ( Time.time - lastAttackTime < attackCooldown ) return;
     if ( player == null || projectileSpawnPoint == null || projectilePrefab == null ) return;
+
     animator?.SetTrigger("Attack");
-    // 🔥 버섯이 플레이어 방향을 바라보도록 회전
+
+    // 🔥 플레이어가 있는 방향을 향하도록 회전
     Vector3 directionToPlayer = ( player.position - transform.position ).normalized;
-    directionToPlayer.y = 0; // Y축 고정 (땅에서 회전하도록)
+    directionToPlayer.y = 0; // Y축 고정 (바닥에서 회전)
 
     Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); // 부드러운 회전
+    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
-    // 투사체 생성
+    // 🔥 투사체 생성
     GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
     Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
     if ( rb != null )
     {
-      // 🔥 투사체가 플레이어 방향으로 발사되도록 설정
-      Vector3 targetPosition = player.position;
+      // 🔥 타겟 위치를 플레이어 머리 높이까지 보정
+      Vector3 targetPosition = player.position + Vector3.up * 1.5f;
       Vector3 launchDirection = CalculateLaunchVelocity(projectileSpawnPoint.position, targetPosition, arcHeight);
       rb.velocity = launchDirection;
     }
 
     lastAttackTime = Time.time;
-    Debug.Log($"🍄 {gameObject.name}: 공격! 버섯이 플레이어 방향으로 회전 후 투사체 발사");
+    Debug.Log($"🍄 {gameObject.name}: 공격! 버섯이 플레이어 방향으로 투사체 발사");
   }
+
   private void Update()
   {
     if ( player != null )
@@ -71,15 +74,21 @@ public class MushroomAttack : MonoBehaviour, IAttackBehavior
     float distance = direction.magnitude;
     float gravity = Physics.gravity.y;
 
+    // 🔥 플레이어 머리 높이까지 도달하도록 y값 보정
+    target.y += 1.5f; // 플레이어 머리 높이 추가 (필요 시 조정)
+
     // 수직 속도 계산
     float verticalVelocity = Mathf.Sqrt(-2 * gravity * height);
 
-    // 전체 비행 시간 계산
-    float totalTime = Mathf.Sqrt(-2 * height / gravity) + Mathf.Sqrt(2 * ( target.y - start.y + height ) / -gravity);
+    // 🔥 전체 비행 시간 계산 (조정된 target.y 사용)
+    float timeToApex = Mathf.Sqrt(-2 * height / gravity);
+    float timeFromApex = Mathf.Sqrt(2 * ( target.y - start.y + height ) / -gravity);
+    float totalTime = timeToApex + timeFromApex;
 
     // 수평 속도 계산
     Vector3 horizontalVelocity = direction / totalTime;
 
     return horizontalVelocity + Vector3.up * verticalVelocity;
   }
+
 }
