@@ -78,7 +78,7 @@ public class PlayerSkillController : MonoBehaviour
   {
     if ( playerHealth != null )
     {
-      playerHealth.AddHp(30f);
+      playerHealth.AddHp(150f);
       Debug.Log("Health recovered!");
     }
   }

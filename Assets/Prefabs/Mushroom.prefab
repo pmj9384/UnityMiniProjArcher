@@ -736,8 +736,8 @@ MonoBehaviour:
   expPrefab: {fileID: 6418151353576218072, guid: 6213a915aecea45c1ba8cb3c89ee0fcb, type: 3}
   experienceValue: 10
   hitEffects: []
-  hitSound: {fileID: 8300000, guid: 02e6208ec76314158a9f548f51fe9f11, type: 3}
-  deathSound: {fileID: 8300000, guid: 1d3bfb9269f136947bf8ac164cace1ff, type: 3}
+  hitSound: {fileID: 8300000, guid: d1eaf3dcfdc644d0c875cb0e19a99d64, type: 3}
+  deathSound: {fileID: 8300000, guid: da2ade8bc7db34fdfb1a20f818b8df38, type: 3}
   hpBarPrefab: {fileID: 9090789028134094198}
 --- !u!114 &1938789993191853278
 MonoBehaviour:

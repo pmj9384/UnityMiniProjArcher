@@ -517,8 +517,8 @@ MonoBehaviour:
   hitEffects:
   - {fileID: 0}
   - {fileID: 0}
-  hitSound: {fileID: 8300000, guid: fce027b40770a44298a6f5a4233bfb04, type: 3}
-  deathSound: {fileID: 8300000, guid: 8c615fd0429f34edf85539d70279360d, type: 3}
+  hitSound: {fileID: 8300000, guid: d1eaf3dcfdc644d0c875cb0e19a99d64, type: 3}
+  deathSound: {fileID: 8300000, guid: 7f0dd0248860e4c07b070897d0c1ae95, type: 3}
   hpBarPrefab: {fileID: 6053551524238485400}
 --- !u!114 &3428127582777958001
 MonoBehaviour:

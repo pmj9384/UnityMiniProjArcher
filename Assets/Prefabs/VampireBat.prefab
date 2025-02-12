@@ -1162,8 +1162,8 @@ MonoBehaviour:
   hitEffects:
   - {fileID: 0}
   - {fileID: 0}
-  hitSound: {fileID: 8300000, guid: 02e6208ec76314158a9f548f51fe9f11, type: 3}
-  deathSound: {fileID: 8300000, guid: 1d3bfb9269f136947bf8ac164cace1ff, type: 3}
+  hitSound: {fileID: 8300000, guid: d1eaf3dcfdc644d0c875cb0e19a99d64, type: 3}
+  deathSound: {fileID: 8300000, guid: 949a2db6267c8447789b1f1c62179275, type: 3}
   hpBarPrefab: {fileID: 1676180215980435309}
 --- !u!195 &-6378553656973470008
 NavMeshAgent:
