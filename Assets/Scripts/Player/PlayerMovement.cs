@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     footstepAudioSource.loop = false;
     footstepAudioSource.playOnAwake = false;
 
+
   }
 
   private void Update()
@@ -214,4 +215,6 @@ public class PlayerMovement : MonoBehaviour
 
     return moveDirection;
   }
+
+
 }
