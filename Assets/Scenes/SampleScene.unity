@@ -269,6 +269,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 856143946}
     m_Modifications:
+    - target: {fileID: 478235292184240635, guid: 6b518000561124d4392f804facdf0d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 856143949}
+    - target: {fileID: 478235292184240635, guid: 6b518000561124d4392f804facdf0d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
     - target: {fileID: 4499619482736491538, guid: 6b518000561124d4392f804facdf0d92, type: 3}
       propertyPath: m_Name
       value: ClearPanel
@@ -276,6 +284,18 @@ PrefabInstance:
     - target: {fileID: 4499619482736491538, guid: 6b518000561124d4392f804facdf0d92, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955041299830038933, guid: 6b518000561124d4392f804facdf0d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 856143942}
+    - target: {fileID: 6955041299830038933, guid: 6b518000561124d4392f804facdf0d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955041299830038933, guid: 6b518000561124d4392f804facdf0d92, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8687929937163562878, guid: 6b518000561124d4392f804facdf0d92, type: 3}
       propertyPath: m_Pivot.x
@@ -357,7 +377,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1665916645883602948, guid: 6b518000561124d4392f804facdf0d92, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -468,7 +489,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6227968621638106760, guid: 3b7c24ac847a34a448e5613c4de2feee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 856143942}
+    - target: {fileID: 6227968621638106760, guid: 3b7c24ac847a34a448e5613c4de2feee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227968621638106760, guid: 3b7c24ac847a34a448e5613c4de2feee, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9100666168221100183, guid: 3b7c24ac847a34a448e5613c4de2feee, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1187,26 +1221,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPrefabs:
-  - {fileID: 8124585731698492975, guid: 04cd0fa39a633ec4da81b296c8b76845, type: 3}
-  - {fileID: 8124585731698492975, guid: fc03b778d6e31e9429790d61544339bd, type: 3}
-  - {fileID: 4839557870988051977, guid: 38883f7b31bae2e45a2d74e3032dbeba, type: 3}
-  - {fileID: 6018480666619331300, guid: 49b76ad4b2c485e4fbcde29e2f6a521f, type: 3}
-  - {fileID: 6018480666619331300, guid: ee6113db5ea0bc4479dc42179d17fe2d, type: 3}
-  - {fileID: 8124585731698492975, guid: 42a5026f5e7e6f44e8ee63fcd44212e0, type: 3}
-  - {fileID: 6018480666619331300, guid: 3e4e2a36b2ddf4b4abebe8faac81c8a5, type: 3}
-  - {fileID: 6018480666619331300, guid: 31b59408b42877b42b7a71067496e34a, type: 3}
-  - {fileID: 8124585731698492975, guid: d6de63609fbe52a4bbf3b79c0cf7f74f, type: 3}
-  - {fileID: 4839557870988051977, guid: 985c3a3fc99c28441833fad10f8a48d6, type: 3}
-  - {fileID: 8380792522166000738, guid: 98fa70b409d9508458aafcd87ae086ec, type: 3}
-  - {fileID: 8124585731698492975, guid: d8a924c394f4e834b91c5ffe7d4fa99f, type: 3}
-  - {fileID: 6018480666619331300, guid: bcb7d7b4bc28b4247acf3dbae5a9ad43, type: 3}
-  - {fileID: 8124585731698492975, guid: bf9d6cfa8715be04cb659765a00bca13, type: 3}
-  - {fileID: 5012215403578954365, guid: 553926df1db82a44db61e19602131049, type: 3}
-  - {fileID: 6018480666619331300, guid: 89cbdbc51a274b849b0cfc69018bef70, type: 3}
-  - {fileID: 8124585731698492975, guid: ab552ad34937c7e40b7d5c168ecfbf25, type: 3}
-  - {fileID: 8380792522166000738, guid: cfb8f9255e89ded4c857349c6e0ba4e1, type: 3}
-  - {fileID: 6018480666619331300, guid: 1b941c7367b0a1f49a208feb3deef1d4, type: 3}
-  - {fileID: 4839557870988051977, guid: 884667907c2101c49b4cfda2579eb1b4, type: 3}
+  - {fileID: 8124585731698492975, guid: ec487d1134f9045f0b636bce4a4c69b3, type: 3}
+  - {fileID: 4839557870988051977, guid: a5e87394e4ebb40a1b897553118cbc8c, type: 3}
+  - {fileID: 6018480666619331300, guid: 8066e931de8e24e50a178f5cd3389e66, type: 3}
+  - {fileID: 6018480666619331300, guid: 80002325aed2646538c8e87d90324b2e, type: 3}
+  - {fileID: 8124585731698492975, guid: 47d4494d5b43542d38543cd76b7b1469, type: 3}
+  - {fileID: 6018480666619331300, guid: 9e1414f2fabe74578be930321cbbab34, type: 3}
+  - {fileID: 6018480666619331300, guid: 5a98302631ccf409b9a089e9e3896254, type: 3}
+  - {fileID: 8124585731698492975, guid: 9d50cc794f3164af58a837bf35c203a0, type: 3}
+  - {fileID: 4839557870988051977, guid: d11797b3801204b7ea32afded8dcb486, type: 3}
+  - {fileID: 8380792522166000738, guid: 56109599b82dd4254b11875964daec72, type: 3}
+  - {fileID: 8124585731698492975, guid: f9b0814638cc14cc0aa206033fcabd03, type: 3}
+  - {fileID: 6018480666619331300, guid: 89cce98fe75bf438f913924e905d8f62, type: 3}
+  - {fileID: 8124585731698492975, guid: 672fe3da9c5044238afd98b0bf4a6884, type: 3}
+  - {fileID: 5012215403578954365, guid: ef4c2e24a388e4cb69b19dd5658984d6, type: 3}
+  - {fileID: 6018480666619331300, guid: a4e32f16bbec94cb8b31386b22d3b1dc, type: 3}
+  - {fileID: 8124585731698492975, guid: f82372c2862af4ec1b3a1747d55db3e1, type: 3}
+  - {fileID: 8380792522166000738, guid: 26ab89d0c38a2475d99067a5e2b3fc13, type: 3}
+  - {fileID: 6018480666619331300, guid: aa54d5faa9bcd429ea4a2e65136dd671, type: 3}
+  - {fileID: 4839557870988051977, guid: b9bd282e782b14d94b5b4496145157fa, type: 3}
+  - {fileID: 8124585731698492975, guid: c985899d7ca6441958019c314029bd41, type: 3}
   stageText: {fileID: 1331732329}
   totalStages: 20
   uiManager: {fileID: 856143942}
@@ -4226,7 +4260,7 @@ PrefabInstance:
       objectReference: {fileID: 2662843366714213769, guid: 4a3d4a7daf0d5724f9b0553564a3b9ac, type: 3}
     - target: {fileID: 478496444406108401, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: maxHp
-      value: 150
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 936926756511232560, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: m_Interactable
@@ -4252,6 +4286,10 @@ PrefabInstance:
       propertyPath: footstepClip
       value: 
       objectReference: {fileID: 8300000, guid: 7330b2069e95e40c3970cddbb0d7532e, type: 3}
+    - target: {fileID: 3332401555532292137, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: sfxMixerGroup
+      value: 
+      objectReference: {fileID: 7407947101114193598, guid: 69c606ed49abb44efbd4fd069f2caf03, type: 2}
     - target: {fileID: 3332401555532292137, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 256
@@ -4338,7 +4376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5456754428371421693, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: maxHp
-      value: 150
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5456754428371421693, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: hitSound

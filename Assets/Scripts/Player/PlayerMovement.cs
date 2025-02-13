@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
   public AudioClip footstepClip;
   private float footstepDelay = 0.5f;
   private float lastFootstepTime = 0f;
-
+  public AudioMixerGroup sfxMixerGroup;
   private void Awake()
   {
     rb = GetComponent<Rigidbody>();
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     footstepAudioSource.clip = footstepClip;
     footstepAudioSource.loop = false;
     footstepAudioSource.playOnAwake = false;
+    footstepAudioSource.outputAudioMixerGroup = sfxMixerGroup;
 
 
   }
@@ -103,6 +105,14 @@ public class PlayerMovement : MonoBehaviour
       footstepAudioSource.Stop();
     }
   }
+  public void SetSFXMixerGroup(AudioMixerGroup mixerGroup)
+  {
+    if ( footstepAudioSource != null )
+    {
+      footstepAudioSource.outputAudioMixerGroup = mixerGroup;
+    }
+  }
+
 
   private void HandleTargeting()
   {
