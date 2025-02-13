@@ -28,7 +28,7 @@ public class SceneChanger : MonoBehaviour
 
   public void LoadGame()
   {
-    Debug.Log("📥 게임 불러오기 - 선택 창 표시");
+    // Debug.Log("📥 게임 불러오기 - 선택 창 표시");
     // if ( saveLoadPanelManager != null )
     // {
     //   saveLoadPanelManager.LoadGame(); // ✅ 패널을 통해 로드

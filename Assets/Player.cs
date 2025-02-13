@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
   private void UpdateLevelText()
   {
     // TextMeshPro 텍스트에 현재 레벨 표시
-    levelText.text = "Level " + currentLevel;
+    levelText.text = "Lv." + currentLevel;
   }
 
   private void NotifyLevelUp()
@@ -136,21 +136,21 @@ public class Player : MonoBehaviour
   // 저장된 플레이어 데이터 불러오기
   public void LoadPlayerData()
   {
-    if ( GameManager.Instance != null && GameManager.Instance.saveLoadManager.HasSaveData() )
-    {
-      GameData data = GameManager.Instance.saveLoadManager.LoadGame();
-      currentLevel = data.playerLevel;
-      currentExperience = data.playerExp;
-    }
-    else
-    {
-      // 저장된 데이터 없을 경우 기본값 설정
-      currentLevel = 1;
-      currentExperience = 0;
-    }
+    // if ( GameManager.Instance != null && GameManager.Instance.saveLoadManager.HasSaveData() )
+    // {
+    //   GameData data = GameManager.Instance.saveLoadManager.LoadGame();
+    //   currentLevel = data.playerLevel;
+    //   currentExperience = data.playerExp;
+    // }
+    // else
+    // {
+    //   // 저장된 데이터 없을 경우 기본값 설정
+    //   currentLevel = 1;
+    //   currentExperience = 0;
+    // }
 
-    UpdateExperienceSlider();
-    UpdateLevelText();
+    // UpdateExperienceSlider();
+    // UpdateLevelText();
   }
   public void SetExperienceAndLevel(int exp, int level)
   {

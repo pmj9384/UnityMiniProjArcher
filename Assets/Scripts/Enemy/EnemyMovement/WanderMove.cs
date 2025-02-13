@@ -34,7 +34,7 @@ public class WanderMove : IMoveBehavior
         agent.isStopped = true; // ✅ 이동 멈춤
         isStopped = true;
         nextMoveTime = Time.time + stopDuration;
-        Debug.Log($"🛑 {agent.gameObject.name}: 이동 멈춤 (2.5초 대기)");
+        //        Debug.Log($"🛑 {agent.gameObject.name}: 이동 멈춤 (2.5초 대기)");
       }
       else // 🔥 멈춘 후 랜덤 이동 시작
       {

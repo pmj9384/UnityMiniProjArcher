@@ -48,7 +48,7 @@ public class ReaperAttack : MonoBehaviour, IAttackBehavior
     }
 
     lastAttackTime = Time.time;
-    Debug.Log($"⚔️ {gameObject.name}: 낫을 발사했습니다! → 방향: {direction}");
+    //    Debug.Log($"⚔️ {gameObject.name}: 낫을 발사했습니다! → 방향: {direction}");
   }
 
   // 🔥 공격 직전에 한 번만 플레이어 방향으로 회전

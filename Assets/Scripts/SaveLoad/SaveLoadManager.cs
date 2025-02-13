@@ -4,47 +4,40 @@ using System.IO;
 
 public class SaveLoadManager : MonoBehaviour
 {
-  private string saveFilePath;
+  public static SaveLoadManager Instance { get; private set; }
 
   private void Awake()
   {
-    saveFilePath = Path.Combine(Application.persistentDataPath, "savegame.json");
-  }
-
-  public void SaveGame(GameData data)
-  {
-    string json = JsonUtility.ToJson(data, true);
-    File.WriteAllText(saveFilePath, json);
-    Debug.Log("✅ 게임 데이터 저장 완료!");
-  }
-
-  public GameData LoadGame()
-  {
-    if ( File.Exists(saveFilePath) )
+    if ( Instance == null )
     {
-      string json = File.ReadAllText(saveFilePath);
-      GameData data = JsonUtility.FromJson<GameData>(json);
-      Debug.Log("✅ 게임 데이터 불러오기 성공!");
-      return data;
+      Instance = this;
+      DontDestroyOnLoad(gameObject);  // 씬 변경 시 유지
     }
     else
     {
-      Debug.LogWarning("⚠️ 저장된 데이터가 없습니다.");
-      return null;
+      Destroy(gameObject);  // 중복 생성 방지
     }
   }
 
   public bool HasSaveData()
   {
-    return File.Exists(saveFilePath);
+    return PlayerPrefs.HasKey("SaveData"); // 저장 데이터 체크 (예시)
   }
 
-  public void DeleteSaveData()
+  public void SaveGame(GameData data)
   {
-    if ( File.Exists(saveFilePath) )
+    string jsonData = JsonUtility.ToJson(data);
+    PlayerPrefs.SetString("SaveData", jsonData);
+    PlayerPrefs.Save();
+  }
+
+  public GameData LoadGame()
+  {
+    if ( HasSaveData() )
     {
-      File.Delete(saveFilePath);
-      Debug.Log("🗑️ 저장 데이터 삭제 완료!");
+      string jsonData = PlayerPrefs.GetString("SaveData");
+      return JsonUtility.FromJson<GameData>(jsonData);
     }
+    return null;
   }
 }

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     if ( mapManager == null )
       Debug.LogError("❌ MapManager가 씬에 존재하지 않습니다!");
-
+    Debug.Log($"💾 저장 데이터 존재 여부: {saveLoadManager.HasSaveData()}");
     if ( saveLoadManager != null && saveLoadManager.HasSaveData() )
     {
       ShowSaveLoadPanel();
@@ -66,9 +66,10 @@ public class GameManager : MonoBehaviour
       return;
     }
 
+    Debug.Log("📥 ShowSaveLoadPanel() 실행됨! 패널 활성화 시도");
     saveLoadPanel.SetActive(true);
-    Debug.Log("📥 SaveLoadPanel 활성화 완료!");
   }
+
   public void SaveGame()
   {
     if ( saveLoadManager == null ) return;
@@ -228,9 +229,9 @@ public class GameManager : MonoBehaviour
   public void StartNewGame()
   {
     if ( saveLoadManager != null )
-      saveLoadManager.DeleteSaveData();
+      // saveLoadManager.DeleteSaveData();
 
-    Debug.Log("🚀 새 게임 시작!");
+      Debug.Log("🚀 새 게임 시작!");
 
     if ( mapManager != null )
       mapManager.StartNewGame();

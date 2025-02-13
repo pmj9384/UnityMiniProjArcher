@@ -29,7 +29,7 @@ public class ScytheProjectile : MonoBehaviour
     rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
     rb.velocity = direction * speed;
 
-    Debug.Log($"🚀 낫이 발사됨! 속도: {speed}, 방향: {direction}, 목표: {reaper?.name}");
+    //    Debug.Log($"🚀 낫이 발사됨! 속도: {speed}, 방향: {direction}, 목표: {reaper?.name}");
   }
 
 

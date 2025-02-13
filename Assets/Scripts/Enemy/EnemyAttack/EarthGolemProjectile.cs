@@ -17,7 +17,7 @@ public class EarthGolemProjectile : MonoBehaviour
 
     if ( tag == "Wall" || tag == "NatWall" )
     {
-      Debug.Log("🪨 돌이 벽/바닥에 부딪힘 → 삭제됨!");
+      //      Debug.Log("🪨 돌이 벽/바닥에 부딪힘 → 삭제됨!");
       Destroy(gameObject);
       return;
     }

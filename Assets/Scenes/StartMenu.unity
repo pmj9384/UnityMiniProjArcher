@@ -1497,6 +1497,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: HowToCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1328110426560214632, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a17e54bfee51e42928bd9d3e2f711d31, type: 2}
+    - target: {fileID: 1328110426560214632, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705346363624458428, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a17e54bfee51e42928bd9d3e2f711d31, type: 2}
+    - target: {fileID: 1705346363624458428, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2730777689441483388, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1585,6 +1601,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 218b3e5c909354e4293dc9e266033de3, type: 3}
+    - target: {fileID: 5299588747160389084, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a17e54bfee51e42928bd9d3e2f711d31, type: 2}
+    - target: {fileID: 5299588747160389084, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7770307602289085885, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1592,6 +1616,14 @@ PrefabInstance:
     - target: {fileID: 8002237671515974902, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8926212201799004177, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ad5569965d2734880a004e3e3d7d1358, type: 2}
+    - target: {fileID: 8926212201799004177, guid: 05fb350ce9aff43a1b465c4354b5c662, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
