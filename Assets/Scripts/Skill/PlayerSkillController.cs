@@ -45,7 +45,7 @@ public class PlayerSkillController : MonoBehaviour
     }
     if ( HasPoisonArrow )
     {
-      PoisonEffect poisonEffect = new PoisonEffect(2f, 10f, poisonEffectPrefab);
+      PoisonEffect poisonEffect = new PoisonEffect(2f, 5f, poisonEffectPrefab);
       bulletScript.ApplyStatusEffect(poisonEffect);
     }
 

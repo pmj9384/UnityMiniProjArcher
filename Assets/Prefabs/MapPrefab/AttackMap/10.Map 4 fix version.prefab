@@ -395,6 +395,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5633504441446067738, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
+      propertyPath: monsterID
+      value: 10115
+      objectReference: {fileID: 0}
     - target: {fileID: 6168607660023665432, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
       propertyPath: m_Name
       value: 1.SpiderSpawner
@@ -739,6 +743,10 @@ PrefabInstance:
     - target: {fileID: 2936758126202579030, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633504441446067738, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
+      propertyPath: monsterID
+      value: 10115
       objectReference: {fileID: 0}
     - target: {fileID: 6168607660023665432, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
       propertyPath: m_Name
@@ -1324,6 +1332,10 @@ PrefabInstance:
     - target: {fileID: 2936758126202579030, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5633504441446067738, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
+      propertyPath: monsterID
+      value: 10115
       objectReference: {fileID: 0}
     - target: {fileID: 6168607660023665432, guid: 7eab59da585112b48b33ef7703a943ac, type: 3}
       propertyPath: m_Name
