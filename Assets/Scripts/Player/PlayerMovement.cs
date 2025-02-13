@@ -198,14 +198,40 @@ public class PlayerMovement : MonoBehaviour
   private void CheckGrounded()
   {
     RaycastHit hit;
-    if ( Physics.Raycast(transform.position + Vector3.up * 0.2f, Vector3.down, out hit, 0.5f, groundLayer) )
+    float groundCheckDistance = 1.0f;
+
+    if ( Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, groundCheckDistance, groundLayer) )
     {
       isGrounded = true;
     }
     else
     {
       isGrounded = false;
+      HandleFall();
     }
+  }
+
+  private void HandleFall()
+  {
+    if ( transform.position.y < -2f )
+    {
+      Debug.LogWarning("❗ 플레이어가 떨어짐! 안전한 위치로 복구");
+      ResetPlayerPosition();
+    }
+  }
+
+  private void ResetPlayerPosition()
+  {
+    Vector3 safePosition = new Vector3(transform.position.x, 1f, transform.position.z);
+
+    RaycastHit hit;
+    if ( Physics.Raycast(new Vector3(transform.position.x, 10f, transform.position.z), Vector3.down, out hit, 20f, groundLayer) )
+    {
+      safePosition = hit.point + Vector3.up * 0.5f;
+    }
+
+    rb.velocity = Vector3.zero;
+    transform.position = safePosition;
   }
 
   // ✅ 벽 충돌 감지 및 이동 제한 적용 (벽 앞에서 멈추기)

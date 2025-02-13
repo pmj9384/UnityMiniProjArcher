@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
     if ( currentLevel >= maxLevel ) return;  // 최대 레벨 도달 시 경험치 증가 X
 
     currentExperience += amount;
+    UpdateExperienceSlider();
+    // ✅ 경험치 변경될 때 즉시 저장
+    SavePlayerData();
 
     // ✅ 경험치가 다음 레벨을 초과하면 레벨업
     while ( currentLevel < maxLevel && currentExperience >= experienceForLevels[currentLevel - 1] )
@@ -48,12 +51,10 @@ public class Player : MonoBehaviour
       LevelUp();
     }
 
-    Debug.Log("Gained " + amount + " experience!");
-    UpdateExperienceSlider();
+    Debug.Log($"✅ 경험치 {amount} 획득! 현재 경험치: {currentExperience}");
 
-    // ✅ 경험치 변경될 때 저장
-    SavePlayerData();
   }
+
   private void LevelUp()
   {
     currentLevel++;

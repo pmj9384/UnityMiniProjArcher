@@ -197,6 +197,15 @@ public class GameManager : MonoBehaviour
           slotMachineMgrObj.SetActive(false);
           Debug.Log("🔄 LoadGame 완료 후 SlotMachineMgr 다시 비활성화!");
         }
+        if ( Player.Instance != null )
+        {
+          Player.Instance.SetExperienceAndLevel(gameData.playerExp, gameData.playerLevel);
+          Debug.Log("✅ 경험치 & 레벨 복원 완료!");
+        }
+        else
+        {
+          Debug.LogError("❌ Player 인스턴스를 찾을 수 없습니다.");
+        }
       }
     }
   }
