@@ -214,6 +214,11 @@ public class Enemy : LivingEntity
     }
     // ✅ 상태 효과 제거
 
+    isAttacking = false;  // 공격 상태 해제
+    if ( attackBehavior != null )
+    {
+      attackBehavior = null; // 🔥 공격 비활성화
+    }
 
     // ✅ NavMeshAgent 멈춤
     if ( agent != null )
