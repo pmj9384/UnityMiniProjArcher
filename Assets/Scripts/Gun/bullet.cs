@@ -4,6 +4,7 @@ using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
+  public ParticleSystem hitEffectPrefab;
   public float speed = 50f;
   public float damage;
   public float lifeTime = 3f;
@@ -52,8 +53,12 @@ public class Bullet : MonoBehaviour
         foreach ( var effect in statusEffects )
         {
           entity.StartCoroutine(effect.ApplyEffect(entity));
+
+
+
         }
       }
+      ApplyHitEffect(entity);
       ReturnToPool();
     }
   }
@@ -111,4 +116,24 @@ public class Bullet : MonoBehaviour
   {
     statusEffects.Clear();
   }
+  private void ApplyHitEffect(LivingEntity entity)
+  {
+    Enemy enemy = entity as Enemy;
+    if ( enemy != null )
+    {
+      ParticleSystem hitEffect = GetHitEffect();
+      if ( hitEffect != null )
+      {
+        enemy.AddHitEffect(hitEffect);
+      }
+    }
+  }
+
+  private ParticleSystem GetHitEffect()
+  {
+    return hitEffectPrefab;
+  }
+
+
+
 }

@@ -189,6 +189,7 @@ public class Enemy : LivingEntity
         Destroy(effectInstance.gameObject, 2f);
       }
     }
+    
     currentHp -= damage;
     if ( currentHp < 0 ) currentHp = 0;
     base.OnDamage(damage, hitPoint, hitNormal);

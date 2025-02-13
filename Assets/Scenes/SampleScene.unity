@@ -4431,11 +4431,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1500245678}
     - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: experienceForLevels.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: experienceForLevels.Array.data[0]
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: experienceForLevels.Array.data[2]
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: experienceForLevels.Array.data[3]
+      value: 225
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: experienceForLevels.Array.data[4]
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
       propertyPath: experienceForLevels.Array.data[5]
+      value: 330
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650830626679333869, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
+      propertyPath: experienceForLevels.Array.data[6]
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8731800345430636288, guid: f257aa5fe2b94634b9f66051728d607f, type: 3}
