@@ -9,6 +9,7 @@ public class GameOverManager : MonoBehaviour
   public void RestartGame()
   {
     Time.timeScale = 1f;
+    DeleteSaveData();
     SceneManager.LoadScene(SceneManager.GetActiveScene().name); // 현재 씬 다시 로드
   }
 
@@ -21,5 +22,15 @@ public class GameOverManager : MonoBehaviour
 #if UNITY_EDITOR
     UnityEditor.EditorApplication.isPlaying = false;
 #endif
+  }
+
+  private void DeleteSaveData()
+  {
+    if ( PlayerPrefs.HasKey("SaveData") )
+    {
+      PlayerPrefs.DeleteKey("SaveData");
+      PlayerPrefs.Save();
+      Debug.Log("💾 게임 오버로 인해 세이브 데이터 삭제 완료!");
+    }
   }
 }

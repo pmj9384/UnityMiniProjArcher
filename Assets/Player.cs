@@ -73,17 +73,17 @@ public class Player : MonoBehaviour
 
   private void SavePlayerData()
   {
-    if ( GameManager.Instance != null )
-    {
-      GameData data = GameManager.Instance.gameData;
-      data.playerLevel = currentLevel;
-      data.playerExp = currentExperience;
+    // if ( GameManager.Instance != null )
+    // {
+    //   GameData data = GameManager.Instance.gameData;
+    //   data.playerLevel = currentLevel;
+    //   data.playerExp = currentExperience;
 
-      // ✅ 기존 SaveSystem 대신 SaveLoadManager 사용
-      GameManager.Instance.saveLoadManager.SaveGame(data);
+    //   // ✅ 기존 SaveSystem 대신 SaveLoadManager 사용
+    //   GameManager.Instance.saveLoadManager.SaveGame(data);
 
-      Debug.Log("💾 플레이어 경험치 & 레벨 저장됨!");
-    }
+    //   Debug.Log("💾 플레이어 경험치 & 레벨 저장됨!");
+    // }
   }
 
   private void UpdateExperienceSlider()

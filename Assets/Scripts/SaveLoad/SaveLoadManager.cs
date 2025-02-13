@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
 public class SaveLoadManager : MonoBehaviour
 {
   public static SaveLoadManager Instance { get; private set; }
@@ -41,3 +40,4 @@ public class SaveLoadManager : MonoBehaviour
     return null;
   }
 }
+
