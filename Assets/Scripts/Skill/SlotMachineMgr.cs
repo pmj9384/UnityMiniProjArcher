@@ -6,13 +6,14 @@ using TMPro; // TextMeshPro 네임스페이스 추가
 
 public class SlotMachineMgr : MonoBehaviour
 {
-
+  public static SlotMachineMgr Instance { get; private set; }
   public GameObject[] SlotSkillObject; // 슬롯 오브젝트 배열
   public Button[] Slot;               // 슬롯 버튼 배열
   public Sprite[] SkillSprite;        // 스킬 스프라이트 배열
 
   public string[] SkillNames;         // 스킬 이름 배열
   public string[] SkillDescriptions;  // 스킬 설명 배열
+  public Sprite[] allSkillSprites;
 
   [System.Serializable]
   public class DisplayItemSlot
@@ -30,6 +31,18 @@ public class SlotMachineMgr : MonoBehaviour
 
   int ItemCnt = 3; // 슬롯 이미지 개수
 
+  private void Awake()
+  {
+    if ( Instance == null )
+    {
+      Instance = this;
+    }
+    else
+    {
+      Destroy(gameObject);
+      return;
+    }
+  }
   private void OnEnable()
   {
     // ✅ 기존에 선택한 스킬을 유지하면서 초기화
@@ -144,7 +157,7 @@ public class SlotMachineMgr : MonoBehaviour
   }
 
 
-  private void ApplySkillEffect(int selectedSkillIndex)
+  public void ApplySkillEffect(int selectedSkillIndex)
   {
     string selectedSkillName = SkillSprite[selectedSkillIndex].name;
     GameObject playerObject = GameObject.FindWithTag("Player");
@@ -203,5 +216,9 @@ public class SlotMachineMgr : MonoBehaviour
     {
       Debug.LogError("Player 오브젝트를 찾을 수 없습니다.");
     }
+  }
+  public Sprite[] GetAllSkillSprites()
+  {
+    return SkillSprite;
   }
 }

@@ -179,7 +179,7 @@ public class VampireBat : LivingEntity
     Destroy(gameObject);
     if ( gm != null )
     {
-      gm.AddScore(100);
+
     }
 
     StartCoroutine(DieRoutine());

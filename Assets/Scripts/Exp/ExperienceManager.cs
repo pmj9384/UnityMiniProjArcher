@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ExperienceManager : MonoBehaviour
 {
-  public static ExperienceManager Instance { get; private set; }
+  public static ExperienceManager Instance { get; set; }
 
   public float attractionSpeed = 5f;
   private bool isAllEnemiesDead = false;
@@ -12,9 +12,10 @@ public class ExperienceManager : MonoBehaviour
 
   private void Awake()
   {
-    if (Instance == null)
+    if ( Instance == null )
     {
       Instance = this;
+      DontDestroyOnLoad(gameObject);
     }
     else
     {
@@ -25,7 +26,7 @@ public class ExperienceManager : MonoBehaviour
 
   void Update()
   {
-    if (isAllEnemiesDead)
+    if ( isAllEnemiesDead )
     {
       AttractExperienceItems();
     }
@@ -43,15 +44,15 @@ public class ExperienceManager : MonoBehaviour
 
   void AttractExperienceItems()
   {
-    for (int i = expItems.Count - 1; i >= 0; i--)
+    for ( int i = expItems.Count - 1; i >= 0; i-- )
     {
       GameObject expItem = expItems[i];
-      if (expItem == null) continue;
+      if ( expItem == null ) continue;
 
-      Vector3 directionToPlayer = (Player.Instance.transform.position - expItem.transform.position).normalized;
+      Vector3 directionToPlayer = ( Player.Instance.transform.position - expItem.transform.position ).normalized;
       expItem.transform.position += directionToPlayer * attractionSpeed * Time.deltaTime;
 
-      if (Vector3.Distance(expItem.transform.position, Player.Instance.transform.position) < 0.5f)
+      if ( Vector3.Distance(expItem.transform.position, Player.Instance.transform.position) < 0.5f )
       {
         Player.Instance.AddExperience(expItem.GetComponent<EnemyExp>().expValue);
         Destroy(expItem);

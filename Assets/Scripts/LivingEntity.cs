@@ -8,7 +8,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 {
   public float maxHp = 100f;
 
-  public float Hp { get; private set; }
+  public float Hp { get; set; }
   public bool IsDead { get; private set; }
 
 

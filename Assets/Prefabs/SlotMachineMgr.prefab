@@ -661,22 +661,30 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 155e127c36e4c4e5e8c22555104522bf, type: 3}
   - {fileID: 21300000, guid: 5468bc49a416e4db4bca9578707f9c1f, type: 3}
   - {fileID: 21300000, guid: 5468bc49a416e4db4bca9578707f9c1f, type: 3}
+  SkillNames: []
+  SkillDescriptions: []
   DisplayItemSlots:
   - SlotSprite:
     - {fileID: 5080771628309182504}
     - {fileID: 6867208841467695829}
     - {fileID: 8346861398715895632}
     - {fileID: 2421701762175153585}
+    SkillNameText: {fileID: 0}
+    SkillDescriptionText: {fileID: 0}
   - SlotSprite:
     - {fileID: 4131193070216219681}
     - {fileID: 8485995027519199236}
     - {fileID: 6164913202773735243}
     - {fileID: 4000190623798177774}
+    SkillNameText: {fileID: 0}
+    SkillDescriptionText: {fileID: 0}
   - SlotSprite:
     - {fileID: 3858679769047237751}
     - {fileID: 8849038181931102639}
     - {fileID: 2665507520575774320}
     - {fileID: 6788740205775213714}
+    SkillNameText: {fileID: 0}
+    SkillDescriptionText: {fileID: 0}
   DisplayResultImage: {fileID: 2045417917742961025}
   StartList: 
   ResultIndexList: 

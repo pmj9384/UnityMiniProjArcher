@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 0}
   remainingZombies: 0
+  saveLoadPanel: {fileID: 0}
+  uiCanvas: {fileID: 0}

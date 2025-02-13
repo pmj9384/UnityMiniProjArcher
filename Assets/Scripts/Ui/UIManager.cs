@@ -72,4 +72,9 @@ public class UiManager : MonoBehaviour
     SceneManager.LoadScene("StartMenu"); // "StartMenu" is the name of the main menu scene
     Time.timeScale = 1;
   }
+  public bool IsSlotMachineActive()
+  {
+    return slotMachinePanel != null && slotMachinePanel.activeSelf;
+  }
+
 }

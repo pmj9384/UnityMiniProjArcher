@@ -38,46 +38,65 @@ public class Player : MonoBehaviour
 
   public void AddExperience(int amount)
   {
-    if ( currentLevel >= maxLevel ) return;  // 최대 레벨 도달 시 더 이상 경험치 증가하지 않음
+    if ( currentLevel >= maxLevel ) return;  // 최대 레벨 도달 시 경험치 증가 X
 
     currentExperience += amount;
 
-    // 레벨업 처리를 위해 경험치가 현재 레벨에 필요한 경험치를 넘었는지 확인
+    // ✅ 경험치가 다음 레벨을 초과하면 레벨업
     while ( currentLevel < maxLevel && currentExperience >= experienceForLevels[currentLevel - 1] )
     {
-      LevelUp();  // 레벨업
+      LevelUp();
     }
 
     Debug.Log("Gained " + amount + " experience!");
-    UpdateExperienceSlider();  // 경험치 바 업데이트
-  }
+    UpdateExperienceSlider();
 
+    // ✅ 경험치 변경될 때 저장
+    SavePlayerData();
+  }
   private void LevelUp()
   {
-    currentLevel++;  // 레벨 증가
-    currentExperience -= experienceForLevels[currentLevel - 2];  // 레벨업 후 남은 경험치는 다음 레벨을 위해 남겨둠
+    currentLevel++;
+    currentExperience -= experienceForLevels[currentLevel - 2];
     if ( currentExperience < 0 ) currentExperience = 0;
 
-    UpdateLevelText(); // 레벨 텍스트 업데이트
+    UpdateLevelText();
+    NotifyLevelUp();
 
-    if ( currentLevel < maxLevel )
+    // ✅ 레벨 변경될 때 저장
+    SavePlayerData();
+  }
+
+
+
+
+  private void SavePlayerData()
+  {
+    if ( GameManager.Instance != null )
     {
-      NotifyLevelUp();
+      GameData data = GameManager.Instance.gameData;
+      data.playerLevel = currentLevel;
+      data.playerExp = currentExperience;
+
+      // ✅ 기존 SaveSystem 대신 SaveLoadManager 사용
+      GameManager.Instance.saveLoadManager.SaveGame(data);
+
+      Debug.Log("💾 플레이어 경험치 & 레벨 저장됨!");
     }
   }
 
   private void UpdateExperienceSlider()
   {
-    // 슬라이더의 값은 경험치 / 현재 레벨에서 다음 레벨로 가기 위한 경험치
-    if ( currentLevel < maxLevel )
+    if ( currentLevel >= maxLevel )
     {
-      experienceSlider.value = ( float )currentExperience / experienceForLevels[currentLevel - 1];
+      experienceSlider.value = 1f;  // ✅ 최대 레벨이면 경험치 바 꽉 채우기
     }
     else
     {
-      experienceSlider.value = 1f;  // 최대 레벨에 도달하면 슬라이더를 꽉 채운다.
+      experienceSlider.value = ( float )currentExperience / experienceForLevels[currentLevel - 1];
     }
   }
+
 
   private void UpdateLevelText()
   {
@@ -116,16 +135,38 @@ public class Player : MonoBehaviour
   // 저장된 플레이어 데이터 불러오기
   public void LoadPlayerData()
   {
-    if ( PlayerPrefs.HasKey("PlayerLevel") )
+    if ( GameManager.Instance != null && GameManager.Instance.saveLoadManager.HasSaveData() )
     {
-      currentLevel = PlayerPrefs.GetInt("PlayerLevel");
-      currentExperience = PlayerPrefs.GetInt("PlayerExperience");
+      GameData data = GameManager.Instance.saveLoadManager.LoadGame();
+      currentLevel = data.playerLevel;
+      currentExperience = data.playerExp;
     }
     else
     {
-      // 데이터가 없다면 기본 시작 값으로 설정
+      // 저장된 데이터 없을 경우 기본값 설정
       currentLevel = 1;
       currentExperience = 0;
     }
+
+    UpdateExperienceSlider();
+    UpdateLevelText();
   }
+  public void SetExperienceAndLevel(int exp, int level)
+  {
+    currentExperience = exp;
+    currentLevel = Mathf.Clamp(level, 1, maxLevel); // ✅ 레벨을 1~7로 고정
+
+    UpdateExperienceSlider();
+    UpdateLevelText();
+  }
+  public int GetCurrentExperience()
+  {
+    return currentExperience;
+  }
+
+  public int GetCurrentLevel()
+  {
+    return currentLevel;
+  }
+
 }
