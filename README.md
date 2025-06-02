@@ -19,7 +19,7 @@
       <b>시작 화면</b>
     </td>
     <td align="center" width="33%">
-      <img src="Assets/ArcherPic4.png" height="300px"><br>
+      <img src="Archerpic4.png" height="300px"><br>
       <b>전투 화면</b>
     </td>
     <td align="center" width="33%">
@@ -34,7 +34,7 @@
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="Assets/ArcherPic5.png" height="300px"><br>
+      <img src="Archerpic5.png" height="300px"><br>
       <b>다양한 적</b>
     </td>
     <td align="center" width="33%">
@@ -42,7 +42,7 @@
       <b>보스 전투</b>
     </td>
     <td align="center" width="33%">
-      <img src="Assets/ArcherPic6.png" height="300px"><br>
+      <img src="Archerpic6.png" height="300px"><br>
       <b>다양한 스킬 시스템</b>
     </td>
   </tr>
