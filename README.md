@@ -15,16 +15,20 @@
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="Assets/ArcherPic1.png" height="300px">
+      <img src="Assets/ArcherPic1.png" height="300px"><br>
+      <b>전투 화면</b>
     </td>
     <td align="center" width="33%">
-      <img src="Assets/ArcherPic2.png" height="300px">
+      <img src="Assets/ArcherPic2.png" height="300px"><br>
+      <b>스킬 선택 화면</b>
     </td>
     <td align="center" width="33%">
-      <img src="Assets/ArcherPic3.png" height="300px">
+      <img src="Assets/ArcherPic3.png" height="300px"><br>
+      <b>시작 화면</b>
     </td>
   </tr>
 </table>
+
 
 
 
