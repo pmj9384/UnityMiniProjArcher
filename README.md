@@ -31,13 +31,14 @@
 
 ### 콘텐츠
 * * *
+
 <table>
   <tr>
-    <td align="center" width="33%">
+    <td align="center" width="30%">
       <img src="ArcherPic5.png" height="300px"><br>
       <b>다양한 적</b>
     </td>
-    <td align="center" width="33%">
+    <td align="center" width="30%">
       <img src="Assets/ArcherPic1.png" height="300px"><br>
       <b>보스 전투</b>
     </td>
