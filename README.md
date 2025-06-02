@@ -14,17 +14,18 @@
 
 <table>
   <tr>
-    <td align="left">
-      <img src="Assets/ArcherPic1.png" height="300px" width="150px">
+    <td align="center" width="33%">
+      <img src="Assets/ArcherPic1.png" height="300px">
     </td>
-    <td align="center">
-      <img src="Assets/ArcherPic2.png" height="300px" width="150px">
+    <td align="center" width="33%">
+      <img src="Assets/ArcherPic2.png" height="300px">
     </td>
-    <td align="right">
-      <img src="Assets/ArcherPic3.png" height="300px" width="150px">
+    <td align="center" width="33%">
+      <img src="Assets/ArcherPic3.png" height="300px">
     </td>
   </tr>
 </table>
+
 
 
 
