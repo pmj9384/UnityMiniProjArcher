@@ -12,7 +12,21 @@
 ### 게임 설명
 * * *
 
-<img src="Assets/ArcherPic1.png" height="300px" width="150px"> <img src="Assets/ArcherPic2.png" height="300px" width="150px"> <img src="Assets/ArcherPic3.png" height="300px" width="150px">
+<table>
+  <tr>
+    <td align="left">
+      <img src="Assets/ArcherPic1.png" height="300px" width="150px">
+    </td>
+    <td align="center">
+      <img src="Assets/ArcherPic2.png" height="300px" width="150px">
+    </td>
+    <td align="right">
+      <img src="Assets/ArcherPic3.png" height="300px" width="150px">
+    </td>
+  </tr>
+</table>
+
+
 
 
 
