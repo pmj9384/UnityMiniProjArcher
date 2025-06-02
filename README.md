@@ -12,4 +12,4 @@
 ### 게임 설명
 * * *
 
-<img src=Assets/ArcherPic1.png, height="100x", width="100px">
+<img src="Assets/ArcherPic1.png", height="100x", width="100px">
