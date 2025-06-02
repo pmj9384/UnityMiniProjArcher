@@ -34,7 +34,7 @@
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="Archerpic5.png" height="300px"><br>
+      <img src="ArcherPic5.png" height="300px"><br>
       <b>다양한 적</b>
     </td>
     <td align="center" width="33%">
@@ -42,7 +42,7 @@
       <b>보스 전투</b>
     </td>
     <td align="center" width="33%">
-      <img src="Archerpic6.png" height="300px"><br>
+      <img src="ArcherPic6.png" height="300px"><br>
       <b>다양한 스킬 시스템</b>
     </td>
   </tr>
